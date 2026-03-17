@@ -1,9 +1,9 @@
 function ControllerSelector({ selected, onChange }) {
   const controllers = [
-    { id: 'xbox', name: 'Xbox Controller', icon: 'fab fa-xbox' },
-    { id: 'switch', name: 'Nintendo Switch', icon: 'fas fa-gamepad' },
-    { id: 'keyboardmouse', name: 'Keyboard & Mouse', icon: 'fas fa-keyboard' },
-    { id: 'steamdeck', name: 'Steam Deck', icon: 'fab fa-steam' }
+    { id: 'xbox', name: 'Xbox Controller', icon: 'bi bi-xbox' },
+    { id: 'switch', name: 'Nintendo Switch', icon: 'bi bi-nintendo-switch' },
+    { id: 'keyboardmouse', name: 'Keyboard & Mouse', icon: 'bi bi-keyboard' },
+    { id: 'steamdeck', name: 'Steam Deck', icon: 'bi bi-steam' }
   ]
 
   return (

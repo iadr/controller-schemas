@@ -5,6 +5,7 @@ function XboxController({ mappings, onButtonClick, selectedButton }) {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
   const [buttonPositions, setButtonPositions] = useState({})
   const [buttonSideOverrides, setButtonSideOverrides] = useState({}) // Track manual side assignments
+  const [customOrder, setCustomOrder] = useState({}) // Track custom ordering within lists
 
   const buttons = [
     { id: 'A', x: 76.09, y: 37.56, label: 'A' },
@@ -17,13 +18,29 @@ function XboxController({ mappings, onButtonClick, selectedButton }) {
     { id: 'RT', x: 78.34, y: 3.14, label: 'RT' },
     { id: 'LS', x: 24.03, y: 27.65, label: 'LS' },
     { id: 'RS', x: 63.37, y: 49.35, label: 'RS' },
-    { id: 'DpadUp', x: 36.63, y: 44.98, label: '↑' },
-    { id: 'DpadDown', x: 36.63, y: 58.35, label: '↓' },
-    { id: 'DpadLeft', x: 31.95, y: 51.59, label: '←' },
-    { id: 'DpadRight', x: 41.30, y: 51.59, label: '→' },
-    { id: 'Start', x: 57.54, y: 27.33, label: '≡' },
-    { id: 'Back', x: 42.56, y: 27.33, label: '⊡' }
+    {id: 'DpadCenter', x: 36.63, y: 51.59, label: 'bi bi-dpad' },
+    { id: 'DpadUp', x: 36.63, y: 44.98, label: 'bi bi-arrow-up' },
+    { id: 'DpadDown', x: 36.63, y: 58.35, label: 'bi bi-arrow-down' },
+    { id: 'DpadLeft', x: 31.95, y: 51.59, label: 'bi bi-arrow-left' },
+    { id: 'DpadRight', x: 41.30, y: 51.59, label: 'bi bi-arrow-right' },
+    { id: 'Start', x: 57.54, y: 27.33, label: 'fas fa-bars' },
+    { id: 'Back', x: 42.56, y: 27.33, label: 'far fa-clone fa-rotate-90' }
   ]
+
+  // Helper function to render label (supports text, Unicode, and icon classes)
+  const renderLabel = (label) => {
+    if (!label) return null
+    
+    // Check if it's a Bootstrap Icon (bi bi-*) or Font Awesome icon (fa fa-*, fas fa-*, etc.)
+    const isIcon = /^(bi bi-|fa[sbrldt]? fa-|fa )/.test(label)
+    
+    if (isIcon) {
+      return <i className={label} />
+    }
+    
+    // Return plain text or Unicode character
+    return label
+  }
 
   // Calculate button positions and container dimensions
   useEffect(() => {
@@ -89,9 +106,22 @@ function XboxController({ mappings, onButtonClick, selectedButton }) {
   const leftButtons = buttonsWithMappings.filter(button => getButtonSide(button) === 'left')
   const rightButtons = buttonsWithMappings.filter(button => getButtonSide(button) === 'right')
 
+  // Sort by custom order if exists
+  const sortByCustomOrder = (buttons, side) => {
+    return [...buttons].sort((a, b) => {
+      const orderA = customOrder[`${side}-${a.id}`] ?? Infinity
+      const orderB = customOrder[`${side}-${b.id}`] ?? Infinity
+      return orderA - orderB
+    })
+  }
+
+  const sortedLeftButtons = sortByCustomOrder(leftButtons, 'left')
+  const sortedRightButtons = sortByCustomOrder(rightButtons, 'right')
+
   // Drag and drop handlers
   const [draggedItem, setDraggedItem] = useState(null)
   const [dragOverSide, setDragOverSide] = useState(null)
+  const [dragOverItem, setDragOverItem] = useState(null)
 
   const handleDragStart = (e, button) => {
     setDraggedItem(button)
@@ -101,6 +131,7 @@ function XboxController({ mappings, onButtonClick, selectedButton }) {
   const handleDragEnd = () => {
     setDraggedItem(null)
     setDragOverSide(null)
+    setDragOverItem(null)
   }
 
   const handleDragOver = (e, side) => {
@@ -116,16 +147,74 @@ function XboxController({ mappings, onButtonClick, selectedButton }) {
     }
   }
 
+  const handleItemDragOver = (e, item, side) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setDragOverItem(item.id)
+    setDragOverSide(side)
+  }
+
+  const handleItemDrop = (e, targetItem, targetSide) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setDragOverSide(null)
+    setDragOverItem(null)
+    
+    if (!draggedItem || draggedItem.id === targetItem.id) return
+
+    const currentSide = getButtonSide(draggedItem)
+    const buttonsList = targetSide === 'left' ? sortedLeftButtons : sortedRightButtons
+    
+    // If moving to a different side
+    if (currentSide !== targetSide) {
+      setButtonSideOverrides(prev => ({
+        ...prev,
+        [draggedItem.id]: targetSide
+      }))
+    }
+    
+    // Reorder within the target side
+    const targetIndex = buttonsList.findIndex(b => b.id === targetItem.id)
+    const newOrder = {}
+    
+    buttonsList.forEach((button, index) => {
+      if (button.id === draggedItem.id) return // Skip the dragged item
+      
+      if (index < targetIndex) {
+        newOrder[`${targetSide}-${button.id}`] = index
+      } else if (index === targetIndex) {
+        newOrder[`${targetSide}-${draggedItem.id}`] = index
+        newOrder[`${targetSide}-${button.id}`] = index + 1
+      } else {
+        newOrder[`${targetSide}-${button.id}`] = index + 1
+      }
+    })
+    
+    // If dragged item wasn't in the list, add it at target position
+    if (currentSide !== targetSide) {
+      newOrder[`${targetSide}-${draggedItem.id}`] = targetIndex
+      // Increment all items at or after target
+      buttonsList.forEach((button, index) => {
+        if (index >= targetIndex) {
+          newOrder[`${targetSide}-${button.id}`] = index + 1
+        }
+      })
+    }
+    
+    setCustomOrder(prev => ({ ...prev, ...newOrder }))
+  }
+
   const handleDrop = (e, targetSide) => {
     e.preventDefault()
     setDragOverSide(null)
+    setDragOverItem(null)
     
     if (!draggedItem) return
 
     // Determine the current side of the dragged item
     const currentSide = getButtonSide(draggedItem)
     
-    // If dropping on the same side, do nothing
+    // If dropping on the same side without a specific target, do nothing
     if (currentSide === targetSide) return
 
     // Update the button side override to move it to the target side
@@ -181,17 +270,19 @@ function XboxController({ mappings, onButtonClick, selectedButton }) {
             <p>No left side mappings</p>
           </div>
         ) : (
-          leftButtons.map(button => (
+          sortedLeftButtons.map(button => (
             <div
               key={button.id}
               data-list-button={button.id}
-              className={`mapping-list-item ${selectedButton === button.id ? 'selected' : ''} ${draggedItem?.id === button.id ? 'dragging' : ''}`}
+              className={`mapping-list-item ${selectedButton === button.id ? 'selected' : ''} ${draggedItem?.id === button.id ? 'dragging' : ''} ${dragOverItem === button.id ? 'drag-over-item' : ''}`}
               draggable
               onDragStart={(e) => handleDragStart(e, button)}
               onDragEnd={handleDragEnd}
+              onDragOver={(e) => handleItemDragOver(e, button, 'left')}
+              onDrop={(e) => handleItemDrop(e, button, 'left')}
               onClick={() => onButtonClick(button.id)}
             >
-              <div className="mapping-list-button-label">{button.label}</div>
+              <div className="mapping-list-button-label">{renderLabel(button.label)}</div>
               <div className="mapping-list-actions">
                 <div className="mapping-list-action">
                   <span className="action-name">{button.mappingLabel}</span>
@@ -227,7 +318,7 @@ function XboxController({ mappings, onButtonClick, selectedButton }) {
               onClick={() => onButtonClick(button.id)}
             >
               <div className="button-marker-circle">
-                {button.label}
+                {renderLabel(button.label)}
               </div>
             </div>
           )
@@ -247,17 +338,19 @@ function XboxController({ mappings, onButtonClick, selectedButton }) {
             <p>No right side mappings</p>
           </div>
         ) : (
-          rightButtons.map(button => (
+          sortedRightButtons.map(button => (
             <div
               key={button.id}
               data-list-button={button.id}
-              className={`mapping-list-item ${selectedButton === button.id ? 'selected' : ''} ${draggedItem?.id === button.id ? 'dragging' : ''}`}
+              className={`mapping-list-item ${selectedButton === button.id ? 'selected' : ''} ${draggedItem?.id === button.id ? 'dragging' : ''} ${dragOverItem === button.id ? 'drag-over-item' : ''}`}
               draggable
               onDragStart={(e) => handleDragStart(e, button)}
               onDragEnd={handleDragEnd}
+              onDragOver={(e) => handleItemDragOver(e, button, 'right')}
+              onDrop={(e) => handleItemDrop(e, button, 'right')}
               onClick={() => onButtonClick(button.id)}
             >
-              <div className="mapping-list-button-label">{button.label}</div>
+              <div className="mapping-list-button-label">{renderLabel(button.label)}</div>
               <div className="mapping-list-actions">
                 <div className="mapping-list-action">
                   <span className="action-name">{button.mappingLabel}</span>
