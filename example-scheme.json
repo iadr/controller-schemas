@@ -1,0 +1,123 @@
+{
+  "controller": "xbox",
+  "contexts": [
+    "gameplay",
+    "menu"
+  ],
+  "mappings": {
+    "gameplay": {
+      "A": {
+        "action": "Jump",
+        "gesture": "tap",
+        "description": "Character jumps"
+      },
+      "B": {
+        "action": "Crouch",
+        "gesture": "hold",
+        "description": "Hold to crouch, tap to slide"
+      },
+      "X": {
+        "action": "Reload",
+        "gesture": "tap",
+        "description": "Reload current weapon"
+      },
+      "Y": {
+        "action": "Switch Weapon",
+        "gesture": "tap",
+        "description": "Toggle between primary and secondary"
+      },
+      "LB": {
+        "action": "Grenade",
+        "gesture": "tap",
+        "description": "Throw grenade"
+      },
+      "RB": {
+        "action": "Melee",
+        "gesture": "tap",
+        "description": "Melee attack"
+      },
+      "LT": {
+        "action": "Aim",
+        "gesture": "hold",
+        "description": "Aim down sights"
+      },
+      "RT": {
+        "action": "Fire",
+        "gesture": "press",
+        "description": "Shoot weapon"
+      },
+      "LS": {
+        "action": "Sprint",
+        "gesture": "press",
+        "description": "Click to toggle sprint"
+      },
+      "RS": {
+        "action": "Change View",
+        "gesture": "press",
+        "description": "Switch camera view"
+      },
+      "DpadUp": {
+        "action": "Ping",
+        "gesture": "tap",
+        "description": "Mark location"
+      },
+      "DpadDown": {
+        "action": "Holster",
+        "gesture": "tap",
+        "description": "Put weapon away"
+      },
+      "DpadLeft": {
+        "action": "Previous Gadget",
+        "gesture": "tap",
+        "description": ""
+      },
+      "DpadRight": {
+        "action": "Next Gadget",
+        "gesture": "tap",
+        "description": ""
+      },
+      "Start": {
+        "action": "Pause",
+        "gesture": "tap",
+        "description": "Open pause menu"
+      },
+      "Back": {
+        "action": "Inventory",
+        "gesture": "tap",
+        "description": "Open inventory"
+      }
+    },
+    "menu": {
+      "A": {
+        "action": "Select",
+        "gesture": "tap",
+        "description": "Confirm selection"
+      },
+      "B": {
+        "action": "Back",
+        "gesture": "tap",
+        "description": "Go back"
+      },
+      "DpadUp": {
+        "action": "Navigate Up",
+        "gesture": "tap",
+        "description": ""
+      },
+      "DpadDown": {
+        "action": "Navigate Down",
+        "gesture": "tap",
+        "description": ""
+      },
+      "DpadLeft": {
+        "action": "Tab Left",
+        "gesture": "tap",
+        "description": ""
+      },
+      "DpadRight": {
+        "action": "Tab Right",
+        "gesture": "tap",
+        "description": ""
+      }
+    }
+  }
+}
