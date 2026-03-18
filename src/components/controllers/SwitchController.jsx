@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from 'react'
+import { renderLabel } from '../../utils/controllerHelpers'
 
 function SwitchController({ mappings, onButtonClick, selectedButton }) {
   const containerRef = useRef(null)
@@ -8,24 +9,24 @@ function SwitchController({ mappings, onButtonClick, selectedButton }) {
   const [customOrder, setCustomOrder] = useState({}) // Track custom ordering within lists
 
   const buttons = [
-    { id: 'A', x: 80, y: 60, label: 'A' },
-    { id: 'B', x: 85, y: 55, label: 'B' },
-    { id: 'X', x: 75, y: 55, label: 'X' },
-    { id: 'Y', x: 80, y: 50, label: 'Y' },
-    { id: 'L', x: 20, y: 25, label: 'L' },
-    { id: 'R', x: 80, y: 25, label: 'R' },
-    { id: 'ZL', x: 15, y: 15, label: 'ZL' },
-    { id: 'ZR', x: 85, y: 15, label: 'ZR' },
-    { id: 'LStick', x: 25, y: 55, label: 'L↻' },
-    { id: 'RStick', x: 65, y: 70, label: 'R↻' },
-    { id: 'DpadUp', x: 35, y: 50, label: '↑' },
-    { id: 'DpadDown', x: 35, y: 60, label: '↓' },
-    { id: 'DpadLeft', x: 30, y: 55, label: '←' },
-    { id: 'DpadRight', x: 40, y: 55, label: '→' },
-    { id: 'Plus', x: 60, y: 45, label: '+' },
-    { id: 'Minus', x: 40, y: 45, label: '-' },
-    { id: 'Home', x: 50, y: 65, label: '⌂' },
-    { id: 'Capture', x: 50, y: 55, label: '◉' }
+    { id: 'north', x: 80.5, y: 39.8, label: 'X' },
+    { id: 'south', x: 80.5, y: 50.7, label: 'B' },
+    { id: 'east', x: 89.0, y: 45.28, label: 'A' },
+    { id: 'west', x: 71.75, y: 45.28, label: 'Y' },
+    { id: 'leftButton', x: 16.00, y: 11.24, label: 'L' },
+    { id: 'rightButton', x: 84.06, y: 11.24, label: 'R' },
+    { id: 'ZL', x: 17.41, y: 3.50, label: 'ZL' },
+    { id: 'ZR', x: 82.60, y: 3.50, label: 'ZR' },
+    { id: 'leftStick', x: 19.92, y: 45.02, label: 'L↻' },
+    { id: 'rightStick', x: 80.64, y: 65.65, label: 'R↻' },
+    { id: 'dPadUp', x: 19.92, y: 60.28, label: 'bi bi-caret-up-fill' },
+    { id: 'dPadDown', x: 19.92, y: 71.03, label: 'bi bi-caret-down-fill' },
+    { id: 'dPadLeft', x: 11.86, y: 65.65, label: 'bi bi-caret-left-fill' },
+    { id: 'dPadRight', x: 27.99, y: 65.65, label: 'bi bi-caret-right-fill' },
+    { id: 'plus', x: 69.42, y: 33.97, label: 'fas fa-plus' },
+    { id: 'minus', x: 30.87, y: 33.97, label: 'fas fa-minus' },
+    { id: 'home', x: 74.4, y: 79.3, label: 'fas fa-house' },
+    { id: 'capture', x: 26, y: 79.4, label: 'bi bi-record-circle' }
   ]
 
   useEffect(() => {
@@ -254,7 +255,7 @@ function SwitchController({ mappings, onButtonClick, selectedButton }) {
                 onDrop={(e) => handleItemDrop(e, button, 'left')}
                 onClick={() => onButtonClick(button.id)}
               >
-                <div className="mapping-list-button-label">{button.label}</div>
+                <div className="mapping-list-button-label">{renderLabel(button.label)}</div>
                 <div className="mapping-list-actions">
                   <div className="mapping-list-action">
                     <span className="action-name">{button.mappingLabel}</span>
@@ -289,7 +290,7 @@ function SwitchController({ mappings, onButtonClick, selectedButton }) {
               onClick={() => onButtonClick(button.id)}
             >
               <div className="button-marker-circle">
-                {button.label}
+                {renderLabel(button.label)}
               </div>
             </div>
           )
@@ -321,7 +322,7 @@ function SwitchController({ mappings, onButtonClick, selectedButton }) {
                 onDrop={(e) => handleItemDrop(e, button, 'right')}
                 onClick={() => onButtonClick(button.id)}
               >
-                <div className="mapping-list-button-label">{button.label}</div>
+                <div className="mapping-list-button-label">{renderLabel(button.label)}</div>
                 <div className="mapping-list-actions">
                   <div className="mapping-list-action">
                     <span className="action-name">{button.mappingLabel}</span>

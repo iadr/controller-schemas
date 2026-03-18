@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from 'react'
+import { renderLabel } from '../../utils/controllerHelpers'
 
 function XboxController({ mappings, onButtonClick, selectedButton }) {
   const containerRef = useRef(null)
@@ -8,39 +9,24 @@ function XboxController({ mappings, onButtonClick, selectedButton }) {
   const [customOrder, setCustomOrder] = useState({}) // Track custom ordering within lists
 
   const buttons = [
-    { id: 'A', x: 76.09, y: 37.56, label: 'A' },
-    { id: 'B', x: 83.09, y: 27.80, label: 'B' },
-    { id: 'X', x: 68.98, y: 27.99, label: 'X' },
-    { id: 'Y', x: 76.09, y: 18.34, label: 'Y' },
-    { id: 'LB', x: 27.37, y: 5.53, label: 'LB' },
-    { id: 'RB', x: 72.63, y: 5.53, label: 'RB' },
-    { id: 'LT', x: 21.65, y: 3.14, label: 'LT' },
-    { id: 'RT', x: 78.34, y: 3.14, label: 'RT' },
-    { id: 'LS', x: 24.03, y: 27.65, label: 'LS' },
-    { id: 'RS', x: 63.37, y: 49.35, label: 'RS' },
-    {id: 'DpadCenter', x: 36.63, y: 51.59, label: 'bi bi-dpad' },
-    { id: 'DpadUp', x: 36.63, y: 44.98, label: 'bi bi-arrow-up' },
-    { id: 'DpadDown', x: 36.63, y: 58.35, label: 'bi bi-arrow-down' },
-    { id: 'DpadLeft', x: 31.95, y: 51.59, label: 'bi bi-arrow-left' },
-    { id: 'DpadRight', x: 41.30, y: 51.59, label: 'bi bi-arrow-right' },
-    { id: 'Start', x: 57.54, y: 27.33, label: 'fas fa-bars' },
-    { id: 'Back', x: 42.56, y: 27.33, label: 'far fa-clone fa-rotate-90' }
+    { id: 'south', x: 76.09, y: 37.56, label: 'A' },
+    { id: 'east', x: 83.09, y: 27.80, label: 'B' },
+    { id: 'west', x: 68.98, y: 27.99, label: 'X' },
+    { id: 'north', x: 76.09, y: 18.34, label: 'Y' },
+    { id: 'leftButton', x: 27.37, y: 5.53, label: 'LB' },
+    { id: 'rightButton', x: 72.63, y: 5.53, label: 'RB' },
+    { id: 'leftTrigger', x: 21.65, y: 3.14, label: 'LT' },
+    { id: 'rightTrigger', x: 78.34, y: 3.14, label: 'RT' },
+    { id: 'leftStick', x: 24.03, y: 27.65, label: 'LS' },
+    { id: 'rightStick', x: 63.37, y: 49.35, label: 'RS' },
+    { id: 'dPad', x: 36.63, y: 51.59, label: 'bi bi-dpad' },
+    { id: 'dPadUp', x: 36.63, y: 44.98, label: 'bi bi-caret-up-fill' },
+    { id: 'dPadDown', x: 36.63, y: 58.35, label: 'bi bi-caret-down-fill' },
+    { id: 'dPadLeft', x: 31.95, y: 51.59, label: 'bi bi-caret-left-fill' },
+    { id: 'dPadRight', x: 41.30, y: 51.59, label: 'bi bi-caret-right-fill' },
+    { id: 'start', x: 57.54, y: 27.33, label: 'fas fa-bars' },
+    { id: 'select', x: 42.56, y: 27.33, label: 'far fa-clone fa-rotate-90' }
   ]
-
-  // Helper function to render label (supports text, Unicode, and icon classes)
-  const renderLabel = (label) => {
-    if (!label) return null
-    
-    // Check if it's a Bootstrap Icon (bi bi-*) or Font Awesome icon (fa fa-*, fas fa-*, etc.)
-    const isIcon = /^(bi bi-|fa[sbrldt]? fa-|fa )/.test(label)
-    
-    if (isIcon) {
-      return <i className={label} />
-    }
-    
-    // Return plain text or Unicode character
-    return label
-  }
 
   // Calculate button positions and container dimensions
   useEffect(() => {
