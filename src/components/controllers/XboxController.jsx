@@ -1,214 +1,72 @@
-import { useRef, useEffect, useState } from 'react'
-import { renderLabel } from '../../utils/controllerHelpers'
+import { useRef, useState } from 'react'
+import { renderLabel, getButtonOverlayStyle } from '../../utils/controllerHelpers'
+import { 
+  getMappingLabel, 
+  getOrganizedButtons,
+  useButtonPositions,
+  useControllerDragDrop
+} from '../../utils/controllerDragDrop'
+import MappingListSideBySide from '../MappingListSideBySide'
 
 function XboxController({ mappings, onButtonClick, selectedButton }) {
   const containerRef = useRef(null)
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
-  const [buttonPositions, setButtonPositions] = useState({})
   const [buttonSideOverrides, setButtonSideOverrides] = useState({}) // Track manual side assignments
   const [customOrder, setCustomOrder] = useState({}) // Track custom ordering within lists
 
   const buttons = [
-    { id: 'south', x: 76.09, y: 37.56, label: 'A' },
-    { id: 'east', x: 83.09, y: 27.80, label: 'B' },
-    { id: 'west', x: 68.98, y: 27.99, label: 'X' },
-    { id: 'north', x: 76.09, y: 18.34, label: 'Y' },
-    { id: 'leftButton', x: 27.37, y: 5.53, label: 'LB' },
-    { id: 'rightButton', x: 72.63, y: 5.53, label: 'RB' },
-    { id: 'leftTrigger', x: 21.65, y: 3.14, label: 'LT' },
-    { id: 'rightTrigger', x: 78.34, y: 3.14, label: 'RT' },
-    { id: 'leftStick', x: 24.03, y: 27.65, label: 'LS' },
-    { id: 'rightStick', x: 63.37, y: 49.35, label: 'RS' },
-    { id: 'dPad', x: 36.63, y: 51.59, label: 'bi bi-dpad' },
-    { id: 'dPadUp', x: 36.63, y: 44.98, label: 'bi bi-caret-up-fill' },
-    { id: 'dPadDown', x: 36.63, y: 58.35, label: 'bi bi-caret-down-fill' },
-    { id: 'dPadLeft', x: 31.95, y: 51.59, label: 'bi bi-caret-left-fill' },
-    { id: 'dPadRight', x: 41.30, y: 51.59, label: 'bi bi-caret-right-fill' },
-    { id: 'start', x: 57.54, y: 27.33, label: 'fas fa-bars' },
-    { id: 'select', x: 42.56, y: 27.33, label: 'far fa-clone fa-rotate-90' }
+    { id: 'south', x: 76.09, y: 37.56, label: 'A', shape: 'circle', size: 42 },
+    { id: 'east', x: 83.09, y: 27.80, label: 'B', shape: 'circle', size: 42 },
+    { id: 'west', x: 68.98, y: 27.99, label: 'X', shape: 'circle', size: 42 },
+    { id: 'north', x: 76.09, y: 18.34, label: 'Y', shape: 'circle', size: 42 },
+    { id: 'leftButton', x: 29.37, y: 4.03, label: 'LB', shape: 'circle', size: 32 },
+    { id: 'rightButton', x: 70.63, y: 4.03, label: 'RB', shape: 'circle', size: 32 },
+    { id: 'leftTrigger', x: 21.65, y: 3.14, label: 'LT', shape: 'circle', size: 32 },
+    { id: 'rightTrigger', x: 78.34, y: 3.14, label: 'RT', shape: 'circle', size: 32 },
+    { id: 'leftStick', x: 24.03, y: 27.65, label: 'LS', shape: 'circle', size: 42 },
+    { id: 'rightStick', x: 63.37, y: 49.35, label: 'RS', shape: 'circle', size: 42 },
+    { id: 'dPad', x: 36.63, y: 51.39, label: 'bi bi-dpad', shape: 'dpad', size: 24 },
+    { id: 'dPadUp', x: 36.63, y: 44.98, label: 'bi bi-caret-up-fill', shape: 'dpad', size: 28 },
+    { id: 'dPadDown', x: 36.63, y: 57.65, label: 'bi bi-caret-down-fill', shape: 'dpad', size: 28 },
+    { id: 'dPadLeft', x: 31.95, y: 51.39, label: 'bi bi-caret-left-fill', shape: 'dpad', size: 28 },
+    { id: 'dPadRight', x: 41.30, y: 51.39, label: 'bi bi-caret-right-fill', shape: 'dpad', size: 28 },
+    { id: 'start', x: 57.54, y: 27.33, label: 'fas fa-bars', shape: 'circle', size: 32 },
+    { id: 'select', x: 42.56, y: 27.33, label: 'far fa-clone fa-rotate-90', shape: 'circle', size: 32 }
   ]
 
-  // Calculate button positions and container dimensions
-  useEffect(() => {
-    if (containerRef.current) {
-      const updatePositions = () => {
-        const container = containerRef.current
-        const rect = container.getBoundingClientRect()
-        setDimensions({ width: rect.width, height: rect.height })
+  // Use shared hooks for button positions and drag-drop functionality
+  const { dimensions, buttonPositions } = useButtonPositions(
+    containerRef, 
+    buttons, 
+    mappings, 
+    buttonSideOverrides, 
+    customOrder
+  )
 
-        const newPositions = {}
-        buttons.forEach(button => {
-          const marker = container.querySelector(`[data-button-id="${button.id}"]`)
-          if (marker) {
-            const markerRect = marker.getBoundingClientRect()
-            newPositions[button.id] = {
-              x: markerRect.left - rect.left + markerRect.width / 2,
-              y: markerRect.top - rect.top + markerRect.height / 2
-            }
-          }
-        })
-        setButtonPositions(newPositions)
-      }
+  const {
+    draggedItem,
+    dragOverSide,
+    dragOverItem,
+    handleDragStart,
+    handleDragEnd,
+    handleDragOver,
+    handleDragLeave,
+    handleItemDragOver,
+    handleItemDrop,
+    handleDrop
+  } = useControllerDragDrop(
+    buttonSideOverrides,
+    setButtonSideOverrides,
+    customOrder,
+    setCustomOrder
+  )
 
-      // Update on mount and resize
-      updatePositions()
-      window.addEventListener('resize', updatePositions)
-      // Also update after a small delay to ensure images are loaded
-      setTimeout(updatePositions, 100)
-
-      return () => window.removeEventListener('resize', updatePositions)
-    }
-  }, [mappings])
-
-  // Convert mappings to displayable format
-  const getMappingLabel = (buttonId) => {
-    const mapping = mappings[buttonId]
-    if (!mapping) return null
-    // Handle both string and object formats
-    if (typeof mapping === 'string') return mapping
-    if (typeof mapping === 'object' && mapping.action) return mapping.action
-    return null
-  }
-
-  // Get all buttons with mappings for the list, split by side
-  const buttonsWithMappings = buttons
-    .map(button => ({
-      ...button,
-      mappingLabel: getMappingLabel(button.id)
-    }))
-    .filter(button => button.mappingLabel)
-
-  // Helper function to determine which side a button should be on
-  const getButtonSide = (button) => {
-    // Check if there's a manual override
-    if (buttonSideOverrides[button.id]) {
-      return buttonSideOverrides[button.id]
-    }
-    // Otherwise use the default x position
-    return button.x < 50 ? 'left' : 'right'
-  }
-
-  // Split buttons into left and right based on position or override
-  const leftButtons = buttonsWithMappings.filter(button => getButtonSide(button) === 'left')
-  const rightButtons = buttonsWithMappings.filter(button => getButtonSide(button) === 'right')
-
-  // Sort by custom order if exists
-  const sortByCustomOrder = (buttons, side) => {
-    return [...buttons].sort((a, b) => {
-      const orderA = customOrder[`${side}-${a.id}`] ?? Infinity
-      const orderB = customOrder[`${side}-${b.id}`] ?? Infinity
-      return orderA - orderB
-    })
-  }
-
-  const sortedLeftButtons = sortByCustomOrder(leftButtons, 'left')
-  const sortedRightButtons = sortByCustomOrder(rightButtons, 'right')
-
-  // Drag and drop handlers
-  const [draggedItem, setDraggedItem] = useState(null)
-  const [dragOverSide, setDragOverSide] = useState(null)
-  const [dragOverItem, setDragOverItem] = useState(null)
-
-  const handleDragStart = (e, button) => {
-    setDraggedItem(button)
-    e.dataTransfer.effectAllowed = 'move'
-  }
-
-  const handleDragEnd = () => {
-    setDraggedItem(null)
-    setDragOverSide(null)
-    setDragOverItem(null)
-  }
-
-  const handleDragOver = (e, side) => {
-    e.preventDefault()
-    e.dataTransfer.dropEffect = 'move'
-    setDragOverSide(side)
-  }
-
-  const handleDragLeave = (e) => {
-    // Only clear if we're leaving the container, not a child
-    if (e.currentTarget === e.target) {
-      setDragOverSide(null)
-    }
-  }
-
-  const handleItemDragOver = (e, item, side) => {
-    e.preventDefault()
-    e.stopPropagation()
-    setDragOverItem(item.id)
-    setDragOverSide(side)
-  }
-
-  const handleItemDrop = (e, targetItem, targetSide) => {
-    e.preventDefault()
-    e.stopPropagation()
-    setDragOverSide(null)
-    setDragOverItem(null)
-    
-    if (!draggedItem || draggedItem.id === targetItem.id) return
-
-    const currentSide = getButtonSide(draggedItem)
-    const buttonsList = targetSide === 'left' ? sortedLeftButtons : sortedRightButtons
-    
-    // If moving to a different side
-    if (currentSide !== targetSide) {
-      setButtonSideOverrides(prev => ({
-        ...prev,
-        [draggedItem.id]: targetSide
-      }))
-    }
-    
-    // Reorder within the target side
-    const targetIndex = buttonsList.findIndex(b => b.id === targetItem.id)
-    const newOrder = {}
-    
-    buttonsList.forEach((button, index) => {
-      if (button.id === draggedItem.id) return // Skip the dragged item
-      
-      if (index < targetIndex) {
-        newOrder[`${targetSide}-${button.id}`] = index
-      } else if (index === targetIndex) {
-        newOrder[`${targetSide}-${draggedItem.id}`] = index
-        newOrder[`${targetSide}-${button.id}`] = index + 1
-      } else {
-        newOrder[`${targetSide}-${button.id}`] = index + 1
-      }
-    })
-    
-    // If dragged item wasn't in the list, add it at target position
-    if (currentSide !== targetSide) {
-      newOrder[`${targetSide}-${draggedItem.id}`] = targetIndex
-      // Increment all items at or after target
-      buttonsList.forEach((button, index) => {
-        if (index >= targetIndex) {
-          newOrder[`${targetSide}-${button.id}`] = index + 1
-        }
-      })
-    }
-    
-    setCustomOrder(prev => ({ ...prev, ...newOrder }))
-  }
-
-  const handleDrop = (e, targetSide) => {
-    e.preventDefault()
-    setDragOverSide(null)
-    setDragOverItem(null)
-    
-    if (!draggedItem) return
-
-    // Determine the current side of the dragged item
-    const currentSide = getButtonSide(draggedItem)
-    
-    // If dropping on the same side without a specific target, do nothing
-    if (currentSide === targetSide) return
-
-    // Update the button side override to move it to the target side
-    setButtonSideOverrides(prev => ({
-      ...prev,
-      [draggedItem.id]: targetSide
-    }))
-  }
+  // Get organized button lists
+  const { buttonsWithMappings, sortedLeftButtons, sortedRightButtons } = getOrganizedButtons(
+    buttons,
+    mappings,
+    buttonSideOverrides,
+    customOrder
+  )
 
   return (
     <div className="controller-with-list" ref={containerRef}>
@@ -244,40 +102,26 @@ function XboxController({ mappings, onButtonClick, selectedButton }) {
       </svg>
 
       {/* Left Side List */}
-      <div 
-        className={`mappings-list-container ${dragOverSide === 'left' ? 'drag-over' : ''}`}
-        onDragOver={(e) => handleDragOver(e, 'left')}
-        onDragLeave={handleDragLeave}
-        onDrop={(e) => handleDrop(e, 'left')}
-      >
-        <h4 className="mappings-list-title">Left Side</h4>
-        {leftButtons.length === 0 ? (
-          <div className="no-mappings-message">
-            <p>No left side mappings</p>
-          </div>
-        ) : (
-          sortedLeftButtons.map(button => (
-            <div
-              key={button.id}
-              data-list-button={button.id}
-              className={`mapping-list-item ${selectedButton === button.id ? 'selected' : ''} ${draggedItem?.id === button.id ? 'dragging' : ''} ${dragOverItem === button.id ? 'drag-over-item' : ''}`}
-              draggable
-              onDragStart={(e) => handleDragStart(e, button)}
-              onDragEnd={handleDragEnd}
-              onDragOver={(e) => handleItemDragOver(e, button, 'left')}
-              onDrop={(e) => handleItemDrop(e, button, 'left')}
-              onClick={() => onButtonClick(button.id)}
-            >
-              <div className="mapping-list-button-label">{renderLabel(button.label)}</div>
-              <div className="mapping-list-actions">
-                <div className="mapping-list-action">
-                  <span className="action-name">{button.mappingLabel}</span>
-                </div>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
+      <MappingListSideBySide
+        buttons={sortedLeftButtons}
+        side="left"
+        title="Left Side"
+        sortedLeftButtons={sortedLeftButtons}
+        sortedRightButtons={sortedRightButtons}
+        mappings={mappings}
+        selectedButton={selectedButton}
+        onButtonClick={onButtonClick}
+        draggedItem={draggedItem}
+        dragOverSide={dragOverSide}
+        dragOverItem={dragOverItem}
+        handleDragStart={handleDragStart}
+        handleDragEnd={handleDragEnd}
+        handleDragOver={handleDragOver}
+        handleDragLeave={handleDragLeave}
+        handleItemDragOver={handleItemDragOver}
+        handleItemDrop={handleItemDrop}
+        handleDrop={handleDrop}
+      />
 
       {/* Controller Image and Buttons */}
       <div className="controller-svg-container">
@@ -288,9 +132,10 @@ function XboxController({ mappings, onButtonClick, selectedButton }) {
           style={{ width: '600px' }}
         />
         {buttons.map(button => {
-          const mappingLabel = getMappingLabel(button.id)
+          const mappingLabel = getMappingLabel(mappings, button.id)
           const isSelected = selectedButton === button.id
           const hasMapping = !!mappingLabel
+          const overlayStyle = getButtonOverlayStyle(button)
 
           return (
             <div
@@ -303,7 +148,7 @@ function XboxController({ mappings, onButtonClick, selectedButton }) {
               }}
               onClick={() => onButtonClick(button.id)}
             >
-              <div className="button-marker-circle">
+              <div className="button-marker-circle" style={overlayStyle}>
                 {renderLabel(button.label)}
               </div>
             </div>
@@ -312,40 +157,26 @@ function XboxController({ mappings, onButtonClick, selectedButton }) {
       </div>
 
       {/* Right Side List */}
-      <div 
-        className={`mappings-list-container ${dragOverSide === 'right' ? 'drag-over' : ''}`}
-        onDragOver={(e) => handleDragOver(e, 'right')}
-        onDragLeave={handleDragLeave}
-        onDrop={(e) => handleDrop(e, 'right')}
-      >
-        <h4 className="mappings-list-title">Right Side</h4>
-        {rightButtons.length === 0 ? (
-          <div className="no-mappings-message">
-            <p>No right side mappings</p>
-          </div>
-        ) : (
-          sortedRightButtons.map(button => (
-            <div
-              key={button.id}
-              data-list-button={button.id}
-              className={`mapping-list-item ${selectedButton === button.id ? 'selected' : ''} ${draggedItem?.id === button.id ? 'dragging' : ''} ${dragOverItem === button.id ? 'drag-over-item' : ''}`}
-              draggable
-              onDragStart={(e) => handleDragStart(e, button)}
-              onDragEnd={handleDragEnd}
-              onDragOver={(e) => handleItemDragOver(e, button, 'right')}
-              onDrop={(e) => handleItemDrop(e, button, 'right')}
-              onClick={() => onButtonClick(button.id)}
-            >
-              <div className="mapping-list-button-label">{renderLabel(button.label)}</div>
-              <div className="mapping-list-actions">
-                <div className="mapping-list-action">
-                  <span className="action-name">{button.mappingLabel}</span>
-                </div>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
+      <MappingListSideBySide
+        buttons={sortedRightButtons}
+        side="right"
+        title="Right Side"
+        sortedLeftButtons={sortedLeftButtons}
+        sortedRightButtons={sortedRightButtons}
+        mappings={mappings}
+        selectedButton={selectedButton}
+        onButtonClick={onButtonClick}
+        draggedItem={draggedItem}
+        dragOverSide={dragOverSide}
+        dragOverItem={dragOverItem}
+        handleDragStart={handleDragStart}
+        handleDragEnd={handleDragEnd}
+        handleDragOver={handleDragOver}
+        handleDragLeave={handleDragLeave}
+        handleItemDragOver={handleItemDragOver}
+        handleItemDrop={handleItemDrop}
+        handleDrop={handleDrop}
+      />
     </div>
   )
 }

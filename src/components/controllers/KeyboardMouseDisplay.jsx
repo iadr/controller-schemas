@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from 'react'
+import MappingListSideBySide from '../MappingListSideBySide'
 
 function KeyboardMouseDisplay({ mappings, onButtonClick, selectedButton }) {
   const containerRef = useRef(null)
@@ -142,12 +143,47 @@ function KeyboardMouseDisplay({ mappings, onButtonClick, selectedButton }) {
     }
   }, [mappings])
 
+  // Convert mappings to displayable format
   const getMappingLabel = (buttonId) => {
     const mapping = mappings[buttonId]
     if (!mapping) return null
+    
+    // Handle string format (legacy)
     if (typeof mapping === 'string') return mapping
+    
+    // Handle old single-gesture object format
     if (typeof mapping === 'object' && mapping.action) return mapping.action
+    
+    // Handle new multi-gesture format
+    if (typeof mapping === 'object') {
+      const gestures = []
+      if (mapping.hold?.action) gestures.push(`Hold: ${mapping.hold.action}`)
+      if (mapping.press?.action) gestures.push(`Press: ${mapping.press.action}`)
+      
+      if (gestures.length > 0) {
+        // Return the first gesture's action for the main label
+        const firstGesture = mapping.hold || mapping.press
+        return firstGesture.action
+      }
+    }
+    
     return null
+  }
+
+  // Get gesture details for a button
+  const getMappingGestures = (buttonId) => {
+    const mapping = mappings[buttonId]
+    if (!mapping || typeof mapping !== 'object' || mapping === null) return null
+    
+    const gestures = []
+    if (mapping.hold && typeof mapping.hold === 'object' && mapping.hold.action) {
+      gestures.push({ type: 'hold', action: mapping.hold.action, description: mapping.hold.description || '' })
+    }
+    if (mapping.press && typeof mapping.press === 'object' && mapping.press.action) {
+      gestures.push({ type: 'press', action: mapping.press.action, description: mapping.press.description || '' })
+    }
+    
+    return gestures.length > 1 ? gestures : null
   }
 
   const buttonsWithMappings = allButtons
@@ -315,40 +351,26 @@ function KeyboardMouseDisplay({ mappings, onButtonClick, selectedButton }) {
       </svg>
 
       {/* Left Side List */}
-      <div 
-        className={`mappings-list-container ${dragOverSide === 'left' ? 'drag-over' : ''}`}
-        onDragOver={(e) => handleDragOver(e, 'left')}
-        onDragLeave={handleDragLeave}
-        onDrop={(e) => handleDrop(e, 'left')}
-      >
-        <h4 className="mappings-list-title">Left Side</h4>
-        {sortedLeftButtons.length === 0 ? (
-          <div className="no-mappings-message">
-            <p>No left side mappings</p>
-          </div>
-        ) : (
-          sortedLeftButtons.map(button => (
-            <div
-              key={button.id}
-              data-list-button={button.id}
-              className={`mapping-list-item ${selectedButton === button.id ? 'selected' : ''} ${draggedItem?.id === button.id ? 'dragging' : ''} ${dragOverItem === button.id ? 'drag-over-item' : ''}`}
-              draggable
-              onDragStart={(e) => handleDragStart(e, button)}
-              onDragEnd={handleDragEnd}
-              onDragOver={(e) => handleItemDragOver(e, button, 'left')}
-              onDrop={(e) => handleItemDrop(e, button, 'left')}
-              onClick={() => onButtonClick(button.id)}
-            >
-              <div className="mapping-list-button-label">{button.label}</div>
-              <div className="mapping-list-actions">
-                <div className="mapping-list-action">
-                  <span className="action-name">{button.mappingLabel}</span>
-                </div>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
+      <MappingListSideBySide
+        buttons={sortedLeftButtons}
+        side="left"
+        title="Left Side"
+        sortedLeftButtons={sortedLeftButtons}
+        sortedRightButtons={sortedRightButtons}
+        mappings={mappings}
+        selectedButton={selectedButton}
+        onButtonClick={onButtonClick}
+        draggedItem={draggedItem}
+        dragOverSide={dragOverSide}
+        dragOverItem={dragOverItem}
+        handleDragStart={handleDragStart}
+        handleDragEnd={handleDragEnd}
+        handleDragOver={handleDragOver}
+        handleDragLeave={handleDragLeave}
+        handleItemDragOver={handleItemDragOver}
+        handleItemDrop={handleItemDrop}
+        handleDrop={handleDrop}
+      />
 
       <div style={{ display: 'flex', gap: '40px', alignItems: 'flex-start', justifyContent: 'center' }}>
         {/* Keyboard Section */}
@@ -466,40 +488,26 @@ function KeyboardMouseDisplay({ mappings, onButtonClick, selectedButton }) {
       </div>
 
       {/* Right Side List */}
-      <div 
-        className={`mappings-list-container ${dragOverSide === 'right' ? 'drag-over' : ''}`}
-        onDragOver={(e) => handleDragOver(e, 'right')}
-        onDragLeave={handleDragLeave}
-        onDrop={(e) => handleDrop(e, 'right')}
-      >
-        <h4 className="mappings-list-title">Right Side</h4>
-          {sortedRightButtons.length === 0 ? (
-            <div className="no-mappings-message">
-              <p>No right side mappings</p>
-            </div>
-          ) : (
-            sortedRightButtons.map(button => (
-              <div
-                key={button.id}
-                data-list-button={button.id}
-                className={`mapping-list-item ${selectedButton === button.id ? 'selected' : ''} ${draggedItem?.id === button.id ? 'dragging' : ''} ${dragOverItem === button.id ? 'drag-over-item' : ''}`}
-                draggable
-                onDragStart={(e) => handleDragStart(e, button)}
-                onDragEnd={handleDragEnd}
-                onDragOver={(e) => handleItemDragOver(e, button, 'right')}
-                onDrop={(e) => handleItemDrop(e, button, 'right')}
-                onClick={() => onButtonClick(button.id)}
-              >
-                <div className="mapping-list-button-label">{button.label}</div>
-                <div className="mapping-list-actions">
-                  <div className="mapping-list-action">
-                    <span className="action-name">{button.mappingLabel}</span>
-                  </div>
-                </div>
-              </div>
-            ))
-          )}
-      </div>
+      <MappingListSideBySide
+        buttons={sortedRightButtons}
+        side="right"
+        title="Right Side"
+        sortedLeftButtons={sortedLeftButtons}
+        sortedRightButtons={sortedRightButtons}
+        mappings={mappings}
+        selectedButton={selectedButton}
+        onButtonClick={onButtonClick}
+        draggedItem={draggedItem}
+        dragOverSide={dragOverSide}
+        dragOverItem={dragOverItem}
+        handleDragStart={handleDragStart}
+        handleDragEnd={handleDragEnd}
+        handleDragOver={handleDragOver}
+        handleDragLeave={handleDragLeave}
+        handleItemDragOver={handleItemDragOver}
+        handleItemDrop={handleItemDrop}
+        handleDrop={handleDrop}
+      />
     </div>
   )
 }

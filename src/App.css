@@ -443,6 +443,39 @@ h2, h3 {
   color: white;
 }
 
+/* Gesture Sections in Mapping Editor */
+.gesture-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.gesture-section {
+  background: #2d3748;
+  border: 1px solid #4a5568;
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+.gesture-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #3182ce;
+  margin: 0 0 0.75rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Gesture type display in controller lists */
+.gesture-type {
+  color: #3182ce;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-right: 0.25rem;
+}
+
 .mapping-preview {
   background: #2d3748;
   border: 1px solid #4a5568;
@@ -567,17 +600,33 @@ h2, h3 {
 
 .mapping-list-item {
   user-select: none;
+  background: #1e2738;
+  border: 2px solid #374151;
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.mapping-list-item:last-child {
+  margin-bottom: 0;
 }
 
 .mapping-list-item:hover {
-  border-color: #718096;
+  border-color: #60a5fa;
   background: #252d3d;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .mapping-list-item.selected {
   border-color: #3182ce;
-  background: rgba(49, 130, 206, 0.1);
-  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2);
+  background: rgba(49, 130, 206, 0.2);
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.3), 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.mapping-list-item.selected .mapping-list-button-label {
+  color: #90cdf4;
 }
 
 .mapping-list-item.dragging {
@@ -599,32 +648,40 @@ h2, h3 {
 .mapping-list-button-label {
   font-weight: 700;
   color: #63b3ed;
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  margin-bottom: 0.6rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .mapping-list-button-label::before {
   content: '●';
-  font-size: 0.6rem;
+  font-size: 0.7rem;
+  color: #4a5568;
 }
 
 .mapping-list-actions {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.5rem;
 }
 
 .mapping-list-action {
-  background: #2d3748;
-  padding: 0.5rem;
-  border-radius: 4px;
+  background: rgba(45, 55, 72, 0.5);
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
   font-size: 0.85rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  transition: background 0.15s ease;
+}
+
+.mapping-list-item:hover .mapping-list-action {
+  background: rgba(45, 55, 72, 0.8);
 }
 
 .action-name {

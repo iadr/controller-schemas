@@ -1,12 +1,12 @@
 function MouseDisplay({ mappings, onButtonClick, selectedButton }) {
   const buttons = [
-    { id: 'LeftClick', x: 35, y: 25, w: 20, h: 25, label: 'Left' },
-    { id: 'RightClick', x: 55, y: 25, w: 20, h: 25, label: 'Right' },
-    { id: 'MiddleClick', x: 47, y: 20, w: 6, h: 10, label: 'M' },
-    { id: 'ScrollUp', x: 47, y: 35, w: 6, h: 8, label: '↑' },
-    { id: 'ScrollDown', x: 47, y: 43, w: 6, h: 8, label: '↓' },
-    { id: 'Side1', x: 25, y: 45, w: 5, h: 12, label: 'S1' },
-    { id: 'Side2', x: 25, y: 57, w: 5, h: 12, label: 'S2' }
+    { id: 'LeftClick', x: 35, y: 25, width: 20, height: 25, label: 'Left', shape: 'rect', borderRadius: 2 },
+    { id: 'RightClick', x: 55, y: 25, width: 20, height: 25, label: 'Right', shape: 'rect', borderRadius: 2 },
+    { id: 'MiddleClick', x: 47, y: 20, width: 6, height: 10, label: 'M', shape: 'rect', borderRadius: 3 },
+    { id: 'ScrollUp', x: 47, y: 35, width: 6, height: 8, label: '↑', shape: 'rect', borderRadius: 1 },
+    { id: 'ScrollDown', x: 47, y: 43, width: 6, height: 8, label: '↓', shape: 'rect', borderRadius: 1 },
+    { id: 'Side1', x: 25, y: 45, width: 5, height: 12, label: 'S1', shape: 'rect', borderRadius: 2 },
+    { id: 'Side2', x: 25, y: 57, width: 5, height: 12, label: 'S2', shape: 'rect', borderRadius: 2 }
   ]
 
   return (
@@ -58,8 +58,8 @@ function MouseDisplay({ mappings, onButtonClick, selectedButton }) {
               position: 'absolute',
               left: `${button.x}%`,
               top: `${button.y}%`,
-              width: `${button.w}%`,
-              height: `${button.h}%`,
+              width: `${button.width}%`,
+              height: `${button.height}%`,
               background: isSelected ? 'rgba(239, 68, 68, 0.6)' : hasMapping ? 'rgba(16, 185, 129, 0.6)' : 'rgba(75, 85, 99, 0.3)',
               border: `2px solid ${isSelected ? '#ef4444' : hasMapping ? '#10b981' : '#6b7280'}`,
               borderRadius: '4px',

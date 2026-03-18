@@ -1,122 +1,108 @@
 {
   "controller": "xbox",
-  "contexts": [
-    "gameplay",
-    "menu"
-  ],
   "mappings": {
-    "gameplay": {
-      "A": {
+    "south": {
+      "press": {
         "action": "Jump",
-        "gesture": "tap",
         "description": "Character jumps"
-      },
-      "B": {
-        "action": "Crouch",
-        "gesture": "hold",
-        "description": "Hold to crouch, tap to slide"
-      },
-      "X": {
-        "action": "Reload",
-        "gesture": "tap",
-        "description": "Reload current weapon"
-      },
-      "Y": {
-        "action": "Switch Weapon",
-        "gesture": "tap",
-        "description": "Toggle between primary and secondary"
-      },
-      "LB": {
-        "action": "Grenade",
-        "gesture": "tap",
-        "description": "Throw grenade"
-      },
-      "RB": {
-        "action": "Melee",
-        "gesture": "tap",
-        "description": "Melee attack"
-      },
-      "LT": {
-        "action": "Aim",
-        "gesture": "hold",
-        "description": "Aim down sights"
-      },
-      "RT": {
-        "action": "Fire",
-        "gesture": "press",
-        "description": "Shoot weapon"
-      },
-      "LS": {
-        "action": "Sprint",
-        "gesture": "press",
-        "description": "Click to toggle sprint"
-      },
-      "RS": {
-        "action": "Change View",
-        "gesture": "press",
-        "description": "Switch camera view"
-      },
-      "DpadUp": {
-        "action": "Ping",
-        "gesture": "tap",
-        "description": "Mark location"
-      },
-      "DpadDown": {
-        "action": "Holster",
-        "gesture": "tap",
-        "description": "Put weapon away"
-      },
-      "DpadLeft": {
-        "action": "Previous Gadget",
-        "gesture": "tap",
-        "description": ""
-      },
-      "DpadRight": {
-        "action": "Next Gadget",
-        "gesture": "tap",
-        "description": ""
-      },
-      "Start": {
-        "action": "Pause",
-        "gesture": "tap",
-        "description": "Open pause menu"
-      },
-      "Back": {
-        "action": "Inventory",
-        "gesture": "tap",
-        "description": "Open inventory"
       }
     },
-    "menu": {
-      "A": {
-        "action": "Select",
-        "gesture": "tap",
-        "description": "Confirm selection"
+    "east": {
+      "press": {
+        "action": "Slide",
+        "description": "Quick slide"
       },
-      "B": {
-        "action": "Back",
-        "gesture": "tap",
-        "description": "Go back"
+      "hold": {
+        "action": "Crouch",
+        "description": "Hold to crouch"
+      }
+    },
+    "west": {
+      "press": {
+        "action": "Reload",
+        "description": "Reload current weapon"
       },
-      "DpadUp": {
-        "action": "Navigate Up",
-        "gesture": "tap",
-        "description": ""
-      },
-      "DpadDown": {
-        "action": "Navigate Down",
-        "gesture": "tap",
-        "description": ""
-      },
-      "DpadLeft": {
-        "action": "Tab Left",
-        "gesture": "tap",
-        "description": ""
-      },
-      "DpadRight": {
-        "action": "Tab Right",
-        "gesture": "tap",
-        "description": ""
+      "hold": {
+        "action": "Reload All",
+        "description": "Reload all weapons"
+      }
+    },
+    "north": {
+      "press": {
+        "action": "Switch Weapon",
+        "description": "Toggle between primary and secondary"
+      }
+    },
+    "leftButton": {
+      "press": {
+        "action": "Grenade",
+        "description": "Throw grenade"
+      }
+    },
+    "rightButton": {
+      "press": {
+        "action": "Melee",
+        "description": "Melee attack"
+      }
+    },
+    "leftTrigger": {
+      "hold": {
+        "action": "Aim",
+        "description": "Aim down sights"
+      }
+    },
+    "rightTrigger": {
+      "press": {
+        "action": "Fire",
+        "description": "Shoot weapon"
+      }
+    },
+    "leftStick": {
+      "press": {
+        "action": "Sprint",
+        "description": "Click to toggle sprint"
+      }
+    },
+    "rightStick": {
+      "press": {
+        "action": "Change View",
+        "description": "Switch camera view"
+      }
+    },
+    "dPadUp": {
+      "press": {
+        "action": "Ping",
+        "description": "Mark location"
+      }
+    },
+    "dPadDown": {
+      "press": {
+        "action": "Holster",
+        "description": "Put weapon away"
+      }
+    },
+    "dPadLeft": {
+      "press": {
+        "action": "Previous Gadget",
+        "description": "Cycle gadgets backward"
+      }
+    },
+    "dPadRight": {
+      "press": {
+        "action": "Next Gadget",
+        "description": "Cycle gadgets forward"
+      }
+    },
+    "start": {
+      "press": {
+        "action": "Pause",
+        "description": "Open pause menu"
+      }
+    },
+    "select": {
+      "press": {
+        "action": "Inventory",
+        "description": "Open inventory"
       }
     }
   }

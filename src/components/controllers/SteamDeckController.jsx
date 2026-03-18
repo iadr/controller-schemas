@@ -1,220 +1,91 @@
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useState } from 'react'
+import { renderLabel, getButtonOverlayStyle } from '../../utils/controllerHelpers'
+import { 
+  getMappingLabel, 
+  getMappingGestures, 
+  getOrganizedButtons,
+  useButtonPositions,
+  useControllerDragDrop
+} from '../../utils/controllerDragDrop'
 
 function SteamDeckController({ mappings, onButtonClick, selectedButton }) {
   const containerRef = useRef(null)
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
-  const [buttonPositions, setButtonPositions] = useState({})
   const [buttonSideOverrides, setButtonSideOverrides] = useState({}) // Track manual side assignments
   const [customOrder, setCustomOrder] = useState({}) // Track custom ordering within lists
 
   const buttons = [
-    // Face buttons
-    { id: 'A', x: 70, y: 45, label: 'A' },
-    { id: 'B', x: 75, y: 40, label: 'B' },
-    { id: 'X', x: 65, y: 40, label: 'X' },
-    { id: 'Y', x: 70, y: 35, label: 'Y' },
+    // Face buttons (from SVG viewBox 279.375 x 167.762)
+    { id: 'south', x: 91.70, y: 50.48, label: 'A', shape: 'circle', size: 18},
+    { id: 'east', x: 94.64, y: 45.59, label: 'B', shape: 'circle', size: 18 },
+    { id: 'west', x: 88.95, y: 45.59, label: 'X', shape: 'circle', size: 18 },
+    { id: 'north', x: 91.70, y: 40.71, label: 'Y', shape: 'circle', size: 18 },
     
-    // D-pad
-    { id: 'DpadUp', x: 30, y: 35, label: '↑' },
-    { id: 'DpadDown', x: 30, y: 45, label: '↓' },
-    { id: 'DpadLeft', x: 25, y: 40, label: '←' },
-    { id: 'DpadRight', x: 35, y: 40, label: '→' },
+    // D-pad (approxCenter 17.3, 76.5, radius ~12)
+    { id: 'dPadUp', x: 6.19, y: 38.46, label: 'bi bi-caret-up-fill', shape: 'dpad', size: 4 },
+    { id: 'dPadDown', x: 6.19, y: 52.76, label: 'bi bi-caret-down-fill', shape: 'dpad', size: 4 },
+    { id: 'dPadLeft', x: 1.90, y: 45.59, label: 'bi bi-caret-left-fill', shape: 'dpad', size: 4 },
+    { id: 'dPadRight', x: 10.49, y: 45.59, label: 'bi bi-caret-right-fill', shape: 'dpad', size: 4 },
     
     // Bumpers and triggers
-    { id: 'L1', x: 15, y: 20, label: 'L1' },
-    { id: 'L2', x: 10, y: 15, label: 'L2' },
-    { id: 'R1', x: 85, y: 20, label: 'R1' },
-    { id: 'R2', x: 90, y: 15, label: 'R2' },
+    { id: 'leftButton', x: 10.74, y: 13.92, label: 'L1', shape: 'circle', size: 28 },
+    { id: 'leftTrigger', x: 8.95, y: 5.96, label: 'L2', shape: 'circle', size: 32 },
+    { id: 'rightButton', x: 89.13, y: 13.92, label: 'R1', shape: 'circle', size: 28 },
+    { id: 'rightTrigger', x: 90.92, y: 5.96, label: 'R2', shape: 'circle', size: 32 },
     
-    // Sticks
-    { id: 'L3', x: 25, y: 55, label: 'L3' },
-    { id: 'R3', x: 75, y: 55, label: 'R3' },
+    // Sticks (left: 44.1, 80.9; right: 235.1, 81.0)
+    { id: 'L3', x: 17.49, y: 48.22, label: 'L3', shape: 'circle', size: 30 },
+    { id: 'R3', x: 82.4, y: 48.28, label: 'R3', shape: 'circle', size: 30 },
     
-    // Back buttons
-    { id: 'L4', x: 5, y: 35, label: 'L4' },
-    { id: 'L5', x: 5, y: 45, label: 'L5' },
-    { id: 'R4', x: 95, y: 35, label: 'R4' },
-    { id: 'R5', x: 95, y: 45, label: 'R5' },
+    // // Back buttons
+    // { id: 'L4', x: 7.16, y: 83.45, label: 'L4', shape: 'circle', size: 3 },
+    // { id: 'L5', x: 12.53, y: 89.41, label: 'L5', shape: 'circle', size: 3 },
+    // { id: 'R4', x: 87.34, y: 83.45, label: 'R4', shape: 'circle', size: 3 },
+    // { id: 'R5', x: 92.71, y: 89.41, label: 'R5', shape: 'circle', size: 3 },
     
-    // Center buttons
-    { id: 'Menu', x: 45, y: 25, label: '≡' },
-    { id: 'Steam', x: 50, y: 30, label: '⚙' },
-    { id: 'View', x: 55, y: 25, label: '⊡' },
-    { id: 'QuickAccess', x: 50, y: 65, label: '...' },
+    // System buttons
+    { id: 'select', x: 9.31, y: 37.55, label: 'fas fa-clone fa-rotate-90', shape: 'capsule', width: 34, height: 14, borderRadius: 7 },
+    { id: 'steam', x: 19.04, y: 80.70, label: 'bi bi-gear-fill', shape: 'capsule', width: 34, height: 14, borderRadius: 7 },
+    { id: 'start', x: 90.54, y: 37.55, label: 'fas fa-bars', shape: 'capsule', width: 34, height: 14, borderRadius: 7 },
+    { id: 'quickAccess', x: 81, y: 80.7, label: 'bi bi-three-dots', shape: 'capsule', width: 34, height: 14, borderRadius: 7 },
     
-    // Touchpads
-    { id: 'LeftPad', x: 20, y: 70, label: 'L◯' },
-    { id: 'RightPad', x: 80, y: 70, label: 'R◯' }
+    // Touchpads (left rect center: 41, 111; right rect center: 239, 111)
+    { id: 'leftPad', x: 14.68, y: 66.16, label: 'L◯', shape: 'rect', width: 22, height: 30, borderRadius: 4 },
+    { id: 'rightPad', x: 85.53, y: 66.16, label: 'R◯', shape: 'rect', width: 22, height: 30, borderRadius: 4 }
   ]
+  // Use shared hooks for button positions and drag-drop functionality
+  const { dimensions, buttonPositions } = useButtonPositions(
+    containerRef, 
+    buttons, 
+    mappings, 
+    buttonSideOverrides, 
+    customOrder
+  )
 
-  useEffect(() => {
-    if (containerRef.current) {
-      const updatePositions = () => {
-        const container = containerRef.current
-        const rect = container.getBoundingClientRect()
-        setDimensions({ width: rect.width, height: rect.height })
+  const {
+    draggedItem,
+    dragOverSide,
+    dragOverItem,
+    handleDragStart,
+    handleDragEnd,
+    handleDragOver,
+    handleDragLeave,
+    handleItemDragOver,
+    handleItemDrop,
+    handleDrop
+  } = useControllerDragDrop(
+    buttonSideOverrides,
+    setButtonSideOverrides,
+    customOrder,
+    setCustomOrder
+  )
 
-        const newPositions = {}
-        buttons.forEach(button => {
-          const marker = container.querySelector(`[data-button-id="${button.id}"]`)
-          if (marker) {
-            const markerRect = marker.getBoundingClientRect()
-            newPositions[button.id] = {
-              x: markerRect.left - rect.left + markerRect.width / 2,
-              y: markerRect.top - rect.top + markerRect.height / 2
-            }
-          }
-        })
-        setButtonPositions(newPositions)
-      }
-
-      updatePositions()
-      window.addEventListener('resize', updatePositions)
-      setTimeout(updatePositions, 100)
-
-      return () => window.removeEventListener('resize', updatePositions)
-    }
-  }, [mappings])
-
-  const getMappingLabel = (buttonId) => {
-    const mapping = mappings[buttonId]
-    if (!mapping) return null
-    if (typeof mapping === 'string') return mapping
-    if (typeof mapping === 'object' && mapping.action) return mapping.action
-    return null
-  }
-
-  const buttonsWithMappings = buttons
-    .map(button => ({
-      ...button,
-      mappingLabel: getMappingLabel(button.id)
-    }))
-    .filter(button => button.mappingLabel)
-
-  // Helper function to determine which side a button should be on
-  const getButtonSide = (button) => {
-    // Check if there's a manual override
-    if (buttonSideOverrides[button.id]) {
-      return buttonSideOverrides[button.id]
-    }
-    // Otherwise use the default x position
-    return button.x < 50 ? 'left' : 'right'
-  }
-
-  // Split buttons into left and right based on position or override
-  const leftButtons = buttonsWithMappings.filter(button => getButtonSide(button) === 'left')
-  const rightButtons = buttonsWithMappings.filter(button => getButtonSide(button) === 'right')
-
-  // Sort by custom order if exists
-  const sortByCustomOrder = (buttons, side) => {
-    return [...buttons].sort((a, b) => {
-      const orderA = customOrder[`${side}-${a.id}`] ?? Infinity
-      const orderB = customOrder[`${side}-${b.id}`] ?? Infinity
-      return orderA - orderB
-    })
-  }
-
-  const sortedLeftButtons = sortByCustomOrder(leftButtons, 'left')
-  const sortedRightButtons = sortByCustomOrder(rightButtons, 'right')
-
-  // Drag and drop handlers
-  const [draggedItem, setDraggedItem] = useState(null)
-  const [dragOverSide, setDragOverSide] = useState(null)
-  const [dragOverItem, setDragOverItem] = useState(null)
-
-  const handleDragStart = (e, button) => {
-    setDraggedItem(button)
-    e.dataTransfer.effectAllowed = 'move'
-  }
-
-  const handleDragEnd = () => {
-    setDraggedItem(null)
-    setDragOverSide(null)
-    setDragOverItem(null)
-  }
-
-  const handleDragOver = (e, side) => {
-    e.preventDefault()
-    e.dataTransfer.dropEffect = 'move'
-    setDragOverSide(side)
-  }
-
-  const handleDragLeave = (e) => {
-    // Only clear if we're leaving the container, not a child
-    if (e.currentTarget === e.target) {
-      setDragOverSide(null)
-    }
-  }
-
-  const handleItemDragOver = (e, item, side) => {
-    e.preventDefault()
-    e.stopPropagation()
-    setDragOverItem(item.id)
-    setDragOverSide(side)
-  }
-
-  const handleItemDrop = (e, targetItem, targetSide) => {
-    e.preventDefault()
-    e.stopPropagation()
-    setDragOverSide(null)
-    setDragOverItem(null)
-    
-    if (!draggedItem || draggedItem.id === targetItem.id) return
-
-    const currentSide = getButtonSide(draggedItem)
-    const buttonsList = targetSide === 'left' ? sortedLeftButtons : sortedRightButtons
-    
-    if (currentSide !== targetSide) {
-      setButtonSideOverrides(prev => ({
-        ...prev,
-        [draggedItem.id]: targetSide
-      }))
-    }
-    
-    const targetIndex = buttonsList.findIndex(b => b.id === targetItem.id)
-    const newOrder = {}
-    
-    buttonsList.forEach((button, index) => {
-      if (button.id === draggedItem.id) return
-      
-      if (index < targetIndex) {
-        newOrder[`${targetSide}-${button.id}`] = index
-      } else if (index === targetIndex) {
-        newOrder[`${targetSide}-${draggedItem.id}`] = index
-        newOrder[`${targetSide}-${button.id}`] = index + 1
-      } else {
-        newOrder[`${targetSide}-${button.id}`] = index + 1
-      }
-    })
-    
-    if (currentSide !== targetSide) {
-      newOrder[`${targetSide}-${draggedItem.id}`] = targetIndex
-      buttonsList.forEach((button, index) => {
-        if (index >= targetIndex) {
-          newOrder[`${targetSide}-${button.id}`] = index + 1
-        }
-      })
-    }
-    
-    setCustomOrder(prev => ({ ...prev, ...newOrder }))
-  }
-
-  const handleDrop = (e, targetSide) => {
-    e.preventDefault()
-    setDragOverSide(null)
-    setDragOverItem(null)
-    
-    if (!draggedItem) return
-
-    const currentSide = getButtonSide(draggedItem)
-    
-    if (currentSide === targetSide) return
-
-    setButtonSideOverrides(prev => ({
-      ...prev,
-      [draggedItem.id]: targetSide
-    }))
-  }
+  // Get organized button lists
+  const { buttonsWithMappings, sortedLeftButtons, sortedRightButtons } = getOrganizedButtons(
+    buttons,
+    mappings,
+    buttonSideOverrides,
+    customOrder
+  )
 
   return (
     <div className="controller-with-list" ref={containerRef}>
@@ -261,77 +132,55 @@ function SteamDeckController({ mappings, onButtonClick, selectedButton }) {
               <p>No left side mappings</p>
             </div>
           ) : (
-            sortedLeftButtons.map(button => (
-              <div
-                key={button.id}
-                data-list-button={button.id}
-                className={`mapping-list-item ${selectedButton === button.id ? 'selected' : ''} ${draggedItem?.id === button.id ? 'dragging' : ''} ${dragOverItem === button.id ? 'drag-over-item' : ''}`}
-                draggable
-                onDragStart={(e) => handleDragStart(e, button)}
-                onDragEnd={handleDragEnd}
-                onDragOver={(e) => handleItemDragOver(e, button, 'left')}
-                onDrop={(e) => handleItemDrop(e, button, 'left')}
-                onClick={() => onButtonClick(button.id)}
-              >
-                <div className="mapping-list-button-label">{button.label}</div>
-                <div className="mapping-list-actions">
-                  <div className="mapping-list-action">
-                    <span className="action-name">{button.mappingLabel}</span>
+            sortedLeftButtons.map(button => {
+              const gestures = getMappingGestures(mappings, button.id)
+              return (
+                <div
+                  key={button.id}
+                  data-list-button={button.id}
+                  className={`mapping-list-item ${selectedButton === button.id ? 'selected' : ''} ${draggedItem?.id === button.id ? 'dragging' : ''} ${dragOverItem === button.id ? 'drag-over-item' : ''}`}
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, button)}
+                  onDragEnd={handleDragEnd}
+                  onDragOver={(e) => handleItemDragOver(e, button, 'left')}
+                  onDrop={(e) => handleItemDrop(e, button, 'left', sortedLeftButtons, sortedRightButtons)}
+                  onClick={() => onButtonClick(button.id)}
+                >
+                  <div className="mapping-list-button-label">{renderLabel(button.label)}</div>
+                  <div className="mapping-list-actions">
+                    {gestures ? (
+                      gestures.map(gesture => (
+                        <div key={gesture.type} className="mapping-list-action">
+                          <span className="gesture-type">{gesture.type}:</span>
+                          <span className="action-name">{gesture.action}</span>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="mapping-list-action">
+                        <span className="action-name">{button.mappingLabel}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
-              </div>
-            ))
+              )
+            })
           )}
       </div>
 
       <div style={{ width: '700px', height: '400px', position: 'relative' }}>
         {/* Steam Deck outline SVG */}
-        <svg width="100%" height="100%" viewBox="0 0 100 60">
-          <defs>
-            <linearGradient id="deckGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style={{ stopColor: '#374151', stopOpacity: 1 }} />
-              <stop offset="100%" style={{ stopColor: '#1f2937', stopOpacity: 1 }} />
-            </linearGradient>
-          </defs>
-          
-          {/* Main body */}
-          <rect x="10" y="20" width="80" height="35" rx="5" fill="url(#deckGradient)" stroke="#1f2937" strokeWidth="1"/>
-          
-          {/* Left grip */}
-          <ellipse cx="15" cy="42" rx="8" ry="15" fill="url(#deckGradient)" stroke="#1f2937" strokeWidth="1"/>
-          
-          {/* Right grip */}
-          <ellipse cx="85" cy="42" rx="8" ry="15" fill="url(#deckGradient)" stroke="#1f2937" strokeWidth="1"/>
-          
-          {/* Screen area */}
-          <rect x="25" y="25" width="50" height="25" rx="2" fill="#1a1a1a" stroke="#000" strokeWidth="0.5"/>
-          
-          {/* Left touchpad */}
-          <circle cx="18" cy="48" r="4" fill="#2c2c2c" stroke="#1f2937" strokeWidth="0.5"/>
-          
-          {/* Right touchpad */}
-          <circle cx="82" cy="48" r="4" fill="#2c2c2c" stroke="#1f2937" strokeWidth="0.5"/>
-          
-          {/* Left stick  */}
-          <circle cx="22" cy="35" r="3" fill="#4b5563" stroke="#1f2937" strokeWidth="0.5"/>
-          
-          {/* Right stick */}
-          
-          {/* Face buttons area */}
-          <circle cx="72" cy="30" r="1.5" fill="#6b7280"/>
-          <circle cx="76" cy="30" r="1.5" fill="#6b7280"/>
-          <circle cx="72" cy="34" r="1.5" fill="#6b7280"/>
-          <circle cx="76" cy="34" r="1.5" fill="#6b7280"/>
-          
-          {/* D-pad */}
-          <path d="M 28 30 L 30 30 L 30 28 L 32 28 L 32 30 L 34 30 L 34 32 L 32 32 L 32 34 L 30 34 L 30 32 L 28 32 Z" fill="#4b5563" stroke="#1f2937" strokeWidth="0.3"/>
-        </svg>
+        <img 
+          src="/controllers/steam-deck.svg" 
+          alt="Steam Deck Controller" 
+          style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}
+        />
 
         {/* Clickable button overlays */}
         {buttons.map(button => {
-          const mappingLabel = getMappingLabel(button.id)
+          const mappingLabel = getMappingLabel(mappings, button.id)
           const isSelected = selectedButton === button.id
           const hasMapping = !!mappingLabel
+          const overlayStyle = getButtonOverlayStyle(button)
 
           return (
             <div
@@ -344,8 +193,8 @@ function SteamDeckController({ mappings, onButtonClick, selectedButton }) {
               }}
               onClick={() => onButtonClick(button.id)}
             >
-              <div className="button-marker-circle">
-                {button.label}
+              <div className="button-marker-circle" style={overlayStyle}>
+                {renderLabel(button.label)}
               </div>
             </div>
           )
@@ -365,26 +214,38 @@ function SteamDeckController({ mappings, onButtonClick, selectedButton }) {
               <p>No right side mappings</p>
             </div>
           ) : (
-            sortedRightButtons.map(button => (
-              <div
-                key={button.id}
-                data-list-button={button.id}
-                className={`mapping-list-item ${selectedButton === button.id ? 'selected' : ''} ${draggedItem?.id === button.id ? 'dragging' : ''} ${dragOverItem === button.id ? 'drag-over-item' : ''}`}
-                draggable
-                onDragStart={(e) => handleDragStart(e, button)}
-                onDragEnd={handleDragEnd}
-                onDragOver={(e) => handleItemDragOver(e, button, 'right')}
-                onDrop={(e) => handleItemDrop(e, button, 'right')}
-                onClick={() => onButtonClick(button.id)}
-              >
-                <div className="mapping-list-button-label">{button.label}</div>
-                <div className="mapping-list-actions">
-                  <div className="mapping-list-action">
-                    <span className="action-name">{button.mappingLabel}</span>
+            sortedRightButtons.map(button => {
+              const gestures = getMappingGestures(mappings, button.id)
+              return (
+                <div
+                  key={button.id}
+                  data-list-button={button.id}
+                  className={`mapping-list-item ${selectedButton === button.id ? 'selected' : ''} ${draggedItem?.id === button.id ? 'dragging' : ''} ${dragOverItem === button.id ? 'drag-over-item' : ''}`}
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, button)}
+                  onDragEnd={handleDragEnd}
+                  onDragOver={(e) => handleItemDragOver(e, button, 'right')}
+                  onDrop={(e) => handleItemDrop(e, button, 'right', sortedLeftButtons, sortedRightButtons)}
+                  onClick={() => onButtonClick(button.id)}
+                >
+                  <div className="mapping-list-button-label">{renderLabel(button.label)}</div>
+                  <div className="mapping-list-actions">
+                    {gestures ? (
+                      gestures.map(gesture => (
+                        <div key={gesture.type} className="mapping-list-action">
+                          <span className="gesture-type">{gesture.type}:</span>
+                          <span className="action-name">{gesture.action}</span>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="mapping-list-action">
+                        <span className="action-name">{button.mappingLabel}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
-              </div>
-            ))
+              )
+            })
           )}
       </div>
     </div>

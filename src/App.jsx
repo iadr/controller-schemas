@@ -28,10 +28,10 @@ function App() {
     }
   }
 
-  const handleUpdateMapping = (buttonId, label) => {
+  const handleUpdateMapping = (buttonId, mappingData) => {
     setMappings(prev => ({
       ...prev,
-      [buttonId]: label
+      [buttonId]: mappingData
     }))
   }
 
