@@ -26,10 +26,11 @@ export const getMappingLabel = (mappings, buttonId) => {
     const gestures = []
     if (mapping.hold?.action) gestures.push(`Hold: ${mapping.hold.action}`)
     if (mapping.press?.action) gestures.push(`Press: ${mapping.press.action}`)
+    if (mapping.direction?.action) gestures.push(`Direction: ${mapping.direction.action}`)
     
     if (gestures.length > 0) {
       // Return the first gesture's action for the main label
-      const firstGesture = mapping.hold || mapping.press
+      const firstGesture = mapping.hold || mapping.press || mapping.direction
       return firstGesture.action
     }
   }
@@ -51,6 +52,9 @@ export const getMappingGestures = (mappings, buttonId) => {
   }
   if (mapping.press && typeof mapping.press === 'object' && mapping.press.action) {
     gestures.push({ type: 'press', action: mapping.press.action, description: mapping.press.description || '' })
+  }
+  if (mapping.direction && typeof mapping.direction === 'object' && mapping.direction.action) {
+    gestures.push({ type: 'direction', action: mapping.direction.action, description: mapping.direction.description || '' })
   }
   
   return gestures.length > 1 ? gestures : null

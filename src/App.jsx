@@ -8,6 +8,7 @@ function App() {
   const [selectedController, setSelectedController] = useState('xbox')
   const [mappings, setMappings] = useState({})
   const [selectedButton, setSelectedButton] = useState(null)
+  const [selectedButtonInfo, setSelectedButtonInfo] = useState(null)
 
   const handleExportJSON = () => {
     const data = {
@@ -24,8 +25,14 @@ function App() {
         setSelectedController(data.controller || 'xbox')
         setMappings(data.mappings || {})
         setSelectedButton(null)
+        setSelectedButtonInfo(null)
       })
     }
+  }
+
+  const handleButtonClick = (buttonId, buttonInfo) => {
+    setSelectedButton(buttonId)
+    setSelectedButtonInfo(buttonInfo)
   }
 
   const handleUpdateMapping = (buttonId, mappingData) => {
@@ -51,40 +58,45 @@ function App() {
 
       <div className="app-content">
         <div className="sidebar">
-          <ControllerSelector
-            selected={selectedController}
-            onChange={setSelectedController}
-          />
+          <div className="sidebar-top">
+            <ControllerSelector
+              selected={selectedController}
+              onChange={setSelectedController}
+            />
 
-          <div className="export-section">
-            <h3>Export / Import</h3>
-            <button onClick={handleExportJSON} className="btn btn-primary">
-              Export JSON
-            </button>
-            <label className="btn btn-secondary">
-              Import JSON
-              <input
-                type="file"
-                accept=".json"
-                onChange={handleImportJSON}
-                style={{ display: 'none' }}
-              />
-            </label>
+            <div className="export-section">
+              <h3>Export / Import</h3>
+              <button onClick={handleExportJSON} className="btn btn-primary">
+                Export JSON
+              </button>
+              <label className="btn btn-secondary">
+                Import JSON
+                <input
+                  type="file"
+                  accept=".json"
+                  onChange={handleImportJSON}
+                  style={{ display: 'none' }}
+                />
+              </label>
+            </div>
           </div>
 
-          <MappingEditor
-            selectedButton={selectedButton}
-            mapping={mappings[selectedButton]}
-            onUpdateMapping={handleUpdateMapping}
-            onDeleteMapping={handleDeleteMapping}
-          />
+          <div className="sidebar-bottom">
+            <MappingEditor
+              selectedButton={selectedButton}
+              buttonInfo={selectedButtonInfo}
+              mapping={mappings[selectedButton]}
+              onUpdateMapping={handleUpdateMapping}
+              onDeleteMapping={handleDeleteMapping}
+            />
+          </div>
         </div>
 
         <div className="main-area">
           <ControllerDisplay
             controller={selectedController}
             mappings={mappings}
-            onButtonClick={setSelectedButton}
+            onButtonClick={handleButtonClick}
             selectedButton={selectedButton}
           />
         </div>

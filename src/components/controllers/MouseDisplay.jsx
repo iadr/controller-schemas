@@ -1,12 +1,12 @@
 function MouseDisplay({ mappings, onButtonClick, selectedButton }) {
   const buttons = [
-    { id: 'LeftClick', x: 35, y: 25, width: 20, height: 25, label: 'Left', shape: 'rect', borderRadius: 2 },
-    { id: 'RightClick', x: 55, y: 25, width: 20, height: 25, label: 'Right', shape: 'rect', borderRadius: 2 },
-    { id: 'MiddleClick', x: 47, y: 20, width: 6, height: 10, label: 'M', shape: 'rect', borderRadius: 3 },
-    { id: 'ScrollUp', x: 47, y: 35, width: 6, height: 8, label: '↑', shape: 'rect', borderRadius: 1 },
-    { id: 'ScrollDown', x: 47, y: 43, width: 6, height: 8, label: '↓', shape: 'rect', borderRadius: 1 },
-    { id: 'Side1', x: 25, y: 45, width: 5, height: 12, label: 'S1', shape: 'rect', borderRadius: 2 },
-    { id: 'Side2', x: 25, y: 57, width: 5, height: 12, label: 'S2', shape: 'rect', borderRadius: 2 }
+    { id: 'LeftClick', x: 35, y: 25, width: 20, height: 25, label: 'Left', shape: 'rect', borderRadius: 2, type: 'button' },
+    { id: 'RightClick', x: 55, y: 25, width: 20, height: 25, label: 'Right', shape: 'rect', borderRadius: 2, type: 'button' },
+    { id: 'MiddleClick', x: 47, y: 20, width: 6, height: 10, label: 'M', shape: 'rect', borderRadius: 3, type: 'button' },
+    { id: 'ScrollUp', x: 47, y: 35, width: 6, height: 8, label: '↑', shape: 'rect', borderRadius: 1, type: 'button' },
+    { id: 'ScrollDown', x: 47, y: 43, width: 6, height: 8, label: '↓', shape: 'rect', borderRadius: 1, type: 'button' },
+    { id: 'Side1', x: 25, y: 45, width: 5, height: 12, label: 'S1', shape: 'rect', borderRadius: 2, type: 'button' },
+    { id: 'Side2', x: 25, y: 57, width: 5, height: 12, label: 'S2', shape: 'rect', borderRadius: 2, type: 'button' }
   ]
 
   return (
@@ -53,7 +53,7 @@ function MouseDisplay({ mappings, onButtonClick, selectedButton }) {
         return (
           <div
             key={button.id}
-            onClick={() => onButtonClick(button.id)}
+            onClick={() => onButtonClick(button.id, button)}
             style={{
               position: 'absolute',
               left: `${button.x}%`,

@@ -14,24 +14,24 @@ function SwitchController({ mappings, onButtonClick, selectedButton }) {
   const [customOrder, setCustomOrder] = useState({}) // Track custom ordering within lists
 
   const buttons = [
-    { id: 'north', x: 80.5, y: 39.8, label: 'X', shape: 'circle', size: 5 },
-    { id: 'south', x: 80.5, y: 50.7, label: 'B', shape: 'circle', size: 5 },
-    { id: 'east', x: 89.0, y: 45.28, label: 'A', shape: 'circle', size: 5 },
-    { id: 'west', x: 71.75, y: 45.28, label: 'Y', shape: 'circle', size: 5 },
-    { id: 'leftButton', x: 16.00, y: 11.24, label: 'L', shape: 'capsule', width: 10, height: 4 },
-    { id: 'rightButton', x: 84.06, y: 11.24, label: 'R', shape: 'capsule', width: 10, height: 4 },
-    { id: 'ZL', x: 17.41, y: 3.50, label: 'ZL', shape: 'capsule', width: 8, height: 3 },
-    { id: 'ZR', x: 82.60, y: 3.50, label: 'ZR', shape: 'capsule', width: 8, height: 3 },
-    { id: 'leftStick', x: 19.92, y: 45.02, label: 'L↻', shape: 'circle', size: 8 },
-    { id: 'rightStick', x: 80.64, y: 65.65, label: 'R↻', shape: 'circle', size: 8 },
-    { id: 'dPadUp', x: 19.92, y: 60.28, label: 'bi bi-caret-up-fill', shape: 'dpad', size: 4 },
-    { id: 'dPadDown', x: 19.92, y: 71.03, label: 'bi bi-caret-down-fill', shape: 'dpad', size: 4 },
-    { id: 'dPadLeft', x: 11.86, y: 65.65, label: 'bi bi-caret-left-fill', shape: 'dpad', size: 4 },
-    { id: 'dPadRight', x: 27.99, y: 65.65, label: 'bi bi-caret-right-fill', shape: 'dpad', size: 4 },
-    { id: 'plus', x: 69.42, y: 33.97, label: 'fas fa-plus', shape: 'circle', size: 3 },
-    { id: 'minus', x: 30.87, y: 33.97, label: 'fas fa-minus', shape: 'circle', size: 3 },
-    { id: 'home', x: 74.4, y: 79.3, label: 'fas fa-house', shape: 'circle', size: 4 },
-    { id: 'capture', x: 26, y: 79.4, label: 'bi bi-record-circle', shape: 'circle', size: 4 }
+    { id: 'north', x: 80.5, y: 39.8, label: 'X', shape: 'circle', size: 42, hideLabel: true, type: 'button' },
+    { id: 'south', x: 80.5, y: 50.7, label: 'B', shape: 'circle', size: 40, hideLabel: true, type: 'button' },
+    { id: 'east', x: 89.0, y: 45.28, label: 'A', shape: 'circle', size: 40, hideLabel: true, type: 'button' },
+    { id: 'west', x: 71.75, y: 45.28, label: 'Y', shape: 'circle', size: 40, hideLabel: true, type: 'button' },
+    { id: 'leftButton', x: 16.00, y: 11.24, label: 'L', shape: 'circle', size: 32, hideLabel: true, type: 'button' },
+    { id: 'rightButton', x: 84.06, y: 11.24, label: 'R', shape: 'circle', size: 32, hideLabel: true, type: 'button' },
+    { id: 'ZL', x: 17.41, y: 3.50, label: 'ZL', shape: 'circle', size: 32, hideLabel: true, type: 'button' },
+    { id: 'ZR', x: 82.60, y: 3.50, label: 'ZR', shape: 'circle', size: 32, hideLabel: true, type: 'button' },
+    { id: 'leftStick', x: 19.92, y: 45.02, label: 'L↻', shape: 'circle', size: 62, hideLabel: true, type: 'stick' },
+    { id: 'rightStick', x: 80.64, y: 65.65, label: 'R↻', shape: 'circle', size: 62, hideLabel: true, type: 'stick' },
+    { id: 'dPadUp', x: 19.92, y: 60.28, label: 'bi bi-caret-up-fill', shape: 'circle', size: 46, hideLabel: true, type: 'button' },
+    { id: 'dPadDown', x: 19.92, y: 71.03, label: 'bi bi-caret-down-fill', shape: 'circle', size: 46, hideLabel: true, type: 'button' },
+    { id: 'dPadLeft', x: 11.86, y: 65.65, label: 'bi bi-caret-left-fill', shape: 'circle', size: 46, hideLabel: true, type: 'button' },
+    { id: 'dPadRight', x: 27.99, y: 65.65, label: 'bi bi-caret-right-fill', shape: 'circle', size: 46, hideLabel: true, type: 'button' },
+    { id: 'plus', x: 69.42, y: 33.97, label: 'fas fa-plus', shape: 'circle', size: 32, hideLabel: true, type: 'button' },
+    { id: 'minus', x: 30.87, y: 33.97, label: 'fas fa-minus', shape: 'circle', size: 32, hideLabel: true, type: 'button' },
+    { id: 'home', x: 74.4, y: 79.3, label: 'fas fa-house', shape: 'circle', size: 32, hideLabel: true, type: 'button' },
+    { id: 'capture', x: 26, y: 79.4, label: 'bi bi-record-circle', shape: 'rect', width: 36, height: 36, hideLabel: true, type: 'button' }
   ]
 
   // Use shared hooks for button positions and drag-drop functionality
@@ -71,7 +71,7 @@ function SwitchController({ mappings, onButtonClick, selectedButton }) {
 
   return (
     <div className="controller-with-list" ref={containerRef}>
-      <svg className="guide-lines-svg" style={{ width: dimensions.width, height: dimensions.height }}>
+      <svg className="guide-lines-svg" style={{ width: dimensions.width, height: dimensions.height, maxHeight: '100%' }}>
         {buttonsWithMappings.map((button) => {
           const buttonPos = buttonPositions[button.id]
           if (!buttonPos) return null
@@ -128,7 +128,7 @@ function SwitchController({ mappings, onButtonClick, selectedButton }) {
           src="/controllers/switch.svg" 
           alt="Nintendo Switch Controller" 
           className="controller-svg"
-          style={{ width: '600px' }}
+          style={{ maxWidth: '600px', height: '78vh', maxHeight: '100%' }}
         />
         {buttons.map(button => {
           const mappingLabel = getMappingLabel(mappings, button.id)
@@ -145,10 +145,10 @@ function SwitchController({ mappings, onButtonClick, selectedButton }) {
                 left: `${button.x}%`,
                 top: `${button.y}%`
               }}
-              onClick={() => onButtonClick(button.id)}
+              onClick={() => onButtonClick(button.id, button)}
             >
               <div className="button-marker-circle" style={overlayStyle}>
-                {renderLabel(button.label)}
+                {!button.hideLabel && renderLabel(button.label)}
               </div>
             </div>
           )
