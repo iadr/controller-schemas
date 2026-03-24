@@ -145,7 +145,7 @@ function SwitchController({ mappings, onButtonClick, selectedButton }) {
                 left: `${button.x}%`,
                 top: `${button.y}%`
               }}
-              onClick={() => onButtonClick(button.id, button)}
+              onClick={(e) => onButtonClick(button.id, button, e)}
             >
               <div className="button-marker-circle" style={overlayStyle}>
                 {!button.hideLabel && renderLabel(button.label)}

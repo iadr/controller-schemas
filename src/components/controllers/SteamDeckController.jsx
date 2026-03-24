@@ -144,7 +144,7 @@ function SteamDeckController({ mappings, onButtonClick, selectedButton }) {
                   onDragEnd={handleDragEnd}
                   onDragOver={(e) => handleItemDragOver(e, button, 'left')}
                   onDrop={(e) => handleItemDrop(e, button, 'left', sortedLeftButtons, sortedRightButtons)}
-                  onClick={() => onButtonClick(button.id, button)}
+                  onClick={(e) => onButtonClick(button.id, button, e)}
                 >
                   <div className="mapping-list-button-label">{renderLabel(button.label)}</div>
                   <div className="mapping-list-actions">
@@ -191,7 +191,7 @@ function SteamDeckController({ mappings, onButtonClick, selectedButton }) {
                 left: `${button.x}%`,
                 top: `${button.y}%`
               }}
-              onClick={() => onButtonClick(button.id, button)}
+              onClick={(e) => onButtonClick(button.id, button, e)}
             >
               <div className="button-marker-circle" style={overlayStyle}>
                 {!button.hideLabel && renderLabel(button.label)}
@@ -226,7 +226,7 @@ function SteamDeckController({ mappings, onButtonClick, selectedButton }) {
                   onDragEnd={handleDragEnd}
                   onDragOver={(e) => handleItemDragOver(e, button, 'right')}
                   onDrop={(e) => handleItemDrop(e, button, 'right', sortedLeftButtons, sortedRightButtons)}
-                  onClick={() => onButtonClick(button.id, button)}
+                  onClick={(e) => onButtonClick(button.id, button, e)}
                 >
                   <div className="mapping-list-button-label">{renderLabel(button.label)}</div>
                   <div className="mapping-list-actions">

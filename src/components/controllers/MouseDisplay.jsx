@@ -53,7 +53,7 @@ function MouseDisplay({ mappings, onButtonClick, selectedButton }) {
         return (
           <div
             key={button.id}
-            onClick={() => onButtonClick(button.id, button)}
+            onClick={(e) => onButtonClick(button.id, button, e)}
             style={{
               position: 'absolute',
               left: `${button.x}%`,

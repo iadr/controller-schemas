@@ -251,7 +251,7 @@ function KeyboardMouseDisplay({ mappings, onButtonClick, selectedButton }) {
                 key={key.id}
                 data-button-id={key.id}
                 className={`keyboard-key ${isSelected ? 'selected' : ''} ${hasMapping ? 'has-mapping' : ''}`}
-                onClick={() => onButtonClick(key.id, key)}
+                onClick={(e) => onButtonClick(key.id, key, e)}
                 style={{
                   position: 'absolute',
                   left: `${key.x * 10}px`,
@@ -289,7 +289,7 @@ function KeyboardMouseDisplay({ mappings, onButtonClick, selectedButton }) {
                   left: `${button.x}%`,
                   top: `${button.y}%`
                 }}
-                onClick={() => onButtonClick(button.id, button)}
+                onClick={(e) => onButtonClick(button.id, button, e)}
               >
                 <div className="button-marker-circle" style={overlayStyle}>
                   {!button.hideLabel && renderLabel(button.label)}

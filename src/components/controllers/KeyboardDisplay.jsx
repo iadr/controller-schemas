@@ -103,7 +103,7 @@ function KeyboardDisplay({ mappings, onButtonClick, selectedButton }) {
         return (
           <div
             key={key.id}
-            onClick={() => onButtonClick(key.id, key)}
+            onClick={(e) => onButtonClick(key.id, key, e)}
             style={{
               position: 'absolute',
               left: `${key.x}%`,

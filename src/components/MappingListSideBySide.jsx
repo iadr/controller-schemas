@@ -51,7 +51,7 @@ function MappingListSideBySide({
               onDragEnd={handleDragEnd}
               onDragOver={(e) => handleItemDragOver(e, button, side)}
               onDrop={(e) => handleItemDrop(e, button, side, sortedLeftButtons, sortedRightButtons)}
-              onClick={() => onButtonClick(button.id)}
+              onClick={(e) => onButtonClick(button.id, button, e)}
             >
               <div className="mapping-list-button-label">{renderLabel(button.label)}</div>
               <div className="mapping-list-actions">
