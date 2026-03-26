@@ -6,8 +6,8 @@ function MappingEditor({ selectedButton, buttonInfo, mapping, onUpdateMapping, o
   const availableGestures = isStick ? ['direction', 'press'] : ['press', 'hold']
   
   const [gestures, setGestures] = useState({
-    press: { action: '', description: '' },
     direction: { action: '', description: '' },
+    press: { action: '', description: '' },
     hold: { action: '', description: '' }
   })
 
@@ -16,30 +16,30 @@ function MappingEditor({ selectedButton, buttonInfo, mapping, onUpdateMapping, o
     if (!mapping) {
       // Clear all gestures
       setGestures({
-        press: { action: '', description: '' },
         direction: { action: '', description: '' },
+        press: { action: '', description: '' },
         hold: { action: '', description: '' },
       })
     } else if (typeof mapping === 'string') {
       // Legacy format: treat as a "hold" gesture (or "direction" for sticks)
       const legacyGesture = isStick ? 'direction' : 'hold'
       setGestures({
-        press: { action: '', description: '' },
         direction: legacyGesture === 'direction' ? { action: mapping, description: '' } : { action: '', description: '' },
+        press: { action: '', description: '' },
         hold: legacyGesture === 'hold' ? { action: mapping, description: '' } : { action: '', description: '' },
       })
     } else if (typeof mapping === 'object' && mapping !== null) {
       // New format: load all gestures
       const newGestures = {
-        press: { action: '', description: '' },
         direction: { action: '', description: '' },
+        press: { action: '', description: '' },
         hold: { action: '', description: '' },
       }
 
       // Check if it's the old single-gesture format
       if (mapping.action && mapping.gesture) {
         // Only set if the gesture is valid
-        if ([ 'press', 'direction', 'hold'].includes(mapping.gesture)) {
+        if ([ 'direction', 'press', 'hold'].includes(mapping.gesture)) {
           newGestures[mapping.gesture] = {
             action: mapping.action || '',
             description: mapping.description || ''
@@ -47,7 +47,7 @@ function MappingEditor({ selectedButton, buttonInfo, mapping, onUpdateMapping, o
         }
       } else {
         // Multi-gesture format
-        ['press', 'direction', 'hold'].forEach(gesture => {
+        ['direction', 'press', 'hold'].forEach(gesture => {
           if (mapping[gesture] && typeof mapping[gesture] === 'object' && mapping[gesture].action) {
             newGestures[gesture] = {
               action: mapping[gesture].action || '',
@@ -97,8 +97,8 @@ function MappingEditor({ selectedButton, buttonInfo, mapping, onUpdateMapping, o
     if (selectedButton) {
       onDeleteMapping(selectedButton)
       setGestures({
-        press: { action: '', description: '' },
         direction: { action: '', description: '' },
+        press: { action: '', description: '' },
         hold: { action: '', description: '' },
       })
     }

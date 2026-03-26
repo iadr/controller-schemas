@@ -16,6 +16,7 @@ function App() {
   const [selectedButton, setSelectedButton] = useState(null)
   const [selectedButtonInfo, setSelectedButtonInfo] = useState(null)
   const [buttonPosition, setButtonPosition] = useState(null)
+  const [mode, setMode] = useState('mapping') // 'mapping' or 'editor'
 
   // Get mappings for current context
   const mappings = contextMappings[currentContext] || {}
@@ -143,6 +144,14 @@ function App() {
     <div className="app">
       <header className="app-header">
         <h1>Controller Scheme</h1>
+        <button 
+          className="btn btn-primary mode-toggle-btn"
+          onClick={() => setMode(mode === 'mapping' ? 'editor' : 'mapping')}
+          title={`Switch to ${mode === 'mapping' ? 'Editor' : 'Mapping'} Mode`}
+        >
+          <i className={mode === 'mapping' ? 'fas fa-edit' : 'fas fa-gamepad'}></i>
+          {mode === 'mapping' ? 'Editor Mode' : 'Mapping Mode'}
+        </button>
       </header>
 
       <div className="app-content">
@@ -153,28 +162,45 @@ function App() {
               onChange={setSelectedController}
             />
 
-            <ContextManager
-              contexts={contexts}
-              currentContext={currentContext}
-              onContextChange={handleContextChange}
-              onAddContext={handleAddContext}
-              onDeleteContext={handleDeleteContext}
-            />
+            {mode === 'mapping' && (
+              <ContextManager
+                contexts={contexts}
+                currentContext={currentContext}
+                onContextChange={handleContextChange}
+                onAddContext={handleAddContext}
+                onDeleteContext={handleDeleteContext}
+              />
+            )}
+
+            {mode === 'editor' && (
+              <div className="editor-instructions-section">
+                <h3>Editor Instructions</h3>
+                <div className="editor-instructions">
+                  <p><strong>Click</strong> on a button to edit its properties</p>
+                  <p><strong>Add Button</strong> to create new buttons</p>
+                  <p><strong>Export</strong> when ready to copy the array</p>
+                </div>
+              </div>
+            )}
 
             <div className="export-section">
               <h3>Export / Import</h3>
-              <button onClick={handleExportJSON} className="btn btn-primary">
-                Export JSON
-              </button>
-              <label className="btn btn-secondary">
-                Import JSON
-                <input
-                  type="file"
-                  accept=".json"
-                  onChange={handleImportJSON}
-                  style={{ display: 'none' }}
-                />
-              </label>
+              {mode === 'mapping' && (
+                <>
+                  <button onClick={handleExportJSON} className="btn btn-primary">
+                    Export JSON
+                  </button>
+                  <label className="btn btn-secondary">
+                    Import JSON
+                    <input
+                      type="file"
+                      accept=".json"
+                      onChange={handleImportJSON}
+                      style={{ display: 'none' }}
+                    />
+                  </label>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -185,19 +211,22 @@ function App() {
             mappings={mappings}
             onButtonClick={handleButtonClick}
             selectedButton={selectedButton}
+            mode={mode}
           />
         </div>
       </div>
 
-      <MappingModal
-        selectedButton={selectedButton}
-        buttonInfo={selectedButtonInfo}
-        mapping={mappings[selectedButton]}
-        onUpdateMapping={handleUpdateMapping}
-        onDeleteMapping={handleDeleteMapping}
-        onClose={handleCloseModal}
-        buttonPosition={buttonPosition}
-      />
+      {mode === 'mapping' && (
+        <MappingModal
+          selectedButton={selectedButton}
+          buttonInfo={selectedButtonInfo}
+          mapping={mappings[selectedButton]}
+          onUpdateMapping={handleUpdateMapping}
+          onDeleteMapping={handleDeleteMapping}
+          onClose={handleCloseModal}
+          buttonPosition={buttonPosition}
+        />
+      )}
     </div>
   )
 }
