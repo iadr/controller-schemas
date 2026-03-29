@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import ControllerSelector from './components/ControllerSelector'
 import ControllerDisplay from './components/ControllerDisplay'
-import MappingModal from './components/MappingModal'
+import MappingModal from './components/MappingEditor/MappingModal'
 import ContextManager from './components/ContextManager'
-import { exportToJSON, importFromJSON } from './utils/export'
+import ExportImageModal from './components/ExportImageModal'
+import { exportToJSON, importFromJSON } from './utils/export.jsx'
 
 function App() {
   const [selectedController, setSelectedController] = useState('xbox')
@@ -17,6 +18,7 @@ function App() {
   const [selectedButtonInfo, setSelectedButtonInfo] = useState(null)
   const [buttonPosition, setButtonPosition] = useState(null)
   const [mode, setMode] = useState('mapping') // 'mapping' or 'editor'
+  const [showExportImageModal, setShowExportImageModal] = useState(false)
 
   // Get mappings for current context
   const mappings = contextMappings[currentContext] || {}
@@ -144,14 +146,14 @@ function App() {
     <div className="app">
       <header className="app-header">
         <h1>Controller Scheme</h1>
-        <button 
-          className="btn btn-primary mode-toggle-btn"
+        <a 
+          className="btn btn-secondary mode-toggle-btn"
           onClick={() => setMode(mode === 'mapping' ? 'editor' : 'mapping')}
           title={`Switch to ${mode === 'mapping' ? 'Editor' : 'Mapping'} Mode`}
         >
           <i className={mode === 'mapping' ? 'fas fa-edit' : 'fas fa-gamepad'}></i>
           {mode === 'mapping' ? 'Editor Mode' : 'Mapping Mode'}
-        </button>
+        </a>
       </header>
 
       <div className="app-content">
@@ -188,10 +190,16 @@ function App() {
               {mode === 'mapping' && (
                 <>
                   <button onClick={handleExportJSON} className="btn btn-primary">
-                    Export JSON
+                    <i className="fas fa-file-export"></i> Export JSON
+                  </button>
+                  <button 
+                    onClick={() => setShowExportImageModal(true)} 
+                    className="btn btn-primary"
+                  >
+                    <i className="fas fa-image"></i> Export as Image
                   </button>
                   <label className="btn btn-secondary">
-                    Import JSON
+                    <i className="fas fa-file-import"></i> Import JSON
                     <input
                       type="file"
                       accept=".json"
@@ -227,6 +235,14 @@ function App() {
           buttonPosition={buttonPosition}
         />
       )}
+
+      <ExportImageModal
+        isOpen={showExportImageModal}
+        onClose={() => setShowExportImageModal(false)}
+        selectedController={selectedController}
+        contexts={contexts}
+        contextMappings={contextMappings}
+      />
     </div>
   )
 }

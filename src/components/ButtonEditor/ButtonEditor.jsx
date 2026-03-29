@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import { renderLabel, getButtonOverlayStyle } from '../utils/controllerHelpers'
+import { renderLabel, getButtonOverlayStyle } from '../../utils/controllerHelpers'
 import ButtonEditorForm from './ButtonEditorForm'
 import ButtonEditorList from './ButtonEditorList'
 

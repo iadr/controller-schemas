@@ -24,7 +24,7 @@ function ContextManager({ contexts, currentContext, onContextChange, onAddContex
             </button>
             {contexts.length > 1 && (
               <button
-                className="btn btn-danger btn-small"
+                className="contextDelete btn btn-danger btn-small"
                 onClick={() => onDeleteContext(context)}
                 title="Delete context"
               >
@@ -42,7 +42,7 @@ function ContextManager({ contexts, currentContext, onContextChange, onAddContex
           onChange={(e) => setNewContextName(e.target.value)}
           onKeyPress={(e) => e.key === 'Enter' && handleAddContext()}
         />
-        <button className="btn btn-primary btn-small" onClick={handleAddContext}>
+        <button className="contextAdd btn btn-primary btn-small" onClick={handleAddContext}>
           <i className="fas fa-plus"></i>
         </button>
       </div>

@@ -2,7 +2,7 @@ import XboxController from './controllers/XboxController'
 import SwitchController from './controllers/SwitchController'
 import KeyboardMouseDisplay from './controllers/KeyboardMouseDisplay'
 import SteamDeckController from './controllers/SteamDeckController'
-import ButtonEditor from './ButtonEditor'
+import ButtonEditor from './ButtonEditor/ButtonEditor'
 
 function ControllerDisplay({ controller, mappings, onButtonClick, selectedButton, mode = 'mapping' }) {
   // Get initial buttons for the selected controller

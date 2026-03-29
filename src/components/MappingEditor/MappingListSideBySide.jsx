@@ -1,5 +1,5 @@
-import { renderLabel } from '../utils/controllerHelpers'
-import { getMappingGestures } from '../utils/controllerDragDrop'
+import { renderLabel } from '../../utils/controllerHelpers'
+import { getMappingGestures } from '../../utils/controllerDragDrop'
 
 /**
  * MappingListSideBySide - Renders a single mapping list (left or right)

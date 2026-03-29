@@ -1,16 +1,11 @@
-function ControllerSelector({ selected, onChange }) {
-  const controllers = [
-    { id: 'xbox', name: 'Xbox Controller', icon: 'bi bi-xbox' },
-    { id: 'switch', name: 'Nintendo Switch', icon: 'bi bi-nintendo-switch' },
-    { id: 'keyboardmouse', name: 'Keyboard & Mouse', icon: 'bi bi-keyboard' },
-    { id: 'steamdeck', name: 'Steam Deck', icon: 'bi bi-steam' }
-  ]
+import { AVAILABLE_CONTROLLERS } from '../constants/controllers'
 
+function ControllerSelector({ selected, onChange }) {
   return (
     <div className="controller-selector">
       <h3>Select Controller</h3>
       <div className="controller-buttons">
-        {controllers.map(controller => (
+        {AVAILABLE_CONTROLLERS.map(controller => (
           <button
             key={controller.id}
             className={`btn ${selected === controller.id ? 'active' : ''}`}

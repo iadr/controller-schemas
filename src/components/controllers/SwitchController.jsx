@@ -6,33 +6,16 @@ import {
   useButtonPositions,
   useControllerDragDrop
 } from '../../utils/controllerDragDrop'
-import MappingListSideBySide from '../MappingListSideBySide'
+import MappingListSideBySide from '../MappingEditor/MappingListSideBySide'
+import { SWITCH_BUTTONS } from '../../constants/controllers'
 
 function SwitchController({ mappings, onButtonClick, selectedButton }) {
   const containerRef = useRef(null)
   const [buttonSideOverrides, setButtonSideOverrides] = useState({}) // Track manual side assignments
   const [customOrder, setCustomOrder] = useState({}) // Track custom ordering within lists
 
-  const buttons = [
-    { id: 'north', x: 80.5, y: 39.8, label: 'X', shape: 'circle', size: 42, hideLabel: true, type: 'button' },
-    { id: 'south', x: 80.5, y: 50.7, label: 'B', shape: 'circle', size: 40, hideLabel: true, type: 'button' },
-    { id: 'east', x: 89.0, y: 45.28, label: 'A', shape: 'circle', size: 40, hideLabel: true, type: 'button' },
-    { id: 'west', x: 71.75, y: 45.28, label: 'Y', shape: 'circle', size: 40, hideLabel: true, type: 'button' },
-    { id: 'leftButton', x: 16.00, y: 11.24, label: 'L', shape: 'circle', size: 32, hideLabel: true, type: 'button' },
-    { id: 'rightButton', x: 84.06, y: 11.24, label: 'R', shape: 'circle', size: 32, hideLabel: true, type: 'button' },
-    { id: 'ZL', x: 17.41, y: 3.50, label: 'ZL', shape: 'circle', size: 32, hideLabel: true, type: 'button' },
-    { id: 'ZR', x: 82.60, y: 3.50, label: 'ZR', shape: 'circle', size: 32, hideLabel: true, type: 'button' },
-    { id: 'leftStick', x: 19.92, y: 45.02, label: 'L↻', shape: 'circle', size: 62, hideLabel: true, type: 'stick' },
-    { id: 'rightStick', x: 80.64, y: 65.65, label: 'R↻', shape: 'circle', size: 62, hideLabel: true, type: 'stick' },
-    { id: 'dPadUp', x: 19.92, y: 60.28, label: 'bi bi-caret-up-fill', shape: 'circle', size: 46, hideLabel: true, type: 'button' },
-    { id: 'dPadDown', x: 19.92, y: 71.03, label: 'bi bi-caret-down-fill', shape: 'circle', size: 46, hideLabel: true, type: 'button' },
-    { id: 'dPadLeft', x: 11.86, y: 65.65, label: 'bi bi-caret-left-fill', shape: 'circle', size: 46, hideLabel: true, type: 'button' },
-    { id: 'dPadRight', x: 27.99, y: 65.65, label: 'bi bi-caret-right-fill', shape: 'circle', size: 46, hideLabel: true, type: 'button' },
-    { id: 'plus', x: 69.42, y: 33.97, label: 'fas fa-plus', shape: 'circle', size: 32, hideLabel: true, type: 'button' },
-    { id: 'minus', x: 30.87, y: 33.97, label: 'fas fa-minus', shape: 'circle', size: 32, hideLabel: true, type: 'button' },
-    { id: 'home', x: 74.4, y: 79.3, label: 'fas fa-house', shape: 'circle', size: 32, hideLabel: true, type: 'button' },
-    { id: 'capture', x: 26, y: 79.4, label: 'bi bi-record-circle', shape: 'rect', width: 36, height: 36, hideLabel: true, type: 'button' }
-  ]
+  // Use centralized button definitions from constants
+  const buttons = SWITCH_BUTTONS
 
   // Use shared hooks for button positions and drag-drop functionality
   const { dimensions, buttonPositions } = useButtonPositions(

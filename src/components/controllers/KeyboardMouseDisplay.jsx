@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import MappingListSideBySide from '../MappingListSideBySide'
+import MappingListSideBySide from '../MappingEditor/MappingListSideBySide'
 import { renderLabel, getButtonOverlayStyle } from '../../utils/controllerHelpers'
 import {
   getMappingLabel,

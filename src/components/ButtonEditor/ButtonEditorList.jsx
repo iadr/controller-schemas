@@ -1,4 +1,4 @@
-import { renderLabel } from '../utils/controllerHelpers'
+import { renderLabel } from '../../utils/controllerHelpers'
 
 function ButtonEditorList({ 
   buttons, 
