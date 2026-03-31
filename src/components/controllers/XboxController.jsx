@@ -110,7 +110,7 @@ function XboxController({ mappings, onButtonClick, selectedButton }) {
       {/* Controller Image and Buttons */}
       <div className="controller-svg-container">
         <img 
-          src="/controllers/xbox-one.svg" 
+          src="./controllers/xbox-one.svg" 
           alt="Xbox Controller" 
           className="controller-svg"
           style={{ width: '600px' }}

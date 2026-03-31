@@ -269,7 +269,7 @@ function KeyboardMouseDisplay({ mappings, onButtonClick, selectedButton }) {
         {/* Mouse Section */}
         <div className="controller-svg-container" style={{ width: '300px', height: '500px', position: 'relative' }}>
           <img 
-            src="/controllers/mouse.svg" 
+            src="./controllers/mouse.svg" 
             alt="Mouse" 
             className="controller-svg"
             style={{ width: '200px' }}

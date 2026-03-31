@@ -151,26 +151,26 @@ export const getControllerConfig = (controllerId) => {
     case 'xbox':
       return {
         name: 'Xbox Controller',
-        image: '/controllers/xbox-one.svg',
+        image: './controllers/xbox-one.svg',
         buttons: XBOX_BUTTONS
       }
     case 'switch':
       return {
         name: 'Nintendo Switch Controller',
-        image: '/controllers/switch.svg',
+        image: './controllers/switch.svg',
         buttons: SWITCH_BUTTONS
       }
     case 'steamdeck':
       return {
         name: 'Steam Deck',
-        image: '/controllers/steam-deck.svg',
+        image: './controllers/steam-deck.svg',
         buttons: STEAMDECK_BUTTONS
       }
     case 'keyboardmouse':
     case 'keyboard':
       return {
         name: 'Keyboard & Mouse',
-        image: '/controllers/QWERTY_en_mouse.svg',
+        image: './controllers/QWERTY_en_mouse.svg',
         buttons: []
       }
     default:

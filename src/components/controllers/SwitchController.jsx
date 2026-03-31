@@ -108,7 +108,7 @@ function SwitchController({ mappings, onButtonClick, selectedButton }) {
 
       <div className="controller-svg-container">
         <img 
-          src="/controllers/switch.svg" 
+          src="./controllers/switch.svg" 
           alt="Nintendo Switch Controller" 
           className="controller-svg"
           style={{ maxWidth: '600px', height: '78vh', maxHeight: '100%' }}

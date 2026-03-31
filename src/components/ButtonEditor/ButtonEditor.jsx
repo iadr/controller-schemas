@@ -83,25 +83,25 @@ function ButtonEditor({ controller, initialButtons, onExport }) {
     switch (controller) {
       case 'xbox':
         return {
-          src: '/controllers/xbox-one.svg',
+          src: './controllers/xbox-one.svg',
           alt: 'Xbox Controller',
           style: { width: '600px' }
         }
       case 'switch':
         return {
-          src: '/controllers/switch.svg',
+          src: './controllers/switch.svg',
           alt: 'Nintendo Switch Controller',
           style: { maxWidth: '600px', height: '78vh', maxHeight: '100%' }
         }
       case 'steamdeck':
         return {
-          src: '/controllers/steam-deck.svg',
+          src: './controllers/steam-deck.svg',
           alt: 'Steam Deck Controller',
           style: { width: '700px', height: '400px' }
         }
       default:
         return {
-          src: '/controllers/xbox-one.svg',
+          src: './controllers/xbox-one.svg',
           alt: 'Controller',
           style: { width: '600px' }
         }

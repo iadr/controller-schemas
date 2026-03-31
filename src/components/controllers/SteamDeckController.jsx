@@ -134,7 +134,7 @@ function SteamDeckController({ mappings, onButtonClick, selectedButton }) {
       <div style={{ width: '700px', height: '400px', position: 'relative' }}>
         {/* Steam Deck outline SVG */}
         <img 
-          src="/controllers/steam-deck.svg" 
+          src="./controllers/steam-deck.svg" 
           alt="Steam Deck Controller" 
           style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}
         />

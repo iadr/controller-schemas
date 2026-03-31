@@ -79,11 +79,11 @@ const preloadImage = (src) => {
 // Get controller image path
 const getControllerImagePath = (controller) => {
   const imageMap = {
-    'xbox': '/controllers/xbox-one.svg',
-    'switch': '/controllers/switch.svg',
-    'steamdeck': '/controllers/steam-deck.svg',
-    'keyboardmouse': '/controllers/QWERTY_en_mouse.svg',
-    'keyboard': '/controllers/QWERTY_keyboard_en.svg'
+    'xbox': './controllers/xbox-one.svg',
+    'switch': './controllers/switch.svg',
+    'steamdeck': './controllers/steam-deck.svg',
+    'keyboardmouse': './controllers/QWERTY_en_mouse.svg',
+    'keyboard': './controllers/QWERTY_keyboard_en.svg'
   }
   return imageMap[controller] || ''
 }
