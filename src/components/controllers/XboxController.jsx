@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { renderLabel, getButtonOverlayStyle } from '../../utils/controllerHelpers'
 import { 
   getMappingLabel, 
@@ -9,10 +9,16 @@ import {
 import MappingListSideBySide from '../MappingEditor/MappingListSideBySide'
 import { XBOX_BUTTONS } from '../../constants/controllers'
 
-function XboxController({ mappings, onButtonClick, selectedButton }) {
+function XboxController({ 
+  mappings, 
+  onButtonClick, 
+  selectedButton,
+  buttonSideOverrides,
+  setButtonSideOverrides,
+  customOrder,
+  setCustomOrder
+}) {
   const containerRef = useRef(null)
-  const [buttonSideOverrides, setButtonSideOverrides] = useState({}) // Track manual side assignments
-  const [customOrder, setCustomOrder] = useState({}) // Track custom ordering within lists
 
   // Use centralized button definitions from constants
   const buttons = XBOX_BUTTONS

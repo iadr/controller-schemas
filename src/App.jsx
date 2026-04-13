@@ -19,6 +19,9 @@ function App() {
   const [buttonPosition, setButtonPosition] = useState(null)
   const [mode, setMode] = useState('mapping') // 'mapping' or 'editor'
   const [showExportImageModal, setShowExportImageModal] = useState(false)
+  // Button order and side override state (for drag-and-drop)
+  const [buttonSideOverrides, setButtonSideOverrides] = useState({})
+  const [customOrder, setCustomOrder] = useState({})
 
   // Get mappings for current context
   const mappings = contextMappings[currentContext] || {}
@@ -68,7 +71,9 @@ function App() {
     const data = {
       controller: selectedController,
       contexts: contexts,
-      contextMappings: contextMappings
+      contextMappings: contextMappings,
+      buttonSideOverrides: buttonSideOverrides,
+      customOrder: customOrder
     }
     exportToJSON(data, `${selectedController}-scheme.json`)
   }
@@ -93,6 +98,10 @@ function App() {
           })
           setCurrentContext('MENU')
         }
+        
+        // Restore button order and side overrides
+        setButtonSideOverrides(data.buttonSideOverrides || {})
+        setCustomOrder(data.customOrder || {})
         
         setSelectedButton(null)
         setSelectedButtonInfo(null)
@@ -220,6 +229,10 @@ function App() {
             onButtonClick={handleButtonClick}
             selectedButton={selectedButton}
             mode={mode}
+            buttonSideOverrides={buttonSideOverrides}
+            setButtonSideOverrides={setButtonSideOverrides}
+            customOrder={customOrder}
+            setCustomOrder={setCustomOrder}
           />
         </div>
       </div>
@@ -242,6 +255,8 @@ function App() {
         selectedController={selectedController}
         contexts={contexts}
         contextMappings={contextMappings}
+        buttonSideOverrides={buttonSideOverrides}
+        customOrder={customOrder}
       />
     </div>
   )

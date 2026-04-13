@@ -89,7 +89,7 @@ const getControllerImagePath = (controller) => {
 }
 
 // Export controller mapping as image
-export const exportControllerToImage = async (controller, context, mappings) => {
+export const exportControllerToImage = async (controller, context, mappings, buttonSideOverrides = {}, customOrder = {}, showLines = false) => {
   let container = null
   let root = null
 
@@ -107,7 +107,7 @@ export const exportControllerToImage = async (controller, context, mappings) => 
     container.style.position = 'absolute'
     container.style.left = '-9999px'
     container.style.top = '-9999px'
-    container.style.width = '1200px'
+    container.style.width = '1800px'
     container.style.visibility = 'hidden' // Hide but keep layout
     document.body.appendChild(container)
 
@@ -121,10 +121,13 @@ export const exportControllerToImage = async (controller, context, mappings) => 
           controller={controller}
           context={context}
           mappings={mappings}
+          buttonSideOverrides={buttonSideOverrides}
+          customOrder={customOrder}
+          showLines={showLines}
         />
       )
       // Give React time to render
-      setTimeout(resolve, 500)
+      setTimeout(resolve, 800)
     })
 
     // Double-check images are loaded
@@ -163,7 +166,7 @@ export const exportControllerToImage = async (controller, context, mappings) => 
     }
 
     // Additional delay to ensure everything is stable
-    await new Promise(resolve => setTimeout(resolve, 300))
+    await new Promise(resolve => setTimeout(resolve, 500))
 
     // Make visible for capture
     container.style.visibility = 'visible'
@@ -174,7 +177,7 @@ export const exportControllerToImage = async (controller, context, mappings) => 
       quality: 1,
       pixelRatio: 2,
       backgroundColor: '#ffffff',
-      width: 1200,
+      width: 1800,
       height: container.firstChild.offsetHeight,
       cacheBust: true, // Force fresh capture each time
       skipFonts: true,

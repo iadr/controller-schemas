@@ -7,7 +7,9 @@ function ExportImageModal({
   onClose, 
   selectedController, 
   contexts, 
-  contextMappings 
+  contextMappings,
+  buttonSideOverrides,
+  customOrder
 }) {
   const [selectedContexts, setSelectedContexts] = useState([])
   const [selectedControllers, setSelectedControllers] = useState([selectedController])
@@ -78,7 +80,9 @@ function ExportImageModal({
             await exportControllerToImage(
               controller,
               context,
-              mappings
+              mappings,
+              buttonSideOverrides,
+              customOrder
             )
             successCount++
             console.log(`Successfully exported: ${controller} - ${context}`)

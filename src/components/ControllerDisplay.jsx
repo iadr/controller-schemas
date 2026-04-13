@@ -4,7 +4,17 @@ import KeyboardMouseDisplay from './controllers/KeyboardMouseDisplay'
 import SteamDeckController from './controllers/SteamDeckController'
 import ButtonEditor from './ButtonEditor/ButtonEditor'
 
-function ControllerDisplay({ controller, mappings, onButtonClick, selectedButton, mode = 'mapping' }) {
+function ControllerDisplay({ 
+  controller, 
+  mappings, 
+  onButtonClick, 
+  selectedButton, 
+  mode = 'mapping',
+  buttonSideOverrides,
+  setButtonSideOverrides,
+  customOrder,
+  setCustomOrder
+}) {
   // Get initial buttons for the selected controller
   const getControllerButtons = () => {
     // Import button configurations from each controller
@@ -96,6 +106,10 @@ function ControllerDisplay({ controller, mappings, onButtonClick, selectedButton
             mappings={mappings}
             onButtonClick={onButtonClick}
             selectedButton={selectedButton}
+            buttonSideOverrides={buttonSideOverrides}
+            setButtonSideOverrides={setButtonSideOverrides}
+            customOrder={customOrder}
+            setCustomOrder={setCustomOrder}
           />
         )
       case 'switch':
@@ -104,6 +118,10 @@ function ControllerDisplay({ controller, mappings, onButtonClick, selectedButton
             mappings={mappings}
             onButtonClick={onButtonClick}
             selectedButton={selectedButton}
+            buttonSideOverrides={buttonSideOverrides}
+            setButtonSideOverrides={setButtonSideOverrides}
+            customOrder={customOrder}
+            setCustomOrder={setCustomOrder}
           />
         )
       case 'keyboardmouse':
@@ -112,6 +130,10 @@ function ControllerDisplay({ controller, mappings, onButtonClick, selectedButton
             mappings={mappings}
             onButtonClick={onButtonClick}
             selectedButton={selectedButton}
+            buttonSideOverrides={buttonSideOverrides}
+            setButtonSideOverrides={setButtonSideOverrides}
+            customOrder={customOrder}
+            setCustomOrder={setCustomOrder}
           />
         )
       case 'steamdeck':
@@ -120,6 +142,10 @@ function ControllerDisplay({ controller, mappings, onButtonClick, selectedButton
             mappings={mappings}
             onButtonClick={onButtonClick}
             selectedButton={selectedButton}
+            buttonSideOverrides={buttonSideOverrides}
+            setButtonSideOverrides={setButtonSideOverrides}
+            customOrder={customOrder}
+            setCustomOrder={setCustomOrder}
           />
         )
       default:

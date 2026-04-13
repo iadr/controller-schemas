@@ -367,6 +367,7 @@ h2, h3 {
   user-select: none;
   max-width: 100%;
   max-height: 100%;
+  --button-scale: 1;
 }
 
 .controller-svg {
@@ -374,19 +375,18 @@ h2, h3 {
   max-width: 100%;
   max-height: 100%;
   height: auto;
-  width: auto;
 }
 
 .button-marker {
   position: absolute;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(var(--button-scale));
   cursor: pointer;
   z-index: 10;
   transition: transform 0.15s ease;
 }
 
 .button-marker:hover {
-  transform: translate(-50%, -50%) scale(1.1);
+  transform: translate(-50%, -50%) scale(calc(var(--button-scale) * 1.1));
 }
 
 .button-marker-circle {
@@ -399,7 +399,7 @@ h2, h3 {
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: calc(0.875rem * var(--button-scale, 1));
   color: var(--text-secondary);
   transition: all 0.15s ease;
   box-shadow: 0 2px 8px var(--shadow-lg);
@@ -621,7 +621,7 @@ h2, h3 {
   color: var(--accent-primary-light);
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1024px) {
   .app-content {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto;
@@ -630,6 +630,37 @@ h2, h3 {
   .sidebar,
   .right-panel {
     max-height: none;
+  }
+}
+
+/* Responsive button scaling for different viewport sizes */
+@media (max-width: 1366px) {
+  .controller-svg-container {
+    --button-scale: 0.9;
+  }
+}
+
+@media (max-width: 1200px) {
+  .controller-svg-container {
+    --button-scale: 0.8;
+  }
+}
+
+@media (max-width: 1024px) {
+  .controller-svg-container {
+    --button-scale: 0.75;
+  }
+}
+
+@media (max-width: 768px) {
+  .controller-svg-container {
+    --button-scale: 0.65;
+  }
+}
+
+@media (max-width: 600px) {
+  .controller-svg-container {
+    --button-scale: 0.55;
   }
 }
 
@@ -823,12 +854,12 @@ h2, h3 {
   justify-content: center;
   color: var(--text-secondary);
   font-weight: 600;
-  font-size: 0.75rem;
+  font-size: calc(0.75rem * var(--button-scale, 1));
   cursor: pointer;
   transition: all 0.2s ease;
   box-shadow: 0 2px 4px var(--shadow-md);
   background: rgba(74, 85, 104, 0.8);
-  border: 2px solid var(--border-secondary);
+  border: calc(2px * var(--button-scale, 1)) solid var(--border-secondary);
 }
 
 .keyboard-key:hover {
@@ -1321,6 +1352,7 @@ h2, h3 {
 
 /* Controller Export View Styles */
 .controller-export-view {
+  position: relative;
   background: white;
   padding: 2rem;
   min-height: 800px;
@@ -1342,9 +1374,10 @@ h2, h3 {
 
 .controller-export-view .export-content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr auto 1fr;
   gap: 2rem;
   margin-bottom: 2rem;
+  align-items: center;
 }
 
 .controller-export-view .export-controller-image {
@@ -1354,17 +1387,27 @@ h2, h3 {
   background: #f7fafc;
   border-radius: 12px;
   padding: 2rem;
+  min-width: 500px;
 }
 
 .controller-export-view .export-controller-image img {
   max-width: 100%;
   height: auto;
-  max-height: 500px;
+  max-height: 600px;
+  min-width: 400px;
 }
 
 .controller-export-view .export-mappings-list {
   display: flex;
   flex-direction: column;
+}
+
+.controller-export-view .export-mappings-left {
+  text-align: left;
+}
+
+.controller-export-view .export-mappings-right {
+  text-align: left;
 }
 
 .controller-export-view .export-mappings-list h2 {
@@ -1399,6 +1442,13 @@ h2, h3 {
   padding: 0.75rem;
   background: #f7fafc;
   border-radius: 8px;
+}
+
+.controller-export-view .export-mappings-left .export-mapping-row {
+  border-right: 4px solid #3182ce;
+}
+
+.controller-export-view .export-mappings-right .export-mapping-row {
   border-left: 4px solid #3182ce;
 }
 
@@ -1407,6 +1457,15 @@ h2, h3 {
   color: #2d3748;
   display: flex;
   align-items: center;
+  gap: 0.25rem;
+  font-size: 1rem;
+}
+
+.controller-export-view .export-icon-svg {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .controller-export-view .export-actions {
@@ -1450,6 +1509,31 @@ h2, h3 {
 
 .controller-export-view .export-footer p {
   margin: 0;
+}
+
+.controller-export-view .export-connection-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.controller-export-view .export-connection-lines path {
+  stroke: #3182ce;
+  stroke-width: 1.8;
+  fill: none;
+  opacity: 0.65;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.controller-export-view .export-connection-lines circle {
+  fill: #3182ce;
+  opacity: 0.8;
 }
 
 .checkbox-label span {

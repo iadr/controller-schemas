@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import MappingListSideBySide from '../MappingEditor/MappingListSideBySide'
 import { renderLabel, getButtonOverlayStyle } from '../../utils/controllerHelpers'
 import {
@@ -8,10 +8,16 @@ import {
   useControllerDragDrop
 } from '../../utils/controllerDragDrop'
 
-function KeyboardMouseDisplay({ mappings, onButtonClick, selectedButton }) {
+function KeyboardMouseDisplay({ 
+  mappings, 
+  onButtonClick, 
+  selectedButton,
+  buttonSideOverrides,
+  setButtonSideOverrides,
+  customOrder,
+  setCustomOrder
+}) {
   const containerRef = useRef(null)
-  const [buttonSideOverrides, setButtonSideOverrides] = useState({}) // Track manual side assignments
-  const [customOrder, setCustomOrder] = useState({}) // Track custom ordering within lists
 
   const keyboardLayout = [
     // Row 1
