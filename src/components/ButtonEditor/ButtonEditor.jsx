@@ -99,6 +99,13 @@ function ButtonEditor({ controller, initialButtons, onExport }) {
           alt: 'Steam Deck Controller',
           style: { width: '700px', height: '400px' }
         }
+      case 'keyboard':
+      case 'keyboardmouse':
+        return {
+          src: './controllers/QWERTY_keyboard_en.svg',
+          alt: 'Keyboard and Mouse',
+          style: { width: '890px', maxHeight: '400px' }
+        }
       default:
         return {
           src: './controllers/xbox-one.svg',
