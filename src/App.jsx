@@ -5,6 +5,7 @@ import MappingModal from './components/MappingEditor/MappingModal'
 import ContextManager from './components/ContextManager'
 import ExportImageModal from './components/ExportImageModal'
 import { exportToJSON, importFromJSON } from './utils/export.jsx'
+import { getButtonMapping } from './utils/buttonMatching'
 
 function App() {
   const [selectedController, setSelectedController] = useState('xbox')
@@ -131,12 +132,12 @@ function App() {
     setButtonPosition(null)
   }
 
-  const handleUpdateMapping = (buttonId, mappingData) => {
+  const handleUpdateMapping = (mappingKey, mappingData) => {
     setContextMappings(prev => ({
       ...prev,
       [currentContext]: {
         ...prev[currentContext],
-        [buttonId]: mappingData
+        [mappingKey]: mappingData
       }
     }))
   }
@@ -145,7 +146,20 @@ function App() {
     setContextMappings(prev => {
       const newMappings = { ...prev }
       const contextMappings = { ...newMappings[currentContext] }
-      delete contextMappings[buttonId]
+      
+      // Delete all mapping variations for this button (id, position:id, label:X)
+      Object.keys(contextMappings).forEach(key => {
+        if (key === buttonId || key.endsWith(`:${buttonId}`) || key === `position:${buttonId}`) {
+          delete contextMappings[key]
+        }
+      })
+      
+      // Also check for label-based mappings if buttonInfo is available
+      if (selectedButtonInfo?.label) {
+        const labelKey = `label:${selectedButtonInfo.label}`
+        delete contextMappings[labelKey]
+      }
+      
       newMappings[currentContext] = contextMappings
       return newMappings
     })
@@ -241,11 +255,12 @@ function App() {
         <MappingModal
           selectedButton={selectedButton}
           buttonInfo={selectedButtonInfo}
-          mapping={mappings[selectedButton]}
+          mapping={getButtonMapping(selectedButtonInfo, mappings)}
           onUpdateMapping={handleUpdateMapping}
           onDeleteMapping={handleDeleteMapping}
           onClose={handleCloseModal}
           buttonPosition={buttonPosition}
+          controller={selectedController}
         />
       )}
 

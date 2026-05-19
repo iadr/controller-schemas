@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react'
 
-function MappingEditor({ selectedButton, buttonInfo, mapping, onUpdateMapping, onDeleteMapping }) {
+function MappingEditor({ selectedButton, buttonInfo, mapping, onUpdateMapping, onDeleteMapping, controller }) {
   // Determine available gestures based on button type (default to 'button' if not specified)
   const isStick = buttonInfo?.type === 'stick'
   const availableGestures = isStick ? ['direction', 'press'] : ['press', 'hold']
+  
+  // Match type: 'id' (this button only), 'position' (all at this position), 'label' (all with this label)
+  const [matchType, setMatchType] = useState('id')
+  const [matchValue, setMatchValue] = useState(selectedButton)
   
   const [gestures, setGestures] = useState({
     direction: { action: '', description: '' },
@@ -20,6 +24,9 @@ function MappingEditor({ selectedButton, buttonInfo, mapping, onUpdateMapping, o
         press: { action: '', description: '' },
         hold: { action: '', description: '' },
       })
+      // Reset match type to 'id' for new mappings
+      setMatchType('id')
+      setMatchValue(selectedButton)
     } else if (typeof mapping === 'string') {
       // Legacy format: treat as a "hold" gesture (or "direction" for sticks)
       const legacyGesture = isStick ? 'direction' : 'hold'
@@ -28,6 +35,8 @@ function MappingEditor({ selectedButton, buttonInfo, mapping, onUpdateMapping, o
         press: { action: '', description: '' },
         hold: legacyGesture === 'hold' ? { action: mapping, description: '' } : { action: '', description: '' },
       })
+      setMatchType('id')
+      setMatchValue(selectedButton)
     } else if (typeof mapping === 'object' && mapping !== null) {
       // New format: load all gestures
       const newGestures = {
@@ -58,8 +67,32 @@ function MappingEditor({ selectedButton, buttonInfo, mapping, onUpdateMapping, o
       }
 
       setGestures(newGestures)
+      
+      // Set match type from mapping metadata if available
+      if (mapping.matchType && mapping.matchValue) {
+        setMatchType(mapping.matchType)
+        setMatchValue(mapping.matchValue)
+      } else {
+        setMatchType('id')
+        setMatchValue(selectedButton)
+      }
     }
   }, [selectedButton, mapping, isStick])
+  
+  // Update match value when match type changes
+  useEffect(() => {
+    if (matchType === 'id') {
+      setMatchValue(selectedButton)
+    } else if (matchType === 'position') {
+      setMatchValue(selectedButton) // position ID is same as button ID (south, east, etc.)
+    } else if (matchType === 'label' && buttonInfo?.label) {
+      // For icon labels (like 'bi bi-dpad'), extract the readable part
+      const label = buttonInfo.label.includes(' ') 
+        ? buttonInfo.label.split(' ').pop()
+        : buttonInfo.label
+      setMatchValue(label)
+    }
+  }, [matchType, selectedButton, buttonInfo])
 
   const handleGestureChange = (gesture, field, value) => {
     setGestures(prev => ({
@@ -75,7 +108,10 @@ function MappingEditor({ selectedButton, buttonInfo, mapping, onUpdateMapping, o
     if (!selectedButton) return
 
     // Build the mapping object with only non-empty gestures from available gestures
-    const mappingData = {}
+    const mappingData = {
+      matchType,
+      matchValue
+    }
     let hasAnyMapping = false
 
     availableGestures.forEach(gesture => {
@@ -89,7 +125,9 @@ function MappingEditor({ selectedButton, buttonInfo, mapping, onUpdateMapping, o
     })
 
     if (hasAnyMapping) {
-      onUpdateMapping(selectedButton, mappingData)
+      // Create the mapping key based on match type
+      const mappingKey = matchType === 'id' ? selectedButton : `${matchType}:${matchValue}`
+      onUpdateMapping(mappingKey, mappingData)
     }
   }
 
@@ -116,7 +154,65 @@ function MappingEditor({ selectedButton, buttonInfo, mapping, onUpdateMapping, o
 
   return (
     <div className="mapping-editor">
-      <h3>Edit: {selectedButton}</h3>
+      <h3>Edit: {buttonInfo?.label || selectedButton}</h3>
+      
+      {/* Match Type Selector */}
+      <div className="match-type-section">
+        <label className="match-type-label">Apply mapping to:</label>
+        <div className="match-type-options">
+          <label className="match-type-option">
+            <input
+              type="radio"
+              name="matchType"
+              value="id"
+              checked={matchType === 'id'}
+              onChange={(e) => setMatchType(e.target.value)}
+            />
+            <span>This button only</span>
+            <small>({selectedButton})</small>
+          </label>
+          
+          <label className="match-type-option">
+            <input
+              type="radio"
+              name="matchType"
+              value="position"
+              checked={matchType === 'position'}
+              onChange={(e) => setMatchType(e.target.value)}
+            />
+            <span>All buttons at this position</span>
+            <small>(position: {selectedButton})</small>
+          </label>
+          
+          {buttonInfo?.label && (
+            <label className="match-type-option">
+              <input
+                type="radio"
+                name="matchType"
+                value="label"
+                checked={matchType === 'label'}
+                onChange={(e) => setMatchType(e.target.value)}
+              />
+              <span>All buttons labeled "{buttonInfo.label}"</span>
+              <small>(across all controllers)</small>
+            </label>
+          )}
+        </div>
+        
+        {matchType === 'position' && (
+          <div className="match-info">
+            <i className="fas fa-info-circle"></i>
+            <span>This mapping will apply to all controllers at position: {selectedButton.toUpperCase()}</span>
+          </div>
+        )}
+        
+        {matchType === 'label' && (
+          <div className="match-info">
+            <i className="fas fa-info-circle"></i>
+            <span>This mapping will apply to all buttons labeled "{buttonInfo.label}" on any controller</span>
+          </div>
+        )}
+      </div>
 
       <div className="gesture-sections">
         {availableGestures.map(gesture => (

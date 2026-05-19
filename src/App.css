@@ -577,6 +577,108 @@ h2, h3 {
 }
 
 .gesture-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-primary-light);
+  margin-bottom: 0.75rem;
+  text-transform: capitalize;
+  border-bottom: 1px solid var(--border-primary);
+  padding-bottom: 0.5rem;
+}
+
+/* Match Type Selector Styles */
+.match-type-section {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: var(--bg-darker);
+  border: 1px solid var(--border-primary);
+  border-radius: 8px;
+}
+
+.match-type-label {
+  display: block;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.match-type-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.match-type-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-secondary);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.match-type-option:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--accent-primary-light);
+}
+
+.match-type-option input[type="radio"] {
+  cursor: pointer;
+  accent-color: var(--accent-primary);
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+.match-type-option span {
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.875rem;
+  flex: 1;
+}
+
+.match-type-option small {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.match-type-option input[type="radio"]:checked + span {
+  color: var(--accent-primary-light);
+  font-weight: 600;
+}
+
+.match-type-option:has(input[type="radio"]:checked) {
+  border-color: var(--accent-primary);
+  background: var(--overlay-primary-lighter);
+}
+
+.match-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: var(--overlay-primary-light);
+  border-left: 3px solid var(--accent-primary);
+  border-radius: 4px;
+}
+
+.match-info i {
+  color: var(--accent-primary-light);
+  font-size: 1rem;
+}
+
+.match-info span {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.gesture-title {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--accent-primary);

@@ -36,12 +36,13 @@ export const AVAILABLE_CONTROLLERS = [
 /**
  * Button definitions for Xbox Controller
  * Ground truth for button configuration - used by both display and export
+ * Position IDs: south, east, west, north follow the standard gamepad layout
  */
 export const XBOX_BUTTONS = [
-  { id: 'south', x: 76.09, y: 37.56, label: 'A', shape: 'circle', size: 42, hideLabel: true, type: 'button' },
-  { id: 'east', x: 83.09, y: 27.80, label: 'B', shape: 'circle', size: 42, hideLabel: true, type: 'button' },
-  { id: 'west', x: 68.98, y: 27.99, label: 'X', shape: 'circle', size: 42, hideLabel: true, type: 'button' },
-  { id: 'north', x: 76.09, y: 18.34, label: 'Y', shape: 'circle', size: 42, hideLabel: true, type: 'button' },
+  { id: 'south', x: 76.09, y: 37.56, label: 'A', shape: 'circle', size: 42, hideLabel: true, type: 'button', position: 'SOUTH' },
+  { id: 'east', x: 83.09, y: 27.80, label: 'B', shape: 'circle', size: 42, hideLabel: true, type: 'button', position: 'EAST' },
+  { id: 'west', x: 68.98, y: 27.99, label: 'X', shape: 'circle', size: 42, hideLabel: true, type: 'button', position: 'WEST' },
+  { id: 'north', x: 76.09, y: 18.34, label: 'Y', shape: 'circle', size: 42, hideLabel: true, type: 'button', position: 'NORTH' },
   { id: 'leftButton', x: 29.37, y: 4.03, label: 'LB', shape: 'circle', size: 32, hideLabel: false, type: 'button' },
   { id: 'rightButton', x: 70.63, y: 4.03, label: 'RB', shape: 'circle', size: 32, hideLabel: false, type: 'button' },
   { id: 'leftTrigger', x: 21.65, y: 3.14, label: 'LT', shape: 'circle', size: 32, hideLabel: false, type: 'button' },
@@ -60,12 +61,13 @@ export const XBOX_BUTTONS = [
 /**
  * Button definitions for Nintendo Switch Controller
  * Ground truth for button configuration - used by both display and export
+ * Position IDs: Note that Switch button labels differ from positions (A=EAST, B=SOUTH, X=NORTH, Y=WEST)
  */
 export const SWITCH_BUTTONS = [
-  { id: 'north', x: 80.5, y: 40.4, label: 'X', shape: 'circle', size: 42, hideLabel: true, type: 'button', width: 32, height: 32 },
-  { id: 'south', x: 80.5, y: 51.5, label: 'B', shape: 'circle', size: 40, hideLabel: true, type: 'button' },
-  { id: 'east', x: 89, y: 46, label: 'A', shape: 'circle', size: 40, hideLabel: true, type: 'button' },
-  { id: 'west', x: 71.75, y: 46, label: 'Y', shape: 'circle', size: 40, hideLabel: true, type: 'button' },
+  { id: 'north', x: 80.5, y: 40.4, label: 'X', shape: 'circle', size: 42, hideLabel: true, type: 'button', width: 32, height: 32, position: 'NORTH' },
+  { id: 'south', x: 80.5, y: 51.5, label: 'B', shape: 'circle', size: 40, hideLabel: true, type: 'button', position: 'SOUTH' },
+  { id: 'east', x: 89, y: 46, label: 'A', shape: 'circle', size: 40, hideLabel: true, type: 'button', position: 'EAST' },
+  { id: 'west', x: 71.75, y: 46, label: 'Y', shape: 'circle', size: 40, hideLabel: true, type: 'button', position: 'WEST' },
   { id: 'leftButton', x: 16, y: 11.24, label: 'L', shape: 'circle', size: 32, hideLabel: true, type: 'button' },
   { id: 'rightButton', x: 84.06, y: 11.24, label: 'R', shape: 'circle', size: 32, hideLabel: true, type: 'button' },
   { id: 'leftTrigger', x: 17.41, y: 3.5, label: 'ZL', shape: 'circle', size: 32, hideLabel: false, type: 'button' },
@@ -214,13 +216,14 @@ export const MOUSE_BUTTONS = [
 /**
  * Button definitions for Steam Deck Controller
  * Ground truth for button configuration - used by both display and export
+ * Position IDs follow Xbox layout (A=SOUTH, B=EAST, X=WEST, Y=NORTH)
  */
 export const STEAMDECK_BUTTONS = [
   // Face buttons
-  { id: 'south', x: 91.70, y: 50.48, label: 'A', shape: 'circle', size: 18, hideLabel: true, type: 'button' },
-  { id: 'east', x: 94.64, y: 45.59, label: 'B', shape: 'circle', size: 18, hideLabel: true, type: 'button' },
-  { id: 'west', x: 88.95, y: 45.59, label: 'X', shape: 'circle', size: 18, hideLabel: true, type: 'button' },
-  { id: 'north', x: 91.70, y: 40.71, label: 'Y', shape: 'circle', size: 18, hideLabel: true, type: 'button' },
+  { id: 'south', x: 91.70, y: 50.48, label: 'A', shape: 'circle', size: 18, hideLabel: true, type: 'button', position: 'SOUTH' },
+  { id: 'east', x: 94.64, y: 45.59, label: 'B', shape: 'circle', size: 18, hideLabel: true, type: 'button', position: 'EAST' },
+  { id: 'west', x: 88.95, y: 45.59, label: 'X', shape: 'circle', size: 18, hideLabel: true, type: 'button', position: 'WEST' },
+  { id: 'north', x: 91.70, y: 40.71, label: 'Y', shape: 'circle', size: 18, hideLabel: true, type: 'button', position: 'NORTH' },
   
   // D-pad
   { id: 'dPadUp', x: 6.19, y: 38.46, label: 'bi bi-caret-up-fill', shape: 'dpad', size: 4, hideLabel: true, type: 'button' },

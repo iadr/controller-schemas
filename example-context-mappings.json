@@ -1,0 +1,64 @@
+{
+  "controller": "xbox",
+  "contexts": ["MENU", "GAMEPLAY"],
+  "contextMappings": {
+    "MENU": {
+      "label:A": {
+        "matchType": "label",
+        "matchValue": "A",
+        "press": {
+          "action": "CONFIRM",
+          "description": "Confirm selection"
+        }
+      },
+      "label:B": {
+        "matchType": "label",
+        "matchValue": "B",
+        "press": {
+          "action": "CANCEL",
+          "description": "Go back"
+        }
+      }
+    },
+    "GAMEPLAY": {
+      "position:south": {
+        "matchType": "position",
+        "matchValue": "south",
+        "press": {
+          "action": "RUN",
+          "description": "Run/Sprint"
+        },
+        "hold": {
+          "action": "WALK",
+          "description": "Walk slowly"
+        }
+      },
+      "position:east": {
+        "matchType": "position",
+        "matchValue": "east",
+        "press": {
+          "action": "JUMP",
+          "description": "Jump"
+        }
+      },
+      "position:west": {
+        "matchType": "position",
+        "matchValue": "west",
+        "press": {
+          "action": "ATTACK",
+          "description": "Primary attack"
+        }
+      },
+      "position:north": {
+        "matchType": "position",
+        "matchValue": "north",
+        "press": {
+          "action": "RELOAD",
+          "description": "Reload weapon"
+        }
+      }
+    }
+  },
+  "buttonSideOverrides": {},
+  "customOrder": {}
+}

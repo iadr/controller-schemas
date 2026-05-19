@@ -1,3 +1,5 @@
+import { getButtonMapping } from '../../utils/buttonMatching'
+
 function MouseDisplay({ mappings, onButtonClick, selectedButton }) {
   const buttons = [
     { id: 'LeftClick', x: 35, y: 25, width: 20, height: 25, label: 'Left', shape: 'rect', borderRadius: 2, type: 'button' },
@@ -46,7 +48,7 @@ function MouseDisplay({ mappings, onButtonClick, selectedButton }) {
 
       {/* Clickable button overlays */}
       {buttons.map(button => {
-        const mapping = mappings[button.id]
+        const mapping = getButtonMapping(button, mappings)
         const isSelected = selectedButton === button.id
         const hasMapping = !!mapping
 

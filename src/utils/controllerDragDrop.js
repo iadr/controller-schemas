@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { getButtonMapping } from './buttonMatching'
 
 /**
  * Utilities and hooks for controller drag-and-drop functionality
@@ -10,9 +11,12 @@ import { useState, useEffect } from 'react'
 /**
  * Convert mappings to displayable format
  * Handles legacy string format, single-gesture, and multi-gesture formats
+ * Now uses button matching to find the appropriate mapping
  */
-export const getMappingLabel = (mappings, buttonId) => {
-  const mapping = mappings[buttonId]
+export const getMappingLabel = (mappings, buttonId, buttonInfo) => {
+  // Use button matching if buttonInfo is provided, otherwise fall back to direct lookup
+  const mapping = buttonInfo ? getButtonMapping(buttonInfo, mappings) : mappings[buttonId]
+  
   if (!mapping) return null
   
   // Handle string format (legacy)
@@ -41,9 +45,12 @@ export const getMappingLabel = (mappings, buttonId) => {
 /**
  * Get gesture details for a button
  * Returns array of gestures if multiple gestures exist, null otherwise
+ * Now uses button matching to find the appropriate mapping
  */
-export const getMappingGestures = (mappings, buttonId) => {
-  const mapping = mappings[buttonId]
+export const getMappingGestures = (mappings, buttonId, buttonInfo) => {
+  // Use button matching if buttonInfo is provided, otherwise fall back to direct lookup
+  const mapping = buttonInfo ? getButtonMapping(buttonInfo, mappings) : mappings[buttonId]
+  
   if (!mapping || typeof mapping !== 'object' || mapping === null) return null
   
   const gestures = []
@@ -93,7 +100,7 @@ export const getOrganizedButtons = (buttons, mappings, buttonSideOverrides, cust
   const buttonsWithMappings = buttons
     .map(button => ({
       ...button,
-      mappingLabel: getMappingLabel(mappings, button.id)
+      mappingLabel: getMappingLabel(mappings, button.id, button)
     }))
     .filter(button => button.mappingLabel)
 

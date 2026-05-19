@@ -8,7 +8,8 @@ function MappingModal({
   onUpdateMapping, 
   onDeleteMapping,
   onClose,
-  buttonPosition 
+  buttonPosition,
+  controller
 }) {
   const modalRef = useRef(null)
 
@@ -96,6 +97,7 @@ function MappingModal({
             mapping={mapping}
             onUpdateMapping={onUpdateMapping}
             onDeleteMapping={onDeleteMapping}
+            controller={controller}
           />
         </div>
       </div>

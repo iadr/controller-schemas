@@ -1,3 +1,5 @@
+import { getButtonMapping } from '../../utils/buttonMatching'
+
 function KeyboardDisplay({ mappings, onButtonClick, selectedButton }) {
   const keyboardLayout = [
     // Row 1
@@ -96,7 +98,7 @@ function KeyboardDisplay({ mappings, onButtonClick, selectedButton }) {
   return (
     <div style={{ width: '800px', height: '350px', position: 'relative', background: '#2c2c2c', borderRadius: '12px', padding: '20px' }}>
       {keyboardLayout.map(key => {
-        const mapping = mappings[key.id]
+        const mapping = getButtonMapping(key, mappings)
         const isSelected = selectedButton === key.id
         const hasMapping = !!mapping
 
