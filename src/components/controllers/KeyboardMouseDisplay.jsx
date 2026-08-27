@@ -8,6 +8,8 @@ import {
   useControllerDragDrop
 } from '../../utils/controllerDragDrop'
 import { KEYBOARD_BUTTONS, MOUSE_BUTTONS } from '../../constants/controllers'
+import mouseImage from '../../../controllers/mouse.svg'
+import KeyboardSvg from './KeyboardSvg'
 
 function KeyboardMouseDisplay({ 
   mappings, 
@@ -117,47 +119,28 @@ function KeyboardMouseDisplay({
       />
 
       {/* Keyboard and Mouse Container */}
-      <div style={{ display: 'flex', gap: '40px', alignItems: 'flex-start', justifyContent: 'center' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', alignItems: 'center', justifyContent: 'center' }}>
         {/* Keyboard Section */}
         <div className="controller-svg-container" style={{ position: 'relative' }}>
-          <img 
-            src="./controllers/QWERTY_keyboard_en.svg" 
-            alt="Keyboard" 
+          <KeyboardSvg
+            mappings={mappings}
+            selectedButton={selectedButton}
+            onButtonClick={(id, _, event) => {
+              const button = keyboardLayout.find((item) => item.id === id)
+              if (button) onButtonClick(id, button, event)
+            }}
             className="controller-svg"
-            style={{ width: '890px' }}
+            style={{ width: '620px' }}
           />
-          {keyboardLayout.map(key => {
-            const mappingLabel = getMappingLabel(mappings, key.id)
-            const isSelected = selectedButton === key.id
-            const hasMapping = !!mappingLabel
-            const overlayStyle = getButtonOverlayStyle(key)
-
-            return (
-              <div
-                key={key.id}
-                data-button-id={key.id}
-                className={`button-marker ${isSelected ? 'selected' : ''} ${hasMapping ? 'has-mapping' : ''}`}
-                style={{
-                  left: `${key.x}%`,
-                  top: `${key.y}%`
-                }}
-                onClick={(e) => onButtonClick(key.id, key, e)}
-              >
-                <div className="button-marker-circle" style={overlayStyle}>
-                  {!key.hideLabel && renderLabel(key.label)}
-                </div>
-              </div>
-            )
-          })}
         </div>
 
         {/* Mouse Section */}
-        {/* <div className="controller-svg-container" style={{ width: '300px', height: '500px', position: 'relative' }}>
+        <div className="controller-svg-container" style={{ width: '120px', position: 'relative' }}>
           <img 
-            src="./controllers/mouse.svg" 
+            src={mouseImage}
             alt="Mouse" 
             className="controller-svg"
-            style={{ width: '200px' }}
+            style={{ width: '120px', display: 'block' }}
           />
           {mouseButtons.map(button => {
             const mappingLabel = getMappingLabel(mappings, button.id)
@@ -182,7 +165,7 @@ function KeyboardMouseDisplay({
               </div>
             )
           })}
-        </div> */}
+        </div>
       </div>
 
       {/* Right Side List */}

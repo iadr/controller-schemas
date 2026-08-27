@@ -1,3 +1,5 @@
+import keyboardImage from '../../controllers/keyboard.svg'
+
 /**
  * Available controllers configuration
  * Single source of truth for all controller definitions
@@ -184,7 +186,7 @@ export const KEYBOARD_BUTTONS = [
   { id: '.', x: 47.19, y: 72.5, label: '.', shape: 'rect', width: 28, height: 28, hideLabel: true, type: 'button' },
   { id: '/', x: 51.69, y: 72.5, label: '/', shape: 'rect', width: 28, height: 28, hideLabel: true, type: 'button' },
   { id: 'RShift', x: 56.18, y: 72.5, label: 'Shift', shape: 'rect', width: 90, height: 28, hideLabel: true, type: 'button' },
-  { id: 'ArrowUp', x: 71.91, y: 72.5, label: '↑', shape: 'rect', width: 28, height: 28, hideLabel: true, type: 'button' },
+  { id: 'ArrowUp', x: 74.61, y: 71.97, label: '↑', shape: 'rect', width: 28, height: 28, hideLabel: true, type: 'button' },
   // { id: 'Num1', x: 80.90, y: 72.5, label: '1', shape: 'rect', width: 28, height: 28, hideLabel: true, type: 'button' },
   // { id: 'Num2', x: 85.39, y: 72.5, label: '2', shape: 'rect', width: 28, height: 28, hideLabel: true, type: 'button' },
   // { id: 'Num3', x: 89.89, y: 72.5, label: '3', shape: 'rect', width: 28, height: 28, hideLabel: true, type: 'button' },
@@ -195,10 +197,10 @@ export const KEYBOARD_BUTTONS = [
   { id: 'Alt', x: 12.36, y: 85, label: 'Alt', shape: 'rect', width: 28, height: 28, hideLabel: true, type: 'button' },
   { id: 'Space', x: 16.85, y: 85, label: 'Space', shape: 'rect', width: 250, height: 28, hideLabel: true, type: 'button' },
   { id: 'RAlt', x: 46.07, y: 85, label: 'Alt', shape: 'rect', width: 40, height: 28, hideLabel: true, type: 'button' },
-  { id: 'RCtrl', x: 60.67, y: 85, label: 'Ctrl', shape: 'rect', width: 50, height: 28, hideLabel: true, type: 'button' },
-  { id: 'ArrowLeft', x: 67.42, y: 85, label: '←', shape: 'rect', width: 28, height: 28, hideLabel: true, type: 'button' },
-  { id: 'ArrowDown', x: 71.91, y: 85, label: '↓', shape: 'rect', width: 28, height: 28, hideLabel: true, type: 'button' },
-  { id: 'ArrowRight', x: 76.40, y: 85, label: '→', shape: 'rect', width: 28, height: 28, hideLabel: true, type: 'button' },
+  { id: 'RCtrl', x: 69.47, y: 85, label: 'Ctrl', shape: 'rect', width: 50, height: 28, hideLabel: true, type: 'button' },
+  { id: 'ArrowLeft', x: 70.12, y: 84.47, label: '←', shape: 'rect', width: 28, height: 28, hideLabel: true, type: 'button' },
+  { id: 'ArrowDown', x: 74.61, y: 84.47, label: '↓', shape: 'rect', width: 28, height: 28, hideLabel: true, type: 'button' },
+  { id: 'ArrowRight', x: 79.10, y: 84.47, label: '→', shape: 'rect', width: 28, height: 28, hideLabel: true, type: 'button' },
   // { id: 'Num0', x: 80.90, y: 85, label: '0', shape: 'rect', width: 70, height: 28, hideLabel: true, type: 'button' },
   // { id: 'NumDecimal', x: 89.89, y: 85, label: '.', shape: 'rect', width: 28, height: 28, hideLabel: true, type: 'button' }
 ]
@@ -208,9 +210,11 @@ export const KEYBOARD_BUTTONS = [
  * Ground truth for button configuration - used by both display and export
  */
 export const MOUSE_BUTTONS = [
-  // { id: 'LeftClick', x: 35, y: 25, label: 'Left', shape: 'rect', width: 20, height: 25, hideLabel: true, type: 'button' },
-  // { id: 'RightClick', x: 55, y: 25, label: 'Right', shape: 'rect', width: 20, height: 25, hideLabel: true, type: 'button' },
-  // { id: 'MiddleClick', x: 47, y: 20, label: 'M', shape: 'rect', width: 6, height: 10, hideLabel: true, type: 'button' }
+  { id: 'LeftClick', x: 30, y: 28, label: 'Left', shape: 'rect', width: 62, height: 70, hideLabel: true, type: 'button' },
+  { id: 'RightClick', x: 70, y: 28, label: 'Right', shape: 'rect', width: 62, height: 70, hideLabel: true, type: 'button' },
+  { id: 'MiddleClick', x: 50, y: 24, label: 'Middle', shape: 'capsule', width: 28, height: 54, borderRadius: 14, hideLabel: true, type: 'button' },
+  { id: 'Button4', x: 13, y: 54, label: 'Mouse 4', shape: 'capsule', width: 24, height: 42, borderRadius: 12, hideLabel: true, type: 'button' },
+  { id: 'Button5', x: 13, y: 70, label: 'Mouse 5', shape: 'capsule', width: 24, height: 42, borderRadius: 12, hideLabel: true, type: 'button' }
 ]
 
 /**
@@ -302,7 +306,7 @@ export const getControllerConfig = (controllerId) => {
     case 'keyboard':
       return {
         name: 'Keyboard & Mouse',
-        image: './controllers/QWERTY_keyboard_en.svg',
+        image: keyboardImage,
         buttons: [...KEYBOARD_BUTTONS, ...MOUSE_BUTTONS]
       }
     default:

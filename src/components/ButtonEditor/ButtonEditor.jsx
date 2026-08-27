@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from 'react'
 import { renderLabel, getButtonOverlayStyle } from '../../utils/controllerHelpers'
 import ButtonEditorForm from './ButtonEditorForm'
 import ButtonEditorList from './ButtonEditorList'
+import KeyboardSvg from '../controllers/KeyboardSvg'
 
 function ButtonEditor({ controller, initialButtons, onExport }) {
   const containerRef = useRef(null)
@@ -102,7 +103,6 @@ function ButtonEditor({ controller, initialButtons, onExport }) {
       case 'keyboard':
       case 'keyboardmouse':
         return {
-          src: './controllers/QWERTY_keyboard_en.svg',
           alt: 'Keyboard and Mouse',
           style: { width: '890px', maxHeight: '400px' }
         }
@@ -132,13 +132,25 @@ function ButtonEditor({ controller, initialButtons, onExport }) {
 
       {/* Controller Image and Buttons */}
       <div className="controller-svg-container">
-        <img 
-          src={controllerConfig.src}
-          alt={controllerConfig.alt}
-          className="controller-svg"
-          style={controllerConfig.style}
-        />
-        {buttons.map(button => {
+        {controller === 'keyboard' || controller === 'keyboardmouse' ? (
+          <KeyboardSvg
+            selectedButton={selectedButton}
+            onButtonClick={(id, _, event) => {
+              const button = buttons.find((item) => item.id === id)
+              if (button) handleButtonClick(id, button, event)
+            }}
+            className="controller-svg"
+            style={controllerConfig.style}
+          />
+        ) : (
+          <img
+            src={controllerConfig.src}
+            alt={controllerConfig.alt}
+            className="controller-svg"
+            style={controllerConfig.style}
+          />
+        )}
+        {controller !== 'keyboard' && controller !== 'keyboardmouse' && buttons.map(button => {
           const isSelected = selectedButton === button.id
           const overlayStyle = getButtonOverlayStyle(button)
 

@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from 'react'
 import { getControllerConfig } from '../constants/controllers'
 import { getOrganizedButtons } from '../utils/controllerDragDrop'
+import KeyboardSvg from './controllers/KeyboardSvg'
 
 /**
  * Render label for export (SVG icons or text)
@@ -135,9 +136,25 @@ function ControllerExportView({
 
       const containerRect = containerRef.current.getBoundingClientRect()
       const imageRect = imageRef.current.getBoundingClientRect()
+
+      const getButtonRect = (button) => {
+        if (controller !== 'keyboard' && controller !== 'keyboardmouse') return null
+        const element = Array.from(imageRef.current.querySelectorAll('[data-button-id]'))
+          .find((item) => item.dataset.buttonId === button.id)
+        return element?.getBoundingClientRect() || null
+      }
       
       // Helper: Check if a point is inside a button's bounds
       const isPointInButton = (x, y, button, imageRect, containerRect) => {
+        const elementRect = getButtonRect(button)
+        if (elementRect) {
+          const left = elementRect.left - containerRect.left - 15
+          const right = elementRect.right - containerRect.left + 15
+          const top = elementRect.top - containerRect.top - 15
+          const bottom = elementRect.bottom - containerRect.top + 15
+          return x >= left && x <= right && y >= top && y <= bottom
+        }
+
         const btnX = imageRect.left - containerRect.left + (imageRect.width * button.x / 100)
         const btnY = imageRect.top - containerRect.top + (imageRect.height * button.y / 100)
         
@@ -213,11 +230,17 @@ function ControllerExportView({
         if (!mapping) return
         
         // Get button position (percentage relative to image)
-        const buttonX = imageRect.left - containerRect.left + (imageRect.width * button.x / 100)
-        const buttonY = imageRect.top - containerRect.top + (imageRect.height * button.y / 100)
+        const elementRect = getButtonRect(button)
+        const buttonX = elementRect
+          ? elementRect.left - containerRect.left + elementRect.width / 2
+          : imageRect.left - containerRect.left + (imageRect.width * button.x / 100)
+        const buttonY = elementRect
+          ? elementRect.top - containerRect.top + elementRect.height / 2
+          : imageRect.top - containerRect.top + (imageRect.height * button.y / 100)
 
         // Get mapping row position
-        const rowElement = containerRef.current.querySelector(`[data-button-id="${buttonId}"]`)
+        const rowElement = Array.from(containerRef.current.querySelectorAll('.export-mapping-row[data-button-id]'))
+          .find((element) => element.dataset.buttonId === buttonId)
         if (!rowElement) return
 
         const rowRect = rowElement.getBoundingClientRect()
@@ -366,7 +389,11 @@ function ControllerExportView({
         
         {/* Controller Image */}
         <div className="export-controller-image">
-          <img ref={imageRef} src={config.image} alt={config.name} />
+          {controller === 'keyboard' || controller === 'keyboardmouse' ? (
+            <KeyboardSvg ref={imageRef} mappings={mappings} />
+          ) : (
+            <img ref={imageRef} src={config.image} alt={config.name} />
+          )}
         </div>
         
         {/* Right Side Mappings */}

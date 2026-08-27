@@ -2,6 +2,7 @@ import React from 'react'
 import { toPng } from 'html-to-image'
 import { createRoot } from 'react-dom/client'
 import ControllerExportView from '../components/ControllerExportView'
+import keyboardImage from '../../controllers/keyboard.svg'
 
 // Export scheme as JSON file
 export const exportToJSON = (data, filename) => {
@@ -82,8 +83,8 @@ const getControllerImagePath = (controller) => {
     'xbox': './controllers/xbox-one.svg',
     'switch': './controllers/switch.svg',
     'steamdeck': './controllers/steam-deck.svg',
-    'keyboardmouse': './controllers/QWERTY_en_mouse.svg',
-    'keyboard': './controllers/QWERTY_keyboard_en.svg'
+    'keyboardmouse': keyboardImage,
+    'keyboard': keyboardImage
   }
   return imageMap[controller] || ''
 }

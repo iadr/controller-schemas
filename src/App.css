@@ -377,6 +377,30 @@ h2, h3 {
   height: auto;
 }
 
+.keyboard-svg > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.keyboard-svg [data-button-id] {
+  cursor: pointer;
+}
+
+.keyboard-svg [data-button-id] .key {
+  transition: fill 0.15s ease, stroke 0.15s ease;
+}
+
+.keyboard-svg [data-button-id].has-mapping .key {
+  fill: var(--overlay-success-light);
+  stroke: var(--status-success);
+}
+
+.keyboard-svg [data-button-id].selected .key {
+  fill: var(--overlay-primary-strong);
+  stroke: var(--accent-primary);
+}
+
 .button-marker {
   position: absolute;
   transform: translate(-50%, -50%) scale(var(--button-scale));
@@ -1497,6 +1521,12 @@ h2, h3 {
   height: auto;
   max-height: 600px;
   min-width: 400px;
+}
+
+.controller-export-view .export-controller-image .keyboard-svg {
+  width: 100%;
+  min-width: 400px;
+  max-height: 600px;
 }
 
 .controller-export-view .export-mappings-list {

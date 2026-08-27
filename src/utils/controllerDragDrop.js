@@ -144,7 +144,8 @@ export const useButtonPositions = (containerRef, buttons, mappings, buttonSideOv
 
         const newPositions = {}
         buttons.forEach(button => {
-          const marker = container.querySelector(`[data-button-id="${button.id}"]`)
+          const marker = Array.from(container.querySelectorAll('[data-button-id]'))
+            .find((element) => element.dataset.buttonId === button.id)
           if (marker) {
             const markerRect = marker.getBoundingClientRect()
             newPositions[button.id] = {
