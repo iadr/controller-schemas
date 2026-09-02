@@ -383,6 +383,51 @@ h2, h3 {
   height: auto;
 }
 
+.mouse-svg > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.mouse-svg [data-button-id] {
+  cursor: pointer;
+}
+
+.mouse-svg [data-button-id] .button,
+.mouse-svg [data-button-id].button {
+  transition: fill 0.15s ease, stroke 0.15s ease;
+}
+
+.mouse-svg [data-button-id].has-mapping .button,
+.mouse-svg [data-button-id].has-mapping.button {
+  fill: var(--overlay-success-light);
+  stroke: var(--status-success);
+}
+
+.mouse-svg [data-button-id].selected .button,
+.mouse-svg [data-button-id].selected.button {
+  fill: var(--overlay-primary-strong);
+  stroke: var(--accent-primary);
+}
+
+.keyboard-mouse-export {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.keyboard-mouse-editor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.keyboard-mouse-export .mouse-svg {
+  width: 120px;
+}
+
 .keyboard-svg [data-button-id] {
   cursor: pointer;
 }

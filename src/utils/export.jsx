@@ -3,6 +3,7 @@ import { toPng } from 'html-to-image'
 import { createRoot } from 'react-dom/client'
 import ControllerExportView from '../components/ControllerExportView'
 import keyboardImage from '../../controllers/keyboard.svg'
+import mouseImage from '../../controllers/mouse.svg'
 
 // Export scheme as JSON file
 export const exportToJSON = (data, filename) => {
@@ -83,7 +84,7 @@ const getControllerImagePath = (controller) => {
     'xbox': './controllers/xbox-one.svg',
     'switch': './controllers/switch.svg',
     'steamdeck': './controllers/steam-deck.svg',
-    'keyboardmouse': keyboardImage,
+    'keyboardmouse': [keyboardImage, mouseImage],
     'keyboard': keyboardImage
   }
   return imageMap[controller] || ''
@@ -99,7 +100,8 @@ export const exportControllerToImage = async (controller, context, mappings, but
     const imagePath = getControllerImagePath(controller)
     if (imagePath) {
       console.log(`Preloading image for ${controller}: ${imagePath}`)
-      await preloadImage(imagePath)
+      const imagePaths = Array.isArray(imagePath) ? imagePath : [imagePath]
+      await Promise.all(imagePaths.map(preloadImage))
       console.log(`Image preloaded successfully for ${controller}`)
     }
 

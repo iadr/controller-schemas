@@ -3,6 +3,7 @@ import { renderLabel, getButtonOverlayStyle } from '../../utils/controllerHelper
 import ButtonEditorForm from './ButtonEditorForm'
 import ButtonEditorList from './ButtonEditorList'
 import KeyboardSvg from '../controllers/KeyboardSvg'
+import MouseSvg from '../controllers/MouseSvg'
 
 function ButtonEditor({ controller, initialButtons, onExport }) {
   const containerRef = useRef(null)
@@ -133,15 +134,28 @@ function ButtonEditor({ controller, initialButtons, onExport }) {
       {/* Controller Image and Buttons */}
       <div className="controller-svg-container">
         {controller === 'keyboard' || controller === 'keyboardmouse' ? (
-          <KeyboardSvg
-            selectedButton={selectedButton}
-            onButtonClick={(id, _, event) => {
-              const button = buttons.find((item) => item.id === id)
-              if (button) handleButtonClick(id, button, event)
-            }}
-            className="controller-svg"
-            style={controllerConfig.style}
-          />
+          <div className="keyboard-mouse-editor">
+            <KeyboardSvg
+              selectedButton={selectedButton}
+              onButtonClick={(id, _, event) => {
+                const button = buttons.find((item) => item.id === id)
+                if (button) handleButtonClick(id, button, event)
+              }}
+              className="controller-svg"
+              style={controllerConfig.style}
+            />
+            {controller === 'keyboardmouse' && (
+              <MouseSvg
+                selectedButton={selectedButton}
+                onButtonClick={(id, _, event) => {
+                  const button = buttons.find((item) => item.id === id)
+                  if (button) handleButtonClick(id, button, event)
+                }}
+                className="controller-svg"
+                style={{ width: '120px' }}
+              />
+            )}
+          </div>
         ) : (
           <img
             src={controllerConfig.src}

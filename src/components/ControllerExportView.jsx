@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from 'react'
 import { getControllerConfig } from '../constants/controllers'
 import { getOrganizedButtons } from '../utils/controllerDragDrop'
 import KeyboardSvg from './controllers/KeyboardSvg'
+import MouseSvg from './controllers/MouseSvg'
 
 /**
  * Render label for export (SVG icons or text)
@@ -389,8 +390,13 @@ function ControllerExportView({
         
         {/* Controller Image */}
         <div className="export-controller-image">
-          {controller === 'keyboard' || controller === 'keyboardmouse' ? (
+          {controller === 'keyboard' ? (
             <KeyboardSvg ref={imageRef} mappings={mappings} />
+          ) : controller === 'keyboardmouse' ? (
+            <div ref={imageRef} className="keyboard-mouse-export">
+              <KeyboardSvg mappings={mappings} />
+              <MouseSvg mappings={mappings} />
+            </div>
           ) : (
             <img ref={imageRef} src={config.image} alt={config.name} />
           )}
