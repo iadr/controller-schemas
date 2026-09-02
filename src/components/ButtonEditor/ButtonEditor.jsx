@@ -4,6 +4,7 @@ import ButtonEditorForm from './ButtonEditorForm'
 import ButtonEditorList from './ButtonEditorList'
 import KeyboardSvg from '../controllers/KeyboardSvg'
 import MouseSvg from '../controllers/MouseSvg'
+import XboxSvg from '../controllers/XboxSvg'
 
 function ButtonEditor({ controller, initialButtons, onExport }) {
   const containerRef = useRef(null)
@@ -133,7 +134,17 @@ function ButtonEditor({ controller, initialButtons, onExport }) {
 
       {/* Controller Image and Buttons */}
       <div className="controller-svg-container">
-        {controller === 'keyboard' || controller === 'keyboardmouse' ? (
+        {controller === 'xbox' ? (
+          <XboxSvg
+            selectedButton={selectedButton}
+            onButtonClick={(id, _, event) => {
+              const button = buttons.find((item) => item.id === id)
+              if (button) handleButtonClick(id, button, event)
+            }}
+            className="controller-svg"
+            style={controllerConfig.style}
+          />
+        ) : controller === 'keyboard' || controller === 'keyboardmouse' ? (
           <div className="keyboard-mouse-editor">
             <KeyboardSvg
               selectedButton={selectedButton}
@@ -164,7 +175,7 @@ function ButtonEditor({ controller, initialButtons, onExport }) {
             style={controllerConfig.style}
           />
         )}
-        {controller !== 'keyboard' && controller !== 'keyboardmouse' && buttons.map(button => {
+        {controller !== 'xbox' && controller !== 'keyboard' && controller !== 'keyboardmouse' && buttons.map(button => {
           const isSelected = selectedButton === button.id
           const overlayStyle = getButtonOverlayStyle(button)
 

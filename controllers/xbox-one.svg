@@ -264,83 +264,106 @@
      transform="translate(0.00243459)">
     <circle
        id="leftStickClick"
+       data-button-id="leftStick"
        class="invizCircle"
        cx="125.01"
        cy="101.1"
        r="44.389999" />
     <circle
        id="rightStickClick"
+       data-button-id="rightStick"
        class="invizCircle"
        cx="329.66"
        cy="180.45"
        r="44.389999" />
     <circle
        id="xButton"
+       data-button-id="west"
        class="invizCircle"
        cx="358.85001"
        cy="102.33"
        r="21.719999" />
     <circle
        id="yButton"
+       data-button-id="north"
        class="invizCircle"
        cx="395.85999"
        cy="67.040001"
        r="21.719999" />
     <circle
        id="bButton"
+       data-button-id="east"
        class="invizCircle"
        cx="432.32999"
        cy="101.66"
        r="21.719999" />
     <circle
        id="aButton"
+       data-button-id="south"
        class="invizCircle"
        cx="395.85999"
        cy="137.35001"
        r="21.719999" />
     <path
        id="leftTrigger"
+       data-button-id="leftTrigger"
        class="invizCircle"
        d="m 89.1,27.74 c 0,0 3.08,-12.92 9.84,-22.86 7.12,-2.86 14.69,-4.47 22.36,-4.77 0,0 7.65,2.78 14.91,13.82 L 89.1,27.75 Z" />
     <path
        id="rightTrigger"
+       data-button-id="rightTrigger"
        class="invizCircle"
        d="m 431.17,27.74 c 0,0 -3.08,-12.92 -9.84,-22.86 -7.13,-2.86 -14.69,-4.48 -22.36,-4.77 0,0 -7.65,2.78 -14.91,13.82 l 47.11,13.82 z" />
     <path
        id="leftBumper"
+       data-button-id="leftButton"
        class="invizCircle"
        d="m 79.75,40.46 3.38,-11.33 c 0,0 24.89,-22.32 74.31,-28.17 4.03,-0.47 8.11,0.26 11.73,2.1 9.43,4.8 28.73,14.31 35.83,15.34 L 79.76,40.46 Z" />
     <path
        id="rightBumper"
+       data-button-id="rightButton"
        class="invizCircle"
        d="m 440.52,40.46 -3.38,-11.33 c 0,0 -24.89,-22.32 -74.31,-28.17 -4.03,-0.47 -8.11,0.26 -11.72,2.1 -9.43,4.8 -28.73,14.31 -35.83,15.34 z" />
     <circle
        id="backButton"
+       data-button-id="select"
        class="invizCircle"
        cx="221.42"
        cy="99.919998"
        r="14.12" />
     <circle
        id="startButton"
+       data-button-id="start"
        class="invizCircle"
        cx="299.39001"
        cy="99.919998"
        r="14.12" />
     <path
        id="dpadUp"
+       data-button-id="dPadUp"
        class="invizCircle"
        d="m 178.3,174.34 v -18.69 c 0,0 6.08,-2.46 11.92,-2.46 5.84,0 12.54,2.46 12.54,2.46 v 18.69 z" />
     <path
        id="dpadDown"
+       data-button-id="dPadDown"
        class="invizCircle"
        d="m 202.76,202.3 v 18.69 c 0,0 -6.08,2.46 -11.92,2.46 -5.84,0 -12.54,-2.46 -12.54,-2.46 V 202.3 Z" />
     <path
        id="dpadLeft"
+       data-button-id="dPadLeft"
        class="invizCircle"
        d="m 176.55,200.55 h -18.69 c 0,0 -2.46,-6.08 -2.46,-11.92 0,-5.84 2.46,-12.54 2.46,-12.54 h 18.69 z" />
     <path
        id="dpadRight"
+       data-button-id="dPadRight"
        class="invizCircle"
        d="m 204.51,176.09 h 18.69 c 0,0 2.46,6.08 2.46,11.92 0,5.84 -2.46,12.54 -2.46,12.54 h -18.69 z" />
+    <circle
+       id="dpadCenter"
+       data-button-id="dPad"
+       class="invizCircle"
+       cx="190.53"
+       cy="188.32"
+       r="12" />
   </g>
 </svg>
