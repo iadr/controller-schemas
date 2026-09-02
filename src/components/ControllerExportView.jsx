@@ -4,6 +4,7 @@ import { getOrganizedButtons } from '../utils/controllerDragDrop'
 import KeyboardSvg from './controllers/KeyboardSvg'
 import MouseSvg from './controllers/MouseSvg'
 import XboxSvg from './controllers/XboxSvg'
+import SwitchSvg from './controllers/SwitchSvg'
 
 /**
  * Render label for export (SVG icons or text)
@@ -393,6 +394,8 @@ function ControllerExportView({
         <div className="export-controller-image">
           {controller === 'xbox' ? (
             <XboxSvg ref={imageRef} mappings={mappings} />
+          ) : controller === 'switch' ? (
+            <SwitchSvg ref={imageRef} mappings={mappings} />
           ) : controller === 'keyboard' ? (
             <KeyboardSvg ref={imageRef} mappings={mappings} />
           ) : controller === 'keyboardmouse' ? (

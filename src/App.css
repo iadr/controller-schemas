@@ -395,6 +395,33 @@ h2, h3 {
   height: auto;
 }
 
+.switch-svg > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.switch-svg [data-button-id] {
+  cursor: pointer;
+  fill: var(--accent-primary);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.switch-svg [data-button-id]:hover {
+  opacity: 0.25;
+}
+
+.switch-svg [data-button-id].has-mapping {
+  fill: var(--status-success);
+  opacity: 0.6;
+}
+
+.switch-svg [data-button-id].selected {
+  fill: var(--accent-primary);
+  opacity: 0.7;
+}
+
 .xbox-svg [data-button-id] {
   cursor: pointer;
   fill: var(--accent-primary);

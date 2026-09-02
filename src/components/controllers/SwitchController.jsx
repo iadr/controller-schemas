@@ -1,13 +1,12 @@
 import { useRef } from 'react'
-import { renderLabel, getButtonOverlayStyle } from '../../utils/controllerHelpers'
 import { 
-  getMappingLabel, 
   getOrganizedButtons,
   useButtonPositions,
   useControllerDragDrop
 } from '../../utils/controllerDragDrop'
 import MappingListSideBySide from '../MappingEditor/MappingListSideBySide'
 import { SWITCH_BUTTONS } from '../../constants/controllers'
+import SwitchSvg from './SwitchSvg'
 
 function SwitchController({ 
   mappings, 
@@ -113,35 +112,16 @@ function SwitchController({
       />
 
       <div className="controller-svg-container">
-        <img 
-          src="./controllers/switch.svg" 
-          alt="Nintendo Switch Controller" 
+        <SwitchSvg
+          mappings={mappings}
+          selectedButton={selectedButton}
+          onButtonClick={(id, _, event) => {
+            const button = buttons.find((item) => item.id === id)
+            if (button) onButtonClick(id, button, event)
+          }}
           className="controller-svg"
           style={{ maxWidth: '600px', height: '78vh', maxHeight: '100%' }}
         />
-        {buttons.map(button => {
-          const mappingLabel = getMappingLabel(mappings, button.id)
-          const isSelected = selectedButton === button.id
-          const hasMapping = !!mappingLabel
-          const overlayStyle = getButtonOverlayStyle(button)
-
-          return (
-            <div
-              key={button.id}
-              data-button-id={button.id}
-              className={`button-marker ${isSelected ? 'selected' : ''} ${hasMapping ? 'has-mapping' : ''}`}
-              style={{
-                left: `${button.x}%`,
-                top: `${button.y}%`
-              }}
-              onClick={(e) => onButtonClick(button.id, button, e)}
-            >
-              <div className="button-marker-circle" style={overlayStyle}>
-                {!button.hideLabel && renderLabel(button.label)}
-              </div>
-            </div>
-          )
-        })}
       </div>
 
       {/* Right Side List */}

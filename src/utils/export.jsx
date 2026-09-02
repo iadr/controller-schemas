@@ -5,6 +5,7 @@ import ControllerExportView from '../components/ControllerExportView'
 import keyboardImage from '../../controllers/keyboard.svg'
 import mouseImage from '../../controllers/mouse.svg'
 import xboxImage from '../../controllers/xbox-one.svg'
+import switchImage from '../../controllers/switch.svg'
 
 // Export scheme as JSON file
 export const exportToJSON = (data, filename) => {
@@ -83,7 +84,7 @@ const preloadImage = (src) => {
 const getControllerImagePath = (controller) => {
   const imageMap = {
     'xbox': xboxImage,
-    'switch': './controllers/switch.svg',
+    'switch': switchImage,
     'steamdeck': './controllers/steam-deck.svg',
     'keyboardmouse': [keyboardImage, mouseImage],
     'keyboard': keyboardImage
