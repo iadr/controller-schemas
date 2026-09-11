@@ -142,7 +142,6 @@ function ControllerExportView({
       const imageRect = imageRef.current.getBoundingClientRect()
 
       const getButtonRect = (button) => {
-        if (controller !== 'keyboard' && controller !== 'keyboardmouse') return null
         const element = Array.from(imageRef.current.querySelectorAll('[data-button-id]'))
           .find((item) => item.dataset.buttonId === button.id)
         return element?.getBoundingClientRect() || null
@@ -395,8 +394,8 @@ function ControllerExportView({
         <div className="export-controller-image">
           {controller === 'xbox' ? (
             <XboxSvg ref={imageRef} mappings={mappings} />
-          ) : controller === 'switch' ? (
-            <SwitchSvg ref={imageRef} mappings={mappings} />
+          ) : controller === 'switch' || controller === 'joycon' ? (
+            <SwitchSvg variant={controller} ref={imageRef} mappings={mappings} />
           ) : controller === 'steamdeck' ? (
             <SteamDeckSvg ref={imageRef} mappings={mappings} />
           ) : controller === 'keyboard' ? (

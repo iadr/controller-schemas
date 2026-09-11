@@ -1,9 +1,12 @@
 import { forwardRef, useEffect, useRef } from 'react'
 import switchMarkup from '../../../controllers/switch.svg?raw'
+import joyConMarkup from '../../../controllers/switch_joycon_processed.svg?raw'
+
+const inlineJoyConMarkup = joyConMarkup.replace(/<\?xml[^>]*\?>|<!DOCTYPE[^>]*>/g, '')
 
 const inlineSwitchMarkup = switchMarkup.replace(/<\?xml[^>]*\?>/, '')
 
-const SwitchSvg = forwardRef(function SwitchSvg({ mappings = {}, selectedButton, onButtonClick, className = '', style }, forwardedRef) {
+const SwitchSvg = forwardRef(function SwitchSvg({ variant = 'switch', mappings = {}, selectedButton, onButtonClick, className = '', style }, forwardedRef) {
   const rootRef = useRef(null)
 
   useEffect(() => {
@@ -15,7 +18,7 @@ const SwitchSvg = forwardRef(function SwitchSvg({ mappings = {}, selectedButton,
       element.classList.toggle('has-mapping', Boolean(mappings[id]))
       element.classList.toggle('selected', selectedButton === id)
     })
-  }, [mappings, selectedButton])
+  }, [mappings, selectedButton, variant])
 
   useEffect(() => {
     const root = rootRef.current
@@ -45,8 +48,8 @@ const SwitchSvg = forwardRef(function SwitchSvg({ mappings = {}, selectedButton,
       className={`switch-svg ${className}`.trim()}
       style={style}
       role="img"
-      aria-label="Nintendo Switch Controller"
-      dangerouslySetInnerHTML={{ __html: inlineSwitchMarkup }}
+      aria-label={variant === 'joycon' ? 'Nintendo Switch Joy-Con (L)' : 'Nintendo Switch Controller'}
+      dangerouslySetInnerHTML={{ __html: variant === 'joycon' ? inlineJoyConMarkup : inlineSwitchMarkup }}
     />
   )
 })

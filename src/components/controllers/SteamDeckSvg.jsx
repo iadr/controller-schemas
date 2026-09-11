@@ -1,7 +1,7 @@
 import { forwardRef, useEffect, useRef } from 'react'
-import steamDeckMarkup from '../../../controllers/steam-deck.svg?raw'
+import steamDeckMarkup from '../../../controllers/steam-deck_processed.svg?raw'
 
-const inlineSteamDeckMarkup = steamDeckMarkup.replace(/<\?xml[^>]*\?>/, '')
+const inlineSteamDeckMarkup = steamDeckMarkup.replace(/<\?xml[^>]*\?>|<!DOCTYPE[^>]*>/g, '')
 
 const SteamDeckSvg = forwardRef(function SteamDeckSvg({ mappings = {}, selectedButton, onButtonClick, className = '', style }, forwardedRef) {
   const rootRef = useRef(null)

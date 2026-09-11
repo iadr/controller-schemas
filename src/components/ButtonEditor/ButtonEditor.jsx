@@ -92,6 +92,7 @@ function ButtonEditor({ controller, initialButtons, onExport }) {
           alt: 'Xbox Controller',
           style: { width: '600px' }
         }
+      case 'joycon':
       case 'switch':
         return {
           src: './controllers/switch.svg',
@@ -146,8 +147,9 @@ function ButtonEditor({ controller, initialButtons, onExport }) {
             className="controller-svg"
             style={controllerConfig.style}
           />
-        ) : controller === 'switch' ? (
+        ) : controller === 'switch' || controller === 'joycon' ? (
           <SwitchSvg
+            variant={controller}
             selectedButton={selectedButton}
             onButtonClick={(id, _, event) => {
               const button = buttons.find((item) => item.id === id)
@@ -197,7 +199,7 @@ function ButtonEditor({ controller, initialButtons, onExport }) {
             style={controllerConfig.style}
           />
         )}
-        {controller !== 'xbox' && controller !== 'switch' && controller !== 'steamdeck' && controller !== 'keyboard' && controller !== 'keyboardmouse' && buttons.map(button => {
+        {controller !== 'xbox' && controller !== 'switch' && controller !== 'joycon' && controller !== 'steamdeck' && controller !== 'keyboard' && controller !== 'keyboardmouse' && buttons.map(button => {
           const isSelected = selectedButton === button.id
           const overlayStyle = getButtonOverlayStyle(button)
 

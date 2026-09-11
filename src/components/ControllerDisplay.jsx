@@ -39,9 +39,12 @@ function ControllerDisplay({
             setCustomOrder={setCustomOrder}
           />
         )
+      case 'joycon':
       case 'switch':
         return (
           <SwitchController
+            key={controller}
+            controller={controller}
             mappings={mappings}
             onButtonClick={onButtonClick}
             selectedButton={selectedButton}

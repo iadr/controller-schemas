@@ -5,10 +5,11 @@ import {
   useControllerDragDrop
 } from '../../utils/controllerDragDrop'
 import MappingListSideBySide from '../MappingEditor/MappingListSideBySide'
-import { SWITCH_BUTTONS } from '../../constants/controllers'
+import { getControllerButtons } from '../../constants/controllers'
 import SwitchSvg from './SwitchSvg'
 
 function SwitchController({ 
+  controller = 'switch',
   mappings, 
   onButtonClick, 
   selectedButton,
@@ -20,7 +21,7 @@ function SwitchController({
   const containerRef = useRef(null)
 
   // Use centralized button definitions from constants
-  const buttons = SWITCH_BUTTONS
+  const buttons = getControllerButtons(controller)
 
   // Use shared hooks for button positions and drag-drop functionality
   const { dimensions, buttonPositions } = useButtonPositions(
@@ -113,6 +114,7 @@ function SwitchController({
 
       <div className="controller-svg-container">
         <SwitchSvg
+          variant={controller}
           mappings={mappings}
           selectedButton={selectedButton}
           onButtonClick={(id, _, event) => {
