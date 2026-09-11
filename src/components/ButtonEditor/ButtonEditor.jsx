@@ -6,6 +6,7 @@ import KeyboardSvg from '../controllers/KeyboardSvg'
 import MouseSvg from '../controllers/MouseSvg'
 import XboxSvg from '../controllers/XboxSvg'
 import SwitchSvg from '../controllers/SwitchSvg'
+import SteamDeckSvg from '../controllers/SteamDeckSvg'
 
 function ButtonEditor({ controller, initialButtons, onExport }) {
   const containerRef = useRef(null)
@@ -155,6 +156,16 @@ function ButtonEditor({ controller, initialButtons, onExport }) {
             className="controller-svg"
             style={controllerConfig.style}
           />
+        ) : controller === 'steamdeck' ? (
+          <SteamDeckSvg
+            selectedButton={selectedButton}
+            onButtonClick={(id, _, event) => {
+              const button = buttons.find((item) => item.id === id)
+              if (button) handleButtonClick(id, button, event)
+            }}
+            className="controller-svg"
+            style={controllerConfig.style}
+          />
         ) : controller === 'keyboard' || controller === 'keyboardmouse' ? (
           <div className="keyboard-mouse-editor">
             <KeyboardSvg
@@ -186,7 +197,7 @@ function ButtonEditor({ controller, initialButtons, onExport }) {
             style={controllerConfig.style}
           />
         )}
-        {controller !== 'xbox' && controller !== 'switch' && controller !== 'keyboard' && controller !== 'keyboardmouse' && buttons.map(button => {
+        {controller !== 'xbox' && controller !== 'switch' && controller !== 'steamdeck' && controller !== 'keyboard' && controller !== 'keyboardmouse' && buttons.map(button => {
           const isSelected = selectedButton === button.id
           const overlayStyle = getButtonOverlayStyle(button)
 

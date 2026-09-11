@@ -401,6 +401,34 @@ h2, h3 {
   height: auto;
 }
 
+.steamdeck-svg > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.steamdeck-svg .controller-hotspot {
+  cursor: pointer;
+  fill: var(--accent-primary) !important;
+  stroke: none !important;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.steamdeck-svg .controller-hotspot:hover {
+  opacity: 0.25;
+}
+
+.steamdeck-svg .controller-hotspot.has-mapping {
+  fill: var(--status-success) !important;
+  opacity: 0.6;
+}
+
+.steamdeck-svg .controller-hotspot.selected {
+  fill: var(--accent-primary) !important;
+  opacity: 0.7;
+}
+
 .switch-svg [data-button-id] {
   cursor: pointer;
   fill: var(--accent-primary);

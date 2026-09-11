@@ -5,6 +5,7 @@ import KeyboardSvg from './controllers/KeyboardSvg'
 import MouseSvg from './controllers/MouseSvg'
 import XboxSvg from './controllers/XboxSvg'
 import SwitchSvg from './controllers/SwitchSvg'
+import SteamDeckSvg from './controllers/SteamDeckSvg'
 
 /**
  * Render label for export (SVG icons or text)
@@ -396,6 +397,8 @@ function ControllerExportView({
             <XboxSvg ref={imageRef} mappings={mappings} />
           ) : controller === 'switch' ? (
             <SwitchSvg ref={imageRef} mappings={mappings} />
+          ) : controller === 'steamdeck' ? (
+            <SteamDeckSvg ref={imageRef} mappings={mappings} />
           ) : controller === 'keyboard' ? (
             <KeyboardSvg ref={imageRef} mappings={mappings} />
           ) : controller === 'keyboardmouse' ? (

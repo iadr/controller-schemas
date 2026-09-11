@@ -1,13 +1,13 @@
 import { useRef } from 'react'
-import { renderLabel, getButtonOverlayStyle } from '../../utils/controllerHelpers'
+import { renderLabel } from '../../utils/controllerHelpers'
 import { 
-  getMappingLabel, 
   getMappingGestures, 
   getOrganizedButtons,
   useButtonPositions,
   useControllerDragDrop
 } from '../../utils/controllerDragDrop'
 import { STEAMDECK_BUTTONS } from '../../constants/controllers'
+import SteamDeckSvg from './SteamDeckSvg'
 
 function SteamDeckController({ 
   mappings, 
@@ -137,38 +137,15 @@ function SteamDeckController({
           )}
       </div>
 
-      <div style={{ width: '700px', height: '400px', position: 'relative' }}>
-        {/* Steam Deck outline SVG */}
-        <img 
-          src="./controllers/steam-deck.svg" 
-          alt="Steam Deck Controller" 
-          style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}
+      <div style={{ width: '700px', position: 'relative' }}>
+        <SteamDeckSvg
+          mappings={mappings}
+          selectedButton={selectedButton}
+          onButtonClick={(id, _, event) => {
+            const button = buttons.find((item) => item.id === id)
+            if (button) onButtonClick(id, button, event)
+          }}
         />
-
-        {/* Clickable button overlays */}
-        {buttons.map(button => {
-          const mappingLabel = getMappingLabel(mappings, button.id)
-          const isSelected = selectedButton === button.id
-          const hasMapping = !!mappingLabel
-          const overlayStyle = getButtonOverlayStyle(button)
-
-          return (
-            <div
-              key={button.id}
-              data-button-id={button.id}
-              className={`button-marker ${isSelected ? 'selected' : ''} ${hasMapping ? 'has-mapping' : ''}`}
-              style={{
-                left: `${button.x}%`,
-                top: `${button.y}%`
-              }}
-              onClick={(e) => onButtonClick(button.id, button, e)}
-            >
-              <div className="button-marker-circle" style={overlayStyle}>
-                {!button.hideLabel && renderLabel(button.label)}
-              </div>
-            </div>
-          )
-        })}
       </div>
 
       {/* Right Side List */}
