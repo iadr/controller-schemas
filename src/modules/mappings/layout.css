@@ -1,0 +1,226 @@
+@media (max-width: 1024px) {
+  .app-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+  
+  .sidebar,
+  .right-panel {
+    max-height: none;
+  }
+}
+
+/* Responsive button scaling for different viewport sizes */
+@media (max-width: 1366px) {
+  .controller-svg-container {
+    --button-scale: 0.9;
+  }
+}
+
+@media (max-width: 1200px) {
+  .controller-svg-container {
+    --button-scale: 0.8;
+  }
+}
+
+@media (max-width: 1024px) {
+  .controller-svg-container {
+    --button-scale: 0.75;
+  }
+}
+
+@media (max-width: 768px) {
+  .controller-svg-container {
+    --button-scale: 0.65;
+  }
+}
+
+@media (max-width: 600px) {
+  .controller-svg-container {
+    --button-scale: 0.55;
+  }
+}
+
+/* Controller with side list layout */
+.controller-with-list {
+  position: relative;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 500px;
+  height: 100%;
+}
+
+/* Dual mappings lists container */
+.mappings-lists-dual {
+  display: flex;
+  gap: 1rem;
+  z-index: 10;
+  position: relative;
+}
+
+.mappings-list-title {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 1px solid var(--border-secondary);
+  padding-bottom: 0.5rem;
+}
+
+.guide-lines-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.guide-line {
+  stroke: var(--overlay-line);
+  stroke-width: 2;
+  fill: none;
+}
+
+.guide-line.selected {
+  stroke: var(--overlay-line-strong);
+  stroke-width: 3;
+}
+
+/* Mappings side list */
+.mappings-list-container {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-secondary);
+  border-radius: 8px;
+  padding: var(--spacing-small);
+  min-width: 250px;
+  max-width: 300px;
+  max-height: 100%;
+  overflow-y: auto;
+  z-index: 10;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.mappings-list-container.drag-over {
+  background: var(--overlay-primary-lighter);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px var(--overlay-primary-light);
+}
+
+.no-mappings-message {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--text-placeholder);
+}
+
+.no-mappings-message .icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  display: block;
+  color: var(--border-secondary);
+}
+
+.mapping-list-item {
+  user-select: none;
+  background: var(--bg-darker);
+  border: 2px solid var(--bg-tertiary);
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-bottom: var(--spacing-small);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.mapping-list-item:last-child {
+  margin-bottom: 0;
+}
+
+.mapping-list-item:hover {
+  border-color: var(--accent-primary-hover);
+  background: var(--bg-hover);
+  box-shadow: 0 2px 8px var(--shadow-md);
+}
+
+.mapping-list-item.selected {
+  border-color: var(--accent-primary);
+  background: var(--overlay-selected);
+  box-shadow: 0 0 0 3px var(--overlay-primary-light), 0 4px 12px var(--shadow-sm);
+}
+
+.mapping-list-item.selected .mapping-list-button-label {
+  color: var(--accent-primary-lighter);
+}
+
+.mapping-list-item.dragging {
+  opacity: 0.4;
+  cursor: grabbing;
+}
+
+.mapping-list-item[draggable="true"] {
+  cursor: grab;
+}
+
+.mapping-list-item.drag-over-item {
+  border-color: var(--accent-primary-hover);
+  background: var(--overlay-hover-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--shadow-sm);
+}
+
+.mapping-list-button-label {
+  font-weight: 700;
+  color: var(--accent-primary-light);
+  font-size: 0.85rem;
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.mapping-list-button-label::before {
+  content: ':';
+  font-size: 0.7rem;
+  color: var(--border-secondary);
+}
+
+.mapping-list-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mapping-list-action {
+  background: var(--overlay-bg);
+  padding: var(--spacing-small) 0.75rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.15s ease;
+}
+
+.mapping-list-item:hover .mapping-list-action {
+  background: var(--overlay-bg-strong);
+}
+
+.action-name {
+  color: var(--text-secondary);
+  font-weight: 500;
+  flex: 1;
+}
+
+.action-gesture {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-style: italic;
+}
+
+/* Keyboard key styling */

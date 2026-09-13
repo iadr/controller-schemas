@@ -1,0 +1,110 @@
+/* Button Editor List */
+.button-editor-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.button-editor-item {
+  cursor: pointer;
+  user-select: none;
+}
+
+.button-editor-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.button-editor-item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.2rem 0;
+}
+
+.detail-label {
+  color: var(--text-muted);
+  font-weight: 600;
+  min-width: 50px;
+}
+
+.detail-value {
+  color: var(--text-secondary);
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+}
+
+.btn-tiny {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.7rem;
+  width: auto;
+  margin: 0;
+}
+
+/* Mappings List Header */
+.mappings-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.mappings-list-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.mappings-list-actions .btn {
+  width: auto;
+  margin: 0;
+}
+
+/* Editor Instructions */
+.editor-instructions {
+  padding: 1rem;
+  background: var(--bg-darker);
+  border-radius: 6px;
+}
+
+.editor-instructions p {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.editor-instructions p:last-child {
+  margin-bottom: 0;
+}
+
+.editor-instructions strong {
+  color: var(--accent-primary-light);
+  font-weight: 600;
+}
+
+/* Button Editor Form Container */
+.button-editor-form-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.button-editor-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.button-editor-form .btn {
+  margin-top: 0.5rem;
+}

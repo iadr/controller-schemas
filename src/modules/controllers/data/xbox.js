@@ -1,0 +1,19 @@
+export const XBOX_BUTTONS = [
+  { id: 'south', x: 76.09, y: 37.56, label: 'A', shape: 'circle', size: 42, hideLabel: true, type: 'button', position: 'SOUTH' },
+  { id: 'east', x: 83.09, y: 27.80, label: 'B', shape: 'circle', size: 42, hideLabel: true, type: 'button', position: 'EAST' },
+  { id: 'west', x: 68.98, y: 27.99, label: 'X', shape: 'circle', size: 42, hideLabel: true, type: 'button', position: 'WEST' },
+  { id: 'north', x: 76.09, y: 18.34, label: 'Y', shape: 'circle', size: 42, hideLabel: true, type: 'button', position: 'NORTH' },
+  { id: 'leftButton', x: 29.37, y: 4.03, label: 'LB', shape: 'circle', size: 32, hideLabel: false, type: 'button' },
+  { id: 'rightButton', x: 70.63, y: 4.03, label: 'RB', shape: 'circle', size: 32, hideLabel: false, type: 'button' },
+  { id: 'leftTrigger', x: 21.65, y: 3.14, label: 'LT', shape: 'circle', size: 32, hideLabel: false, type: 'button' },
+  { id: 'rightTrigger', x: 78.34, y: 3.14, label: 'RT', shape: 'circle', size: 32, hideLabel: false, type: 'button' },
+  { id: 'leftStick', x: 24.03, y: 27.65, label: 'LS', shape: 'circle', size: 42, hideLabel: false, type: 'stick' },
+  { id: 'rightStick', x: 63.37, y: 49.35, label: 'RS', shape: 'circle', size: 42, hideLabel: false, type: 'stick' },
+  { id: 'dPad', x: 36.63, y: 51.39, label: 'bi bi-dpad', shape: 'dpad', size: 24, hideLabel: false, type: 'button' },
+  { id: 'dPadUp', x: 36.63, y: 44.98, label: 'bi bi-caret-up-fill', shape: 'dpad', size: 28, hideLabel: false, type: 'button' },
+  { id: 'dPadDown', x: 36.63, y: 57.65, label: 'bi bi-caret-down-fill', shape: 'dpad', size: 28, hideLabel: false, type: 'button' },
+  { id: 'dPadLeft', x: 31.95, y: 51.39, label: 'bi bi-caret-left-fill', shape: 'dpad', size: 28, hideLabel: false, type: 'button' },
+  { id: 'dPadRight', x: 41.30, y: 51.39, label: 'bi bi-caret-right-fill', shape: 'dpad', size: 28, hideLabel: false, type: 'button' },
+  { id: 'start', x: 57.54, y: 27.33, label: 'fas fa-bars', shape: 'circle', size: 32, hideLabel: true, type: 'button' },
+  { id: 'select', x: 42.56, y: 27.33, label: 'far fa-clone fa-rotate-90', shape: 'circle', size: 32, hideLabel: true, type: 'button' }
+]

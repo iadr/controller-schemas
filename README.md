@@ -1,141 +1,44 @@
-# 🎮 Controller Scheme Designer
+# Controller Scheme Designer
 
-A web-based application to create, manage, and export console controller diagrams with custom button mappings.
+Aplicacion React para crear esquemas de controles con acciones por contexto.
 
-## Features
+## Funciones
 
-- ✅ **Multiple Controller Types**
-  - Xbox Controller
-  - Nintendo Switch Controller
-  - Keyboard
-  - Mouse
-  - Steam Deck (optional)
+- Xbox, Nintendo Switch, Joy-Con izquierdo, Steam Deck y teclado con raton.
+- Asignaciones por ID, posicion o etiqueta, compatibles con JSON existentes.
+- Acciones de direccion, pulsacion y mantener.
+- Ordenar acciones y moverlas entre listas.
+- Importar/exportar JSON y exportar PNG con lineas opcionales.
+- Iconografia SVG inline mediante react-icons.
+- Editor de coordenadas conservado como legacy/deprecated.
 
-- ✅ **Context Management**
-  - Create multiple contexts (gameplay, menu, etc.)
-  - Switch between contexts easily
-  - Each context has independent mappings
+## Desarrollo
 
-- ✅ **Gesture Support**
-  - Tap
-  - Press
-  - Hold
+Instalar dependencias con npm install y abrir el servidor con npm run dev.
+El build se realiza manualmente con npm run build. No ejecutar pruebas dinamicas
+ni builds como parte de la refactorizacion automatizada.
 
-- ✅ **Import/Export**
-  - Save schemes as JSON files
-  - Import previously saved schemes
-  - Export diagrams as PNG images
+## Estructura
 
-- ✅ **Interactive UI**
-  - Click buttons to map actions
-  - Visual feedback for mapped buttons
-  - Real-time preview of mappings
+- src/app: composicion y estado del esquema.
+- src/modules/controllers: datos, registro y SVG compartido.
+- src/modules/mappings: edicion de acciones, listas y conexiones.
+- src/modules/contexts: gestion de contextos.
+- src/modules/export: JSON y PNG.
+- src/shared/icons: adaptador de react-icons.
+- src/legacy/coordinate-editor: editor de coordenadas deprecado.
+- src/styles: estilos compartidos.
 
-## Installation
+Detalle en [modulos](docs/refactor/modules.md),
+[iconografia](docs/refactor/icons.md) y
+[revision manual](docs/refactor/verification.md).
 
-1. Install dependencies:
-```bash
-npm install
-```
+## Editor legacy
 
-## Running the Application
+El editor exporta arrays de coordenadas para flujos antiguos. No modifica los paths
+de los SVG. Las zonas activas se definen con data-button-id en controllers/.
+Su codigo se carga solo al abrir el editor.
 
-1. Start the development server:
-```bash
-npm run dev
-```
+## Licencia
 
-2. Open your browser and navigate to `http://localhost:5173` (or the port shown in the terminal)
-
-## Building for Production
-
-```bash
-npm run build
-```
-
-The built files will be in the `dist` folder.
-
-## How to Use
-
-1. **Select a Controller**: Choose from Xbox, Switch, Keyboard, Mouse, or Steam Deck
-2. **Select a Context**: Switch between different contexts (gameplay, menu, etc.) or create new ones
-3. **Map Buttons**: 
-   - Click on any button/key in the controller diagram
-   - Enter the action name
-   - Select gesture type (tap, press, hold)
-   - Add optional description
-   - Click "Save Mapping"
-4. **Export**:
-   - **Export Scheme (JSON)**: Save your mappings to a file
-   - **Import Scheme (JSON)**: Load previously saved mappings
-   - **Download as PNG**: Export the current diagram as an image
-
-## Project Structure
-
-```
-controllers-schemes/
-├── controllers/           # SVG controller images
-│   ├── xbox-one.svg
-│   └── switch.svg
-├── src/
-│   ├── components/
-│   │   ├── controllers/   # Controller display components
-│   │   │   ├── XboxController.jsx
-│   │   │   ├── SwitchController.jsx
-│   │   │   ├── KeyboardDisplay.jsx
-│   │   │   ├── MouseDisplay.jsx
-│   │   │   └── SteamDeckController.jsx
-│   │   ├── ControllerSelector.jsx
-│   │   ├── ControllerDisplay.jsx
-│   │   ├── MappingEditor.jsx
-│   │   └── ContextManager.jsx
-│   ├── utils/
-│   │   └── export.js      # Export/Import utilities
-│   ├── App.jsx            # Main application
-│   ├── App.css            # Styles
-│   └── main.jsx           # Entry point
-├── index.html
-├── package.json
-└── vite.config.js
-```
-
-## Technologies Used
-
-- **React 18**: UI framework
-- **Vite**: Build tool and dev server
-- **html-to-image**: PNG export functionality
-- **CSS3**: Styling and animations
-
-## Features in Detail
-
-### Multiple Contexts
-Create different mapping contexts for various game modes:
-- Gameplay
-- Menu navigation
-- Driving
-- Combat
-- Inventory
-- etc.
-
-### Gesture Types
-Define how buttons should be used:
-- **Tap**: Quick press
-- **Press**: Standard press
-- **Hold**: Long press/hold
-
-### Visual Feedback
-- 🔵 Blue: Unmapped button
-- 🟢 Green: Mapped button
-- 🔴 Red: Currently selected button
-
-## Tips
-
-1. Use descriptive action names for clarity
-2. Add descriptions to complex mappings
-3. Export your schemes regularly to save progress
-4. Use different contexts for different game modes
-5. The PNG export captures the current visible context
-
-## License
-
-MIT License - Feel free to use and modify!
+MIT.

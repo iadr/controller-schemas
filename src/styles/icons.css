@@ -1,0 +1,7 @@
+.icon { width: 16px; height: 16px; flex-shrink: 0; vertical-align: middle; }
+.icon-rotate { transform: rotate(90deg); }
+.icon-spin { animation: icon-spin 1s linear infinite; }
+@keyframes icon-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .icon-spin { animation: none; } }
+.controller-artwork { max-width: 100%; }
+.export-button-name .icon { width: 24px; height: 24px; }

@@ -1,0 +1,88 @@
+.keyboard-svg > svg,
+.mouse-svg > svg,
+.playstation-svg > svg,
+.xbox-svg > svg,
+.switch-svg > svg,
+.steamdeck-svg > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+:is(.steamdeck-svg, .switch-svg, .xbox-svg, .playstation-svg) [data-button-id] {
+  cursor: pointer;
+  fill: var(--accent-primary);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+:is(.steamdeck-svg, .switch-svg, .xbox-svg, .playstation-svg) [data-button-id]:hover { opacity: 0.25; }
+:is(.steamdeck-svg, .switch-svg, .xbox-svg, .playstation-svg) [data-button-id].has-mapping {
+  fill: var(--status-success);
+  opacity: 0.6;
+}
+:is(.steamdeck-svg, .switch-svg, .xbox-svg, .playstation-svg) [data-button-id].selected {
+  fill: var(--accent-primary);
+  opacity: 0.7;
+}
+.xbox-svg #g1 { opacity: 1; }
+
+.mouse-svg [data-button-id] {
+  cursor: pointer;
+}
+
+.mouse-svg [data-button-id] .button,
+.mouse-svg [data-button-id].button {
+  transition: fill 0.15s ease, stroke 0.15s ease;
+}
+
+.mouse-svg [data-button-id].has-mapping .button,
+.mouse-svg [data-button-id].has-mapping.button {
+  fill: var(--overlay-success-light);
+  stroke: var(--status-success);
+}
+
+.mouse-svg [data-button-id].selected .button,
+.mouse-svg [data-button-id].selected.button {
+  fill: var(--overlay-primary-strong);
+  stroke: var(--accent-primary);
+}
+
+.keyboard-mouse-export {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.keyboard-mouse-export .mouse-svg {
+  width: 120px;
+}
+
+.keyboard-svg [data-button-id] {
+  cursor: pointer;
+}
+
+.keyboard-svg [data-button-id] .key {
+  transition: fill 0.15s ease, stroke 0.15s ease;
+}
+
+.keyboard-svg [data-button-id].has-mapping .key {
+  fill: var(--overlay-success-light);
+  stroke: var(--status-success);
+}
+
+.keyboard-svg [data-button-id].selected .key {
+  fill: var(--overlay-primary-strong);
+  stroke: var(--accent-primary);
+}
+
+.diagram-container {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-secondary);
+  border-radius: 8px;
+  padding: var(--spacing-medium);
+  position: relative;
+  height: 100%;
+}
+
