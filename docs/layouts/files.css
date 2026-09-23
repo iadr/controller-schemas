@@ -1,0 +1,33 @@
+.alternatives{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px}
+.file-actions{display:flex;gap:8px;min-width:0}
+.file-actions button{font-size:13px;white-space:nowrap}
+.file-actions.in-navigation,.file-actions.in-inspector{display:grid;grid-template-columns:minmax(0,1fr);margin:16px 0}
+.file-actions.in-navigation button,.file-actions.in-inspector button{text-align:left;white-space:normal}
+
+
+.file-actions.in-footer{position:absolute;bottom:0;left:0;right:0;height:64px;padding:10px 16px;background:white;border-top:1px solid #d0d9e5;z-index:2}
+.file-actions.in-footer button{flex:1}
+.layout-d.with-footer .workspace{height:calc(100% - 232px)}
+.file-actions.in-header{margin-left:auto}
+.with-header-files .header-context{display:none}
+.layout-c.with-header-files .session-controls{right:152px}
+header .file-actions button{background:#243d60;color:white;border-color:#8291a9}
+#fileDialog{width:min(580px,calc(100% - 32px));max-height:calc(100dvh - 32px);overflow:auto}
+#fileDialog.sheet{margin:auto auto 0;border-radius:16px 16px 0 0;width:min(580px,100%)}
+.file-dialog-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.file-dialog-heading h2{font-size:20px;margin:0}
+.file-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+.file-options button{text-align:left;white-space:normal}
+.file-options button small{display:block;color:#526176;font-size:12px;font-weight:400;margin-top:4px}
+.file-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.file-fields>*{min-width:0}
+.file-fields select{width:100%}
+.file-fields fieldset{border:1px solid #b7c4d5;border-radius:8px;padding:12px}
+.file-fields .check{display:flex;flex-direction:row;align-items:center;gap:8px;overflow-wrap:anywhere;min-height:44px}
+.file-fields input[type=checkbox]{width:20px;height:20px;min-height:20px;flex:none}
+.review-card{background:#edf3ff;border:1px solid #b9ccee;border-radius:8px;padding:16px;margin:16px 0;overflow-wrap:anywhere}
+.file-demo-label{color:#526176;font-size:12px}
+#fileDialog .dialog-actions{flex-wrap:wrap}
+@container (max-width:999px){.layout-c.with-header-files .session-controls{right:0}}
+@container (max-width:599px){.file-actions.in-header button{padding:8px}.file-actions.in-inspector{grid-template-columns:1fr 1fr}.with-header-files header{gap:8px}}
+@media(max-width:480px){.file-fields,.file-options{grid-template-columns:1fr}#fileDialog{padding:16px}}

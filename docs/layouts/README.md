@@ -1,4 +1,8 @@
-# Cuatro propuestas de layout
+# Tres propuestas de layout
+
+**Varias acciones por control:** los tres layouts agrupan ahora las asociaciones por control y evento, con ejemplos de botón, gatillo, stick y rueda. Consulta [representación y límites del modelo actual](control-events.md).
+
+**Actualización de acciones de archivo:** el prototipo incluye dos alternativas por layout (seis en total) para exportar PNG/JSON e importar JSON/`.inputactions`. Se eligen con los botones A/B. Consulta [comparación, dimensiones y flujos](file-actions.md). Los flujos de archivo son simulados; sus barras pueden reducir el espacio disponible respecto de las medidas base de este documento.
 
 Fecha: 2026-09-23. Abrir [index.html](index.html) directamente en el navegador, sin instalar dependencias. Permite elegir propuesta, dispositivo, resolución, ancho y alto personalizados, y visualización ajustada o 1:1. Son prototipos de composición; las asociaciones son ilustrativas. En 03 y 04, los selectores de contexto y mando y la creación de contextos son funcionales en memoria. No modifican el editor existente.
 
@@ -57,16 +61,15 @@ alto  = Ih × s
 
 En teclado + mouse se colocan ambos en horizontal, con separación de 16 px. Se usa un mouse base de 150 × 237.5 px y una escala común: `s = max(0, min((Bw - 16) / (868.95991 + 150), Bh / 326.18396))`. Es una relación visual propuesta, no una escala física entre periféricos. En móvil, la lista permite consultar las acciones aunque las teclas del diagrama sean pequeñas.
 
-## Las cuatro propuestas
+## Las tres propuestas
 
 | Propuesta | Distribución de escritorio | Caja máxima del mando/conjunto | Uso principal | Coste concreto |
 | --- | --- | --- | --- | --- |
 | 01. Tres columnas | Navegación 240 px / lienzo flexible / asociaciones 280 px | 640 × 480 px | Editar manteniendo contextos y archivos visibles | Reserva 552 px de ancho entre paneles fijos y separaciones |
-| 02. Mesa horizontal | Navegación 224 px / lienzo arriba / asociaciones abajo 208 px | 800 × 400 px | Steam Deck, Joy-Con y teclado + mouse | La franja inferior consume 224 px de alto contando separación |
 | 03. Inspector lateral | Lienzo flexible / asociaciones 320 px; contexto en cabecera | 880 × 560 px | Inspeccionar botones y asociaciones en escritorio | Los selectores ocupan 452 px de la cabecera, contando su separación |
 | 04. Secuencia vertical | Selectores 104 px / lienzo / asociaciones 224 px | 560 × 360 px | Tablet y móvil | Selectores, lista y separación ocupan 340 px, además del padding del área de trabajo |
 
-En 01 las asociaciones se unifican en un inspector, manteniendo el lado como dato al integrarlo. En 02 se reparten en dos columnas en la franja inferior. En 03 se propone editar la acción seleccionada en el mismo inspector. En 04 el contexto permanece encima del mando. La creación de contextos sí funciona en el prototipo; la edición de asociaciones y la gestión de archivos siguen pendientes de integración.
+En 01 las asociaciones se unifican en un inspector, manteniendo el lado como dato al integrarlo. En 03 se propone editar la acción seleccionada en el mismo inspector. En 04 el contexto permanece encima del mando. La creación de contextos sí funciona en el prototipo; la edición de asociaciones y la gestión de archivos siguen pendientes de integración.
 
 ### Medidas de referencia a 1440 × 900
 
@@ -75,7 +78,6 @@ Valores calculados con las reglas anteriores y redondeados al píxel. Correspond
 | Propuesta | Xbox | Switch | Joy-Con | Steam Deck |
 | --- | --- | --- | --- | --- |
 | 01 | 640 × 450 | 320 × 480 | 640 × 294 | 640 × 259 |
-| 02 | 569 × 400 | 267 × 400 | 800 × 367 | 800 × 324 |
 | 03 | 797 × 560 | 373 × 560 | 880 × 404 | 880 × 356 |
 | 04 | 509 × 358 | 239 × 358 | 560 × 257 | 560 × 227 |
 
@@ -87,17 +89,17 @@ Valores calculados con las reglas anteriores y redondeados al píxel. Correspond
 | 1440 × 900 | Referencia comparativa de la tabla anterior |
 | 1366 × 768 | Mantiene columnas; el límite vertical puede reducir el mando antes que el horizontal |
 | 1024 × 768 | Último preset de escritorio; 01 dispone de 424 px de panel central antes de descontar padding y bordes |
-| 768 × 1024 | 01–02 pasan a lienzo + lista inferior; 03–04 muestran selectores arriba del lienzo |
+| 768 × 1024 | 01 pasa a lienzo + lista inferior; 03–04 muestran selectores arriba del lienzo |
 | 390 × 844 | Márgenes de 16 px, lista de una columna, SVG contenido por ambos ejes |
 | 844 × 390 | Área de trabajo con scroll; lienzo de 300 px y lista de 224 px; navegación secundaria oculta |
 
-Umbrales exactos: ancho menor de 1000 px para apilar 01–03; ancho menor de 600 px para listas de una columna; alto menor de 600 px para permitir scroll del área de trabajo con lienzo de 300 px. El prototipo acepta anchos de 320–3840 px y altos de 320–2160 px. La reducción visual para caber en la página no cambia la resolución simulada ni las medidas informadas.
+Umbrales exactos: ancho menor de 1000 px para apilar 01 y 03; ancho menor de 600 px para listas de una columna; alto menor de 600 px para permitir scroll del área de trabajo con lienzo de 300 px. El prototipo acepta anchos de 320–3840 px y altos de 320–2160 px. La reducción visual para caber en la página no cambia la resolución simulada ni las medidas informadas.
 
-A 390 × 844, 01–02 tienen una caja libre de dibujo de 324 × 406 px, antes de aplicar sus máximos. 03–04 tienen 324 × 302 px por la barra de selectores de 104 px. Por ejemplo, Xbox se representa aproximadamente a 324 × 228 px en las cuatro propuestas.
+A 390 × 844, 01 tiene una caja libre de dibujo de 324 × 406 px, antes de aplicar sus máximos. 03–04 tienen 324 × 302 px por la barra de selectores de 104 px. Por ejemplo, Xbox se representa aproximadamente a 324 × 228 px en las tres propuestas.
 
 ## Propuesta de adopción
 
-Tomar **03 como base de escritorio**: a 1440 × 900 permite Xbox de 797 × 560 px, frente a 640 × 450 px de 01. Adoptar **04 para anchos inferiores a 1000 px**. Si el trabajo se concentra en dispositivos horizontales y edición de varias asociaciones, evaluar 02 con su franja inferior de 208 px. Las cuatro variantes están disponibles para comparar antes de modificar el editor.
+Tomar **03 como base de escritorio**: a 1440 × 900 permite Xbox de 797 × 560 px, frente a 640 × 450 px de 01. Adoptar **04 para anchos inferiores a 1000 px**. Las tres variantes están disponibles para comparar antes de modificar el editor.
 
 La implementación posterior debería centralizar las cajas y proporciones, retirar los anchos y alturas inline de cada controlador y compartir el cálculo con exportación. El PNG debe calcularse contra las dimensiones elegidas para la imagen, sin reutilizar `vh` del editor. Para líneas de conexión, observar cambios del contenedor y scroll, limitar las búsquedas al controlador activo y mostrar preferentemente la conexión seleccionada para evitar cruces entre listas y dibujo.
 
@@ -120,3 +122,8 @@ El prototipo abre inicialmente en **03**. Dentro de la pantalla simulada:
 Los contextos se conservan al cambiar de propuesta y se pierden al recargar. La adaptación real de asociaciones por dispositivo corresponde al editor existente y no se reproduce en este prototipo. En pantallas de menos de 600 px de alto los selectores continúan visibles y el lienzo y la lista tienen desplazamiento dentro del espacio restante.
 
 Revisión de esta actualización: inspección estática del HTML, CSS y eventos; sin `npm run` ni pruebas dinámicas.
+
+
+## Propuesta descartada
+
+Se retiró la propuesta 02 (Mesa horizontal) por decisión del usuario. Se eliminaron su selector, configuración, estilos y alternativas de archivo. Permanecen 01, 03 y 04 con su numeración original, seis alternativas de archivo en total y los ejemplos de eventos por control. Revisión estática; sin pruebas dinámicas ni comandos `npm run`.
