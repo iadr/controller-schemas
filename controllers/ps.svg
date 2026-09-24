@@ -2,14 +2,14 @@
 <svg
    id="Layer_1"
    class="controller"
-   viewBox="-20 -20 570.26999 369.97125"
+   viewBox="-20 -50 570.26999 399.97125"
    version="1.1"
    sodipodi:docname="ps.svg"
    inkscape:export-filename="ps.svg"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
    width="570.27002"
-   height="369.97125"
+   height="399.97125"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -28,6 +28,8 @@
     <style
        id="style1">.padWhite {}.padWhite,.padGrey,.padBlack,.invizCircle{stroke-width:0px;}.padGrey {}.padBlack {}.invizCircle{fill:#fff;opacity:0;}</style>
   </defs>
+  <path id="leftTriggerShape" class="padBlack" d="M 60,-12 C 61,-23 65,-34 72,-40 C 84,-44 101,-45 114,-42 L 120,-23 Z" style="fill:#d3d3d3" />
+  <path id="rightTriggerShape" class="padBlack" d="M 473.11,-12 C 472.11,-23 468.11,-34 461.11,-40 C 449.11,-44 432.11,-45 419.11,-42 L 413.11,-23 Z" style="fill:#d3d3d3" />
   <path
      id="Path_395"
      class="padGrey"
@@ -326,4 +328,6 @@
   <circle data-button-id="dPad" class="invizCircle" cx="91" cy="87" r="7" />
   <circle data-button-id="home" class="invizCircle" cx="265.27" cy="159" r="19" />
   <rect data-button-id="mute" class="invizCircle" x="252" y="190" width="27" height="8" rx="3" />
+  <path id="leftTrigger" data-button-id="leftTrigger" class="invizCircle" d="M 60,-12 C 61,-23 65,-34 72,-40 C 84,-44 101,-45 114,-42 L 120,-23 Z" />
+  <path id="rightTrigger" data-button-id="rightTrigger" class="invizCircle" d="M 473.11,-12 C 472.11,-23 468.11,-34 461.11,-40 C 449.11,-44 432.11,-45 419.11,-42 L 413.11,-23 Z" />
 </svg>

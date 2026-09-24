@@ -17,7 +17,7 @@ const eventExamples = {
   ['Pulsación corta','Soltar antes de 400 ms','Seleccionar'],
   ['Mantener','400 ms o más','Arrastrar objeto']
  ]},
- wheel: {id:'wheel',name:'Rueda',kind:'Desplazamiento · 1 eje + clic',events:[
+ wheel: {id:'MiddleClick',name:'Rueda',kind:'Desplazamiento · 1 eje + clic',events:[
   ['Desplazar ↑','Delta positivo según convención del esquema','Herramienta anterior'],
   ['Desplazar ↓','Delta negativo según convención del esquema','Herramienta siguiente'],
   ['Pulsación corta','Clic central: soltar antes de 400 ms','Marcar objetivo'],
@@ -60,25 +60,12 @@ function controlHeading(control){
 }
 function renderMappings(){
  const rows=document.querySelector('.rows');rows.replaceChildren();rows.classList.add('event-groups');
- const examples=currentControlExamples();
+ renderInteractiveControls();
+ const examples=layout==='c'?prototypeControls():currentControlExamples();
  const total=examples.reduce((count,control)=>count+control.events.length,0);
  $('eventSummary').textContent=examples.length+' controles · '+total+' asociaciones por evento · ejemplos de diseño, sin entrada de hardware.';
  if(!examples.length){rows.append(eventElement('p','empty-state','Sin asociaciones en este contexto.'));return;}
  if(!examples.some(control=>control.id===selectedControl))selectedControl=examples[0].id;
- if(layout==='c'){
-  const selected=examples.find(control=>control.id===selectedControl);
-  const detail=eventElement('section','control-card selected-control');detail.append(controlHeading(selected),eventRows(selected));
-  rows.append(detail,eventElement('p','control-picker-title','Seleccionar otro control'));
-  const picker=eventElement('div','control-picker');
-  examples.forEach(control=>{
-   const button=eventElement('button','control-pick');button.type='button';button.dataset.controlId=control.id;
-   button.setAttribute('aria-pressed',String(control.id===selectedControl));button.append(controlHeading(control));
-   button.addEventListener('click',()=>{
-    selectedControl=control.id;renderMappings();
-    const newButton=Array.from(rows.querySelectorAll('.control-pick')).find(b=>b.dataset.controlId===selectedControl);newButton?.focus({preventScroll:true});
-   });picker.append(button);
-  });rows.append(picker);
- }else{
   examples.forEach(control=>{
    const card=eventElement(layout==='d'?'details':'section','control-card');
    if(layout==='d'){
@@ -88,7 +75,9 @@ function renderMappings(){
      rows.querySelectorAll('details').forEach(other=>{if(other!==card)other.open=false;});
     });
    }else card.append(controlHeading(control));
-   card.append(eventRows(control));rows.append(card);
+   card.append(eventRows(control));
+   if(layout==='c')bindMappingCard(card,control);
+   rows.append(card);
   });
- }
+ if(layout==='c')highlightControl(null);
 }

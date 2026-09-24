@@ -28,12 +28,12 @@ Una rueda y un stick comparten la posibilidad de tener movimiento y clic, pero s
 | Propuesta | Presentación | Información visible | Control de dimensiones |
 | --- | --- | --- | --- |
 | 01 · Tres columnas | Tarjeta expandida por control en la lista derecha | Nombre, tipo, número de acciones y todas las filas evento → acción | Mantiene el panel de 280 px. Las tarjetas crecen verticalmente dentro del scroll; no ensanchan el mando |
-| 03 · Inspector lateral | Detalle del control seleccionado más selector de controles | Todos los eventos del control activo y contador de acciones en cada opción | Conserva los 320 px del inspector. Cambiar control reemplaza el detalle. No se abren varios inspectores ni se aumenta su ancho |
+| 03 Inspector lateral | Tarjetas expandidas por control, igual que en 01 | Nombre, tipo, cantidad de acciones y todas las filas de evento y accion | Conserva los 320 px del inspector y el scroll de la lista |
 | 04 · Secuencia vertical | Acordeón, como máximo un control expandido | Cabeceras con nombre/tipo/contador; filas completas al abrir | Mantiene la lista de 224 px con scroll, sin reducir adicionalmente el mando. Las cabeceras permiten abrir/cerrar el detalle |
 
 Las cabeceras tienen al menos 44 px de alto, las filas de evento al menos 48 px, padding de tarjeta de 12 px y separación de tarjetas de 12 px. Las condiciones usan 11 px, el evento 12 px y la acción 14 px. El texto puede envolver; no se recortan nombres de acciones. Las filas apilan evento y acción para respetar el ancho disponible.
 
-Las alternativas de archivos A/B siguen disponibles. Si comparten el inspector con las asociaciones, ambos bloques ocupan el mismo panel desplazable. El contador representa asociaciones por evento, no cantidad de controles ni cantidad de nombres de acciones diferentes.
+Las alternativas de archivos A/B siguen disponibles en 01 y 04. En 03, Importar y Exportar abren sus modales desde la cabecera. Si comparten el inspector con las asociaciones, ambos bloques ocupan el mismo panel desplazable. El contador representa asociaciones por evento, no cantidad de controles ni cantidad de nombres de acciones diferentes.
 
 ## Semántica que debe quedar explícita
 
@@ -59,6 +59,10 @@ Por eso el ejemplo de pulsación corta exclusiva, el recorrido/umbral del gatill
 
 ## Alcance y revisión
 
-Se añadieron `events.js` y `events.css` al prototipo, con datos ilustrativos y variantes de presentación. `index.html` recalcula la lista al cambiar layout, dispositivo o contexto. La selección del inspector y los acordeones son interactivos; el SVG sigue siendo una imagen de referencia. No se modificó `src/`, no se capturan gamepads ni eventos físicos del mouse y no se simula el temporizador de 400 ms.
+Se añadieron `events.js` y `events.css` al prototipo, con datos ilustrativos y variantes de presentación. `index.html` recalcula la lista al cambiar layout, dispositivo o contexto. Los acordeones de 04 son interactivos; el SVG sigue siendo una imagen de referencia. No se modificó `src/`, no se capturan gamepads ni eventos físicos del mouse y no se simula el temporizador de 400 ms.
 
 Revisión estática de sintaxis, referencias y estilos. No se ejecutaron `npm run` ni pruebas dinámicas. La verificación visual en navegador queda pendiente.
+
+## Interaccion incorporada en 03
+
+La propuesta 03 permite registrar acciones en una modal y sincroniza hover y seleccion entre el mando y las tarjetas. Los cambios viven en memoria por contexto y dispositivo. Esta actualizacion reemplaza la limitacion anterior del SVG como imagen sin interaccion para 03. Ver [comportamiento](interaction-behavior.md).

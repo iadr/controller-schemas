@@ -2,21 +2,16 @@
 <html lang="es">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Controller Schemas · 3 propuestas</title>
-<style>
-*{box-sizing:border-box}body{margin:0;background:#edf1f6;color:#172337;font:14px/1.5 system-ui,sans-serif}main{max-width:1600px;margin:auto;padding:24px}h1{font-size:28px;margin:0}p{color:#526176}label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600}select,input,button{font:inherit;padding:10px;border:1px solid #b7c4d5;border-radius:8px;background:white;color:#172337;min-height:44px}button{cursor:pointer}button[aria-pressed=true]{background:#224dc4;color:white;border-color:#224dc4}:focus-visible{outline:3px solid #ec9c19;outline-offset:3px}.controls,.tabs{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}.controls input{width:100px}.note{min-height:44px}#viewport{width:100%;overflow:auto;background:#dce3ed;border:1px solid #b7c4d5;border-radius:12px;padding:16px}#frame{position:relative;margin:auto}#screen{position:absolute;top:0;left:0;transform-origin:top left;background:#f4f6fa;overflow:hidden;container-type:size;box-shadow:0 12px 40px #17233720}header{height:64px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;background:#14243d;color:white}header strong{font-size:18px}.badge{border:1px solid #8291a9;padding:4px 12px;border-radius:20px;font-size:12px}.workspace{height:calc(100% - 64px);padding:24px;display:grid;gap:16px}.panel,.stage{min-width:0;min-height:0;border:1px solid #d0d9e5;border-radius:12px;background:white}.panel{padding:16px;overflow:auto}.panel h2{font-size:16px;margin:0 0 16px}.row{display:flex;gap:12px;align-items:center;min-height:48px;border-bottom:1px solid #e5eaf1;padding:8px 0}.key{min-width:36px;padding:4px;text-align:center;background:#eaf0ff;color:#224dc4;border-radius:6px;font-weight:700}.muted{color:#526176;font-size:12px}.item{padding:12px;border-radius:8px;background:#f0f3f8;margin:8px 0}.active{background:#eaf0ff;color:#224dc4;border-left:3px solid #224dc4}.stage{display:grid;grid-template-rows:40px minmax(0,1fr) 32px;padding:16px;background:radial-gradient(#dbe3ee 1px,transparent 1px),#fafcff;background-size:16px 16px}.stage-title{display:flex;justify-content:space-between;align-items:start}.drawing{min-width:0;min-height:0;display:flex;align-items:center;justify-content:center;gap:16px}.drawing img{display:block;object-fit:contain;flex:none}.measure{font:12px ui-monospace,monospace;color:#526176;text-align:center;align-self:end}.layout-a .workspace{grid-template-columns:240px minmax(0,1fr) 280px}.layout-c .workspace{grid-template-columns:minmax(0,1fr) 320px}.layout-c .navigation{display:none}.layout-d .workspace{grid-template-columns:1fr;grid-template-rows:72px minmax(200px,1fr) 224px;padding:16px;gap:12px}.layout-d .navigation{display:flex;align-items:center;gap:16px}.layout-d .navigation h2{margin:0}.layout-d .navigation .item{margin:0}.layout-d .navigation .secondary{display:none}.layout-d .rows{display:grid;grid-template-columns:1fr 1fr;column-gap:16px}
-@container (max-width:999px){.layout-a .workspace,.layout-c .workspace{grid-template-columns:1fr;grid-template-rows:minmax(200px,1fr) 224px;padding:16px;gap:12px}.layout-a .navigation,.layout-c .navigation{display:none}.layout-a .rows,.layout-c .rows{display:grid;grid-template-columns:1fr 1fr;column-gap:16px}}
-@container (max-width:599px){header{padding:0 16px}header strong{font-size:15px}.badge{display:none}.workspace{padding:16px!important}.rows{display:block!important}.layout-d .navigation{gap:8px}.layout-d .navigation h2{font-size:13px}.layout-d .navigation .item{padding:8px}.stage-title{font-size:12px}}
-@container (max-height:599px){.workspace{overflow:auto;grid-template-rows:300px 224px!important}.navigation{display:none!important}.workspace{grid-template-columns:1fr!important}.mapping{grid-column:auto!important}}
-/* Controles reales del prototipo: una única instancia compartida por 03 y 04. */
-.session-controls{display:none;position:absolute;z-index:1;top:10px;right:24px;gap:12px}.session-controls select{height:44px;min-width:0;width:100%}.context-control{width:240px}.device-control{width:200px}.layout-c .session-controls{display:flex}.layout-c .header-context,.layout-d .header-context{display:none}.layout-d .session-controls{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;top:64px;left:0;right:0;height:104px;padding:4px 16px}.layout-d .session-controls label{width:100%}.layout-d .workspace{margin-top:104px;height:calc(100% - 168px);grid-template-rows:minmax(200px,1fr) 224px}.layout-d .navigation{display:none}.context-name{display:inline-block;max-width:180px;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom;white-space:nowrap}.empty-state{padding:16px;color:#526176}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}dialog{width:min(420px,calc(100% - 32px));border:1px solid #b7c4d5;border-radius:12px;padding:24px;color:#172337}dialog::backdrop{background:#14243d99}dialog h2{margin:0 0 12px}dialog input{width:100%}.dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}.primary{background:#224dc4;color:white}.error{color:#a32020;min-height:21px;margin:8px 0 0}
-@container (max-width:999px){.layout-c .session-controls{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;top:64px;left:0;right:0;height:104px;padding:4px 16px}.layout-c .session-controls label{width:100%}.layout-c .workspace{margin-top:104px;height:calc(100% - 168px)}}
-</style>
+<title>Controller Schemas - Layout 03 elegido</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="prototype.css">
 <link rel="stylesheet" href="files.css">
 <link rel="stylesheet" href="events.css">
+<link rel="stylesheet" href="interactions.css">
 <main>
-<p>ESTUDIO DE DISTRIBUCIÓN / 01 / 03 / 04</p><h1>Un mando, tres espacios de trabajo</h1>
+<h1>Layout 03: Inspector lateral</h1>
 <p>Prototipo de distribución con los SVG del proyecto. Las asociaciones son ilustrativas; los controles siguientes ajustan la presentación.</p>
+<p>Propuesta 03 elegida. <a href="selected/README.md">Especificacion de componentes y estilos</a>. Las otras propuestas se conservan como referencia.</p>
 <nav class="tabs" aria-label="Propuestas">
 <button data-layout="a" aria-pressed="false">01 · Tres columnas</button><button data-layout="c" aria-pressed="true">03 · Inspector lateral</button><button data-layout="d" aria-pressed="false">04 · Secuencia vertical</button>
 </nav>
@@ -29,7 +24,7 @@
 <p id="description" class="note"></p>
 <div class="alternatives" aria-label="Alternativas de archivos"><strong>Acciones de archivo</strong><button id="alternativeA" aria-pressed="true">Alternativa A</button><button id="alternativeB" aria-pressed="false">Alternativa B</button></div>
 <p id="fileDescription"></p>
-<div class="event-explanation"><strong>Control → evento → acción</strong><p id="eventSummary" aria-live="polite"></p><small>Selecciona Xbox para ver botón, gatillo y stick; Teclado + mouse para ver clic y rueda. En 03 puedes seleccionar el control; en 04 puedes desplegarlo. Los 400 ms y el umbral 0.9 son ejemplos, no valores detectados.</small></div>
+<div class="event-explanation"><strong>Control → evento → acción</strong><p id="eventSummary" aria-live="polite"></p><small>Selecciona Xbox para ver botón, gatillo y stick; Teclado + mouse para ver clic y rueda. En 03, pulsa un control del mando para registrar acciones o selecciona su tarjeta para destacarlo. Verde: con acciones; azul: seleccionado; ambar: hover. En 04 puedes desplegar cada control. Los 400 ms y el umbral 0.9 son ejemplos, no valores detectados.</small></div>
 <div id="viewport"><div id="frame"><div id="screen"><div id="app" class="layout-c" style="height:100%">
 <header><strong>Controller Schemas</strong><span class="header-context"><span class="context-name">GAMEPLAY</span> <span class="badge">Propuesta visual</span></span></header>
 <div class="session-controls" aria-label="Contexto y dispositivo">
@@ -73,7 +68,7 @@ function showContext(){
  $('contextSelect').value=currentContext;
  document.querySelectorAll('.context-name').forEach(el=>{el.textContent=currentContext;el.title=currentContext;});
  renderMappings();
- $('contextStatus').textContent='Contexto activo: '+currentContext+'. Asociaciones ilustrativas. Los contextos creados se mantienen hasta recargar.';
+ $('contextStatus').textContent='Contexto activo: '+currentContext+'. Asociaciones ilustrativas. Los contextos y las acciones registradas en 03 se mantienen hasta recargar.';
 }
 $('contextSelect').addEventListener('change',()=>{
  if($('contextSelect').value==='__create__'){
@@ -95,12 +90,15 @@ $('controllerSelect').addEventListener('change',()=>{$('device').value=$('contro
 function fitDevice(){
  const [file,w,h,name]=devices[$('device').value];
  const area=document.querySelector('.drawing');
- const [maxW,maxH]=layouts[layout];
+ const theme=getComputedStyle($('app'));
+ const [maxW,maxH]=layout==='c'
+  ?[parseFloat(theme.getPropertyValue('--controller-max-width')),parseFloat(theme.getPropertyValue('--controller-max-height'))]
+  :layouts[layout];
  const boxW=Math.max(0,Math.min(area.clientWidth,maxW));
  const boxH=Math.max(0,Math.min(area.clientHeight,maxH));
  const keyboard=$('device').value==='keyboard';
  // El conjunto teclado + mouse comparte una sola escala y respeta ambas cotas.
- const mouseW=keyboard?150:0, gap=keyboard?16:0;
+ const mouseW=keyboard?150:0, gap=keyboard?parseFloat(theme.getPropertyValue('--space-4')):0;
  const scale=Math.max(0,Math.min((boxW-gap)/(w+mouseW),boxH/Math.max(h,keyboard?237.5:0)));
  const cw=w*scale,ch=h*scale;
  $('controller').src='../../controllers/'+file;
@@ -135,5 +133,8 @@ new ResizeObserver(fitDevice).observe(document.querySelector('.drawing'));
 window.addEventListener('resize',render);
 </script>
 <script src="events.js"></script>
+<script src="control-regions.js"></script>
+<script src="interactions.js"></script>
+<script src="action-dialog.js"></script>
 <script src="files.js"></script>
 </html>

@@ -1,8 +1,10 @@
-# Archivos: dos alternativas por propuesta visual
+# Acciones de archivo por propuesta visual
 
-Abrir [index.html](index.html), elegir una propuesta y alternar **A / B** en «Acciones de archivo». Los botones dentro de la pantalla abren los flujos. Se recuerda la alternativa elegida para cada layout durante la sesión.
+Abrir [index.html](index.html), elegir 01 o 04 y alternar **A / B** en «Acciones de archivo». Los botones dentro de la pantalla abren los flujos. Se recuerda la alternativa elegida para cada layout durante la sesión.
 
-## Comparación de las seis alternativas
+En 03, Importar y Exportar permanecen en cabecera y cada boton abre su modal correspondiente. No hay selector A/B.
+
+## Comparacion de accesos
 
 Las activaciones indicadas cuentan desde la pantalla del editor hasta abrir la configuración de una operación; no incluyen elegir archivo, configurar o confirmar.
 
@@ -10,12 +12,11 @@ Las activaciones indicadas cuentan desde la pantalla del editor hasta abrir la c
 | --- | --- | --- | --- | --- |
 | 01 · Tres columnas | **A · Bloque en navegación** | Cuatro botones de mínimo 44 px, separados por 8 px, dentro de la columna de 240 px | Cada operación tiene botón propio: 1 activación | 200 px de contenido y 32 px de márgenes verticales dentro de navegación |
 | 01 · Tres columnas | **B · Menú Archivo** | Botón de 112 × 44 px en cabecera | Archivo → operación: 2 activaciones | No consume altura del lienzo; oculta el texto de contexto de esa cabecera para dar espacio al botón |
-| 03 · Inspector lateral | **A · Archivo en cabecera** | Botón de 112 × 44 px; contexto y mando se desplazan 128 px a la izquierda en escritorio | Archivo → operación: 2 activaciones | No consume alto del lienzo ni del inspector |
-| 03 · Inspector lateral | **B · Acciones en inspector** | Cuatro botones antes de las asociaciones en el panel de 320 px | Cada operación tiene botón propio: 1 activación | 200 px de contenido y 32 px de márgenes antes de la lista; el inspector tiene scroll |
+| 03 Inspector lateral | Cabecera fija | Dos botones de 88 x 44 px separados por 8 px | Importar o Exportar abre su modal; elegir formato abre su configuracion | No ocupa espacio del inspector; bajo 600 px la cabecera crece a 112 px |
 | 04 · Secuencia vertical | **A · Barra inferior** | Barra fija de 64 px con Importar / Exportar | Grupo → formato: 2 activaciones | Resta 64 px al área de trabajo. A 390 px de ancho: botones de 175 × 44 px, separados por 8 px |
 | 04 · Secuencia vertical | **B · Hoja de archivos** | Archivo de 112 × 44 px en cabecera; hoja temporal desde abajo | Archivo → operación: 2 activaciones | No resta altura permanente adicional al lienzo |
 
-Cuando la navegación de 01 se oculta (ancho inferior a 1000 px o alto inferior a 600 px), las acciones se trasladan al botón Archivo de la cabecera: siguen disponibles, con 2 activaciones. En 03B, por debajo de 600 px de ancho, los cuatro botones se presentan en dos columnas y la lista conserva scroll. En 04A se descuenta el alto de la barra inferior del área de trabajo; el SVG se vuelve a ajustar a la caja restante.
+Cuando la navegación de 01 se oculta (ancho inferior a 1000 px o alto inferior a 600 px), las acciones se trasladan al botón Archivo de la cabecera: siguen disponibles, con 2 activaciones. En 03, por debajo de 600 px, los botones quedan en una segunda fila de la cabecera. En 04A se descuenta el alto de la barra inferior del área de trabajo; el SVG se vuelve a ajustar a la caja restante.
 
 Para este prototipo, Archivo abre un diálogo con opciones, en lugar de implementar un menú desplegable con navegación de teclado propia. En 04 los diálogos se presentan como hojas inferiores. Todos usan el diálogo nativo, cierre con Escape y devolución del foco al botón de entrada. Los diálogos aparecen sobre la página de revisión, fuera de la escala del viewport simulado, para conservar legibilidad. Su ancho máximo es 580 px; el diseño de su envolvente deberá integrarse al viewport real de la aplicación.
 
@@ -61,11 +62,11 @@ Se visualizan dos estados de ejemplo: uno con 12 bindings convertidos, 3 excluid
 ## Elección sugerida
 
 - **01A:** cuatro operaciones directamente visibles con 1 activación, aprovechando la columna de navegación existente.
-- **03A:** conserva los 200 px de contenido que los botones de 03B ocuparían antes de las asociaciones.
+- **03:** Importar y Exportar en cabecera conservan el espacio del inspector para las asociaciones.
 - **04A:** dos acciones siempre visibles en la parte inferior a cambio de 64 px. Para pantallas bajas, 04B recupera esos 64 px.
 
 ## Estado real del proyecto y revisión
 
 El editor actual ya exporta JSON, importa JSON y exporta PNG por combinación de mandos/contextos (`src/utils/export.jsx`, `src/components/ExportImageModal.jsx`). La elección de dimensiones y los flujos de revisión mostrados aquí son propuestas. La importación `.inputactions` continúa pendiente según [la propuesta existente](../unity-inputactions-proposal.md) y [sus reglas](../unity-inputactions-conversion.md).
 
-Archivos de esta actualización: `index.html` incorpora el selector de alternativas; `files.css` define posiciones y dimensiones; `files.js` presenta los seis accesos y los diálogos simulados. La aplicación en `src/` no se modifica. Revisión estática de código y rutas; sin `npm run` ni pruebas dinámicas. Pendiente comprobar visualmente las seis combinaciones en navegador antes de integrarlas.
+Archivos de esta actualización: `index.html` incorpora el selector de alternativas; `files.css` define posiciones y dimensiones; `files.js` presenta los accesos y los diálogos simulados. La aplicación en `src/` no se modifica. Revisión estática de código y rutas; sin `npm run` ni pruebas dinámicas. Pendiente comprobar visualmente las propuestas en navegador antes de integrarlas.

@@ -5,8 +5,7 @@ const fileVariants = {
   ['Menú Archivo', 'header', 'Un botón Archivo de 112 × 44 px en cabecera abre las cuatro opciones. 2 activaciones hasta cada flujo; no resta espacio al mando.']
  ],
  c: [
-  ['Archivo en cabecera', 'header', 'Archivo junto a los selectores de contexto y mando. 112 × 44 px; 2 activaciones hasta cada flujo.'],
-  ['Acciones en inspector', 'inspector', 'Cuatro botones antes de las asociaciones, dentro del inspector de 320 px. 1 activación hasta cada flujo; las asociaciones quedan más abajo.']
+  ['Importar y Exportar en cabecera', 'header', 'Dos botones separados abren las modales de importacion y exportacion. Cada modal permite elegir el formato.']
  ],
  d: [
   ['Barra inferior', 'footer', 'Importar y Exportar permanecen visibles en una barra de 64 px. A 390 px cada botón mide 175 × 44 px; el lienzo pierde 64 px de alto.'],
@@ -21,13 +20,14 @@ dialog.id='fileDialog';dialog.setAttribute('aria-labelledby','fileTitle');
 document.body.append(dialog);
 let fileOpener=null;
 function fileButton(label,operation){
- const button=document.createElement('button');button.type='button';button.textContent=label;
+ const button=document.createElement('button');button.type='button';button.textContent=label;button.setAttribute('aria-haspopup','dialog');button.setAttribute('aria-controls','fileDialog');
  button.addEventListener('click',()=>{fileOpener=button;openFileFlow(operation);});return button;
 }
 function renderFileActions(){
  const [name,requested,description]=fileVariants[layout][alternatives[layout]];
+ document.querySelector('.alternatives').hidden=layout==='c';
  $('alternativeA').textContent='A · '+fileVariants[layout][0][0];
- $('alternativeB').textContent='B · '+fileVariants[layout][1][0];
+ $('alternativeB').textContent='B · '+(fileVariants[layout][1] || fileVariants[layout][0])[0];
  $('alternativeA').setAttribute('aria-pressed',String(alternatives[layout]===0));
  $('alternativeB').setAttribute('aria-pressed',String(alternatives[layout]===1));
  const navigationHidden=Number($('width').value)<1000 || Number($('height').value)<600;
@@ -37,7 +37,11 @@ function renderFileActions(){
  $('app').classList.toggle('with-header-files',position==='header');
  actions.className='file-actions in-'+position;actions.replaceChildren();
  if(position==='header'){
-  const button=fileButton('Archivo ▾','all');button.style.width='112px';actions.append(button);
+  if(layout==='c'){
+   actions.append(fileButton('Importar','import'),fileButton('Exportar','export'));
+  }else{
+   const button=fileButton('Archivo','all');button.style.width='112px';actions.append(button);
+  }
   document.querySelector('header').append(actions);
  }else if(position==='footer'){
   actions.append(fileButton('Importar…','import'),fileButton('Exportar…','export'));

@@ -1,8 +1,12 @@
+# Diseno elegido: propuesta 03
+
+La decision vigente es **03, Inspector lateral**. Consultar la [especificacion modular](selected/README.md) para estructura, componentes React y estilos editables en [tokens.css](tokens.css). Las comparaciones siguientes son antecedentes; 01 y 04 quedan como referencia.
+
 # Tres propuestas de layout
 
 **Varias acciones por control:** los tres layouts agrupan ahora las asociaciones por control y evento, con ejemplos de botón, gatillo, stick y rueda. Consulta [representación y límites del modelo actual](control-events.md).
 
-**Actualización de acciones de archivo:** el prototipo incluye dos alternativas por layout (seis en total) para exportar PNG/JSON e importar JSON/`.inputactions`. Se eligen con los botones A/B. Consulta [comparación, dimensiones y flujos](file-actions.md). Los flujos de archivo son simulados; sus barras pueden reducir el espacio disponible respecto de las medidas base de este documento.
+**Actualización de acciones de archivo:** el prototipo incluye dos alternativas para 01 y 04 y una cabecera fija con Importar y Exportar para 03 para exportar PNG/JSON e importar JSON/`.inputactions`. En 01 y 04 se eligen con los botones A/B. Consulta [comparación, dimensiones y flujos](file-actions.md). Los flujos de archivo son simulados; sus barras pueden reducir el espacio disponible respecto de las medidas base de este documento.
 
 Fecha: 2026-09-23. Abrir [index.html](index.html) directamente en el navegador, sin instalar dependencias. Permite elegir propuesta, dispositivo, resolución, ancho y alto personalizados, y visualización ajustada o 1:1. Son prototipos de composición; las asociaciones son ilustrativas. En 03 y 04, los selectores de contexto y mando y la creación de contextos son funcionales en memoria. No modifican el editor existente.
 
@@ -69,7 +73,7 @@ En teclado + mouse se colocan ambos en horizontal, con separación de 16 px. Se 
 | 03. Inspector lateral | Lienzo flexible / asociaciones 320 px; contexto en cabecera | 880 × 560 px | Inspeccionar botones y asociaciones en escritorio | Los selectores ocupan 452 px de la cabecera, contando su separación |
 | 04. Secuencia vertical | Selectores 104 px / lienzo / asociaciones 224 px | 560 × 360 px | Tablet y móvil | Selectores, lista y separación ocupan 340 px, además del padding del área de trabajo |
 
-En 01 las asociaciones se unifican en un inspector, manteniendo el lado como dato al integrarlo. En 03 se propone editar la acción seleccionada en el mismo inspector. En 04 el contexto permanece encima del mando. La creación de contextos sí funciona en el prototipo; la edición de asociaciones y la gestión de archivos siguen pendientes de integración.
+En 01 las asociaciones se unifican en un inspector, manteniendo el lado como dato al integrarlo. En 03 se muestran tarjetas expandidas por control, igual que en 01. En 04 el contexto permanece encima del mando. La creación de contextos sí funciona en el prototipo; la edición de asociaciones y la gestión de archivos siguen pendientes de integración.
 
 ### Medidas de referencia a 1440 × 900
 
@@ -127,3 +131,17 @@ Revisión de esta actualización: inspección estática del HTML, CSS y eventos;
 ## Propuesta descartada
 
 Se retiró la propuesta 02 (Mesa horizontal) por decisión del usuario. Se eliminaron su selector, configuración, estilos y alternativas de archivo. Permanecen 01, 03 y 04 con su numeración original, seis alternativas de archivo en total y los ejemplos de eventos por control. Revisión estática; sin pruebas dinámicas ni comandos `npm run`.
+
+## Ajuste de la propuesta 03
+
+Las asociaciones usan las mismas tarjetas expandidas de 01: control, tipo, cantidad de acciones y filas de evento, condicion y accion. El inspector conserva sus 320 px y scroll.
+
+Importar y Exportar permanecen separados en cabecera. Cada boton abre su modal para elegir JSON o .inputactions al importar, y PNG o JSON al exportar. En 03 se retiran las alternativas A/B de archivo.
+
+Por debajo de 600 px, la cabecera ocupa 112 px para mantener el titulo y los botones visibles. Los selectores quedan debajo, en sus 104 px, y el area de trabajo descuenta ambas alturas.
+
+Revision estatica; sin builds ni pruebas dinamicas. Los flujos de archivo siguen siendo simulados.
+
+## Interaccion en 03
+
+El mando abre una modal para registrar acciones, con hover y seleccion sincronizados con las tarjetas de mapeo. Los cambios se guardan en memoria por contexto y dispositivo. Ver [comportamiento y limites](interaction-behavior.md).
