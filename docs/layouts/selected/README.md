@@ -9,11 +9,11 @@ La propuesta 03, Inspector lateral, es el diseno elegido. Las propuestas 01 y 04
 - [Paleta y estilos](styles.md): variables editables, tipografia y estados visuales.
 - [Interacciones](../interaction-behavior.md): seleccion, hover y registro de acciones.
 
-Abrir [el prototipo](../index.html). Sus estilos consumen [tokens.css](../tokens.css). Cambiar ese archivo actualiza la presentacion sin buscar colores o medidas en cada componente.
+Abrir [el prototipo](../index.html). Sus estilos consumen [tokens compartidos](../../../src/styles/tokens.css), mediante el import de ../tokens.css.
 
 ## Alcance
 
-Esta decision documenta la interfaz y organiza sus estilos. La migracion del editor en src/ a este layout queda pendiente. El prototipo usa HTML y JavaScript; sus cambios de acciones viven en memoria y los flujos de archivo son simulados.
+Esta decision documenta la interfaz y organiza sus estilos. El editor en src/ ya integra este layout; ver [integracion y revision manual](integration.md). El prototipo usa HTML y JavaScript; sus cambios de acciones viven en memoria y los flujos de archivo son simulados.
 
 La implementacion debe separar la interfaz en componentes React pequenos y editables, con una responsabilidad por archivo y estilos junto al componente. No trasladar el HTML completo a App.jsx ni reunir todas las modales en un solo componente. Reutilizar los modulos existentes cuando cumplan la misma responsabilidad.
 

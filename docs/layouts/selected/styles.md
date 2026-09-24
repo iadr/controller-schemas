@@ -1,6 +1,6 @@
 # Paleta y estilos
 
-La fuente editable es [tokens.css](../tokens.css). El prototipo ya consume estas variables desde prototype.css, files.css, events.css e interactions.css. Al integrar React, trasladar este archivo a src/styles/tokens.css e importarlo una sola vez; no mantener dos copias activas ni mezclarlo con la paleta oscura anterior.
+La fuente editable es [src/styles/tokens.css](../../../src/styles/tokens.css). React lo importa una vez desde styles/index.css. El prototipo consume la misma fuente mediante ../tokens.css; no hay dos copias activas.
 
 ## Paleta clara con cabecera oscura
 

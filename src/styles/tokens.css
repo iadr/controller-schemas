@@ -1,0 +1,100 @@
+/* Shared design variables for the selected layout 03. */
+:root {
+
+  /* colors */
+  --color-page: #edf1f6;
+  --color-text: #172337;
+  --color-muted: #526176;
+  --color-border: #b7c4d5;
+  --color-surface: #ffffff;
+  --color-on-dark: #ffffff;
+  --color-primary: #224dc4;
+  --color-focus: #ec9c19;
+  --color-preview: #dce3ed;
+  --color-app: #f4f6fa;
+  --color-header: #14243d;
+  --color-header-border: #8291a9;
+  --color-panel-border: #d0d9e5;
+  --color-divider: #e5eaf1;
+  --color-primary-soft: #eaf0ff;
+  --color-item: #f0f3f8;
+  --color-event-border: #dbe3ee;
+  --color-stage: #fafcff;
+  --color-danger: #a32020;
+  --color-header-button: #243d60;
+  --color-review: #edf3ff;
+  --color-review-border: #b9ccee;
+  --color-card-border: #cbd7e6;
+  --color-card: #f9fbff;
+  --color-mapped: #17804a;
+  --color-selected-stroke: #153991;
+  --color-hover: #d98b13;
+  --color-hover-stroke: #925807;
+  --modal-backdrop: #14243d99;
+  --shadow-preview: 0 12px 40px #17233720;
+
+  /* typography */
+  --font-body: system-ui,sans-serif;
+  --font-mono: ui-monospace,monospace;
+  --line-height-body: 1.5;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-control: 13px;
+  --font-size-body: 14px;
+  --font-size-mobile-title: 15px;
+  --font-size-panel: 16px;
+  --font-size-brand: 18px;
+  --font-size-dialog: 20px;
+  --font-size-page-title: 28px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 600;
+  --font-weight-label: 650;
+  --font-weight-bold: 700;
+
+  /* spacing */
+  --space-half: 2px;
+  --space-1: 4px;
+  --space-one-half: 6px;
+  --space-2: 8px;
+  --space-two-half: 10px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+
+  /* shape */
+  --radius-small: 6px;
+  --radius-control: 8px;
+  --radius-panel: 12px;
+  --radius-sheet: 16px;
+  --radius-pill: 20px;
+  --border-width: 1px;
+  --focus-width: 3px;
+  --focus-offset: 3px;
+  --control-stroke: 2;
+  --control-active-stroke: 3;
+  --mapping-opacity: .3;
+  --selection-opacity: .5;
+  --hover-opacity: .5;
+
+  /* layout */
+  --header-height: 64px;
+  --header-height-mobile: 112px;
+  --session-height: calc(var(--control-height) * 2 + var(--space-2) + var(--space-1) * 2);
+  --context-width: 240px;
+  --device-width: 200px;
+  --inspector-width: 320px;
+  --mapping-height: 224px;
+  --controller-max-width: 880px;
+  --controller-max-height: 560px;
+  --control-height: 44px;
+  --event-row-height: 48px;
+  --file-button-width: 88px;
+  --stage-title-height: 40px;
+  --stage-footer-height: 32px;
+  --stage-min-height: 200px;
+  --stage-short-height: 300px;
+  --dialog-context-width: 420px;
+  --dialog-action-width: 540px;
+  --dialog-file-width: 580px;
+}

@@ -1,0 +1,7 @@
+.ui-modal { width: calc(100% - var(--space-4) * 2); max-width: var(--dialog-file-width); max-height: calc(100dvh - var(--space-4) * 2); overflow: auto; padding: var(--space-6); border: var(--border-width) solid var(--color-panel-border); border-radius: var(--radius-panel); color: var(--color-text); background: var(--color-surface); }
+.ui-modal::backdrop { background: var(--modal-backdrop); }
+.ui-modal-context { max-width: var(--dialog-context-width); }
+.ui-modal-action { max-width: var(--dialog-action-width); }
+.ui-modal-heading { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-4); }
+.ui-modal-heading h2 { font-size: var(--font-size-dialog); margin: 0; overflow-wrap: anywhere; }
+@media (max-width: 479px) { .ui-modal { padding: var(--space-4); } }

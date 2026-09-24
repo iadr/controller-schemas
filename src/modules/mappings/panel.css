@@ -1,0 +1,5 @@
+.mapping-panel { display: grid; grid-template-rows: auto minmax(0, 1fr); background: var(--color-surface); border: var(--border-width) solid var(--color-panel-border); border-radius: var(--radius-panel); overflow: hidden; }
+.mapping-panel-heading { padding: var(--space-4); border-bottom: var(--border-width) solid var(--color-divider); min-width: 0; }
+.mapping-panel-heading h2 { font-size: var(--font-size-panel); margin: 0; }
+.mapping-panel-heading span { display: block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; color: var(--color-muted); }
+.mapping-panel-list { overflow: auto; padding: var(--space-3); display: flex; flex-direction: column; gap: var(--space-3); }

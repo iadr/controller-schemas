@@ -1,4 +1,6 @@
 export const PLAYSTATION_BUTTONS = [
+  { id: 'leftTrigger', x: 20, y: 0, label: 'L2', shape: 'circle', size: 28, hideLabel: true, type: 'button' },
+  { id: 'rightTrigger', x: 80, y: 0, label: 'R2', shape: 'circle', size: 28, hideLabel: true, type: 'button' },
   { id: 'south', x: 80.55, y: 39.73, label: 'Cross', shape: 'circle', size: 42, hideLabel: true, type: 'button', position: 'SOUTH' },
   { id: 'east', x: 87.79, y: 28.82, label: 'Circle', shape: 'circle', size: 42, hideLabel: true, type: 'button', position: 'EAST' },
   { id: 'west', x: 73.40, y: 29.00, label: 'Square', shape: 'circle', size: 42, hideLabel: true, type: 'button', position: 'WEST' },

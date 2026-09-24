@@ -1,0 +1,8 @@
+.mapping-card { flex-shrink: 0; border: var(--border-width) solid var(--color-card-border); border-radius: var(--radius-control); background: var(--color-card); padding: var(--space-3); overflow-wrap: anywhere; }
+.mapping-card.is-selected { border-color: var(--color-primary); box-shadow: inset var(--space-1) 0 var(--color-primary); }
+.mapping-card.is-hovered { border-color: var(--color-hover-stroke); }
+.mapping-card-heading { display: grid; gap: var(--space-1); width: 100%; border: 0; padding: 0 0 var(--space-2); background: transparent; color: var(--color-text); text-align: left; font: inherit; cursor: pointer; overflow-wrap: anywhere; }
+.mapping-card-heading span { font-size: var(--font-size-xs); color: var(--color-muted); }
+.mapping-card-heading:focus-visible { outline: var(--focus-width) solid var(--color-focus); outline-offset: var(--focus-offset); }
+.mapping-card-empty { margin: 0 0 var(--space-2); color: var(--color-muted); font-size: var(--font-size-sm); }
+.mapping-card-edit { width: 100%; margin-top: var(--space-2); }

@@ -1,88 +1,15 @@
-.keyboard-svg > svg,
-.mouse-svg > svg,
-.playstation-svg > svg,
-.xbox-svg > svg,
-.switch-svg > svg,
-.steamdeck-svg > svg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-:is(.steamdeck-svg, .switch-svg, .xbox-svg, .playstation-svg) [data-button-id] {
-  cursor: pointer;
-  fill: var(--accent-primary);
-  opacity: 0;
-  transition: opacity 0.15s ease;
-}
-
-:is(.steamdeck-svg, .switch-svg, .xbox-svg, .playstation-svg) [data-button-id]:hover { opacity: 0.25; }
-:is(.steamdeck-svg, .switch-svg, .xbox-svg, .playstation-svg) [data-button-id].has-mapping {
-  fill: var(--status-success);
-  opacity: 0.6;
-}
-:is(.steamdeck-svg, .switch-svg, .xbox-svg, .playstation-svg) [data-button-id].selected {
-  fill: var(--accent-primary);
-  opacity: 0.7;
-}
-.xbox-svg #g1 { opacity: 1; }
-
-.mouse-svg [data-button-id] {
-  cursor: pointer;
-}
-
-.mouse-svg [data-button-id] .button,
-.mouse-svg [data-button-id].button {
-  transition: fill 0.15s ease, stroke 0.15s ease;
-}
-
-.mouse-svg [data-button-id].has-mapping .button,
-.mouse-svg [data-button-id].has-mapping.button {
-  fill: var(--overlay-success-light);
-  stroke: var(--status-success);
-}
-
-.mouse-svg [data-button-id].selected .button,
-.mouse-svg [data-button-id].selected.button {
-  fill: var(--overlay-primary-strong);
-  stroke: var(--accent-primary);
-}
-
-.keyboard-mouse-export {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-}
-
-.keyboard-mouse-export .mouse-svg {
-  width: 120px;
-}
-
-.keyboard-svg [data-button-id] {
-  cursor: pointer;
-}
-
-.keyboard-svg [data-button-id] .key {
-  transition: fill 0.15s ease, stroke 0.15s ease;
-}
-
-.keyboard-svg [data-button-id].has-mapping .key {
-  fill: var(--overlay-success-light);
-  stroke: var(--status-success);
-}
-
-.keyboard-svg [data-button-id].selected .key {
-  fill: var(--overlay-primary-strong);
-  stroke: var(--accent-primary);
-}
-
-.diagram-container {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-secondary);
-  border-radius: 8px;
-  padding: var(--spacing-medium);
-  position: relative;
-  height: 100%;
-}
-
+.controller-artwork > svg { display: block; width: 100%; height: auto; }
+.keyboard-mouse-export > svg { display: block; }
+.keyboard-mouse-export foreignObject > .controller-artwork { width: 100%; height: 100%; }
+.keyboard-mouse-export .controller-artwork > svg { height: 100%; }
+.controller-artwork [data-button-id] { cursor: pointer; vector-effect: non-scaling-stroke; }
+.controller-artwork :is(.controller-hotspot, .invizCircle)[data-button-id] { fill: var(--color-primary); opacity: 0; stroke: transparent; stroke-width: var(--control-stroke); }
+.controller-artwork :is(.controller-hotspot, .invizCircle)[data-button-id].has-mapping { fill: var(--color-mapped); opacity: var(--mapping-opacity); stroke: var(--color-mapped); }
+.controller-artwork :is(.controller-hotspot, .invizCircle)[data-button-id].selected { fill: var(--color-primary); opacity: var(--selection-opacity); stroke: var(--color-selected-stroke); stroke-width: var(--control-active-stroke); }
+.controller-artwork :is(.controller-hotspot, .invizCircle)[data-button-id]:is(.hovered, :focus-visible) { fill: var(--color-hover); opacity: var(--hover-opacity); stroke: var(--color-hover-stroke); stroke-width: var(--control-active-stroke); outline: none; }
+.controller-artwork [data-button-id] :is(.key, .button), .controller-artwork [data-button-id].button { vector-effect: non-scaling-stroke; }
+.controller-artwork [data-button-id].has-mapping :is(.key, .button), .controller-artwork [data-button-id].has-mapping.button { fill: color-mix(in srgb, var(--color-mapped) calc(var(--mapping-opacity) * 100%), var(--color-surface)); stroke: var(--color-mapped); stroke-width: var(--control-stroke); }
+.controller-artwork [data-button-id].selected :is(.key, .button), .controller-artwork [data-button-id].selected.button { fill: color-mix(in srgb, var(--color-primary) calc(var(--selection-opacity) * 100%), var(--color-surface)); stroke: var(--color-selected-stroke); stroke-width: var(--control-active-stroke); }
+.controller-artwork [data-button-id]:is(.hovered, :focus-visible) :is(.key, .button), .controller-artwork [data-button-id].button:is(.hovered, :focus-visible) { fill: color-mix(in srgb, var(--color-hover) calc(var(--hover-opacity) * 100%), var(--color-surface)); stroke: var(--color-hover-stroke); stroke-width: var(--control-active-stroke); }
+.controller-artwork [data-button-id]:focus-visible { outline: var(--focus-width) solid var(--color-focus); }
+.xbox-svg .invizCircle:not([data-button-id]) { opacity: 1; }

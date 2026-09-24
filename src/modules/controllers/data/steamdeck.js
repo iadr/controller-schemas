@@ -1,4 +1,6 @@
 export const STEAMDECK_BUTTONS = [
+  { id: 'leftTrigger', x: 20, y: 0, label: 'L2', shape: 'circle', size: 28, hideLabel: true, type: 'button' },
+  { id: 'rightTrigger', x: 80, y: 0, label: 'R2', shape: 'circle', size: 28, hideLabel: true, type: 'button' },
   // Face buttons
   { id: 'south', x: 94.00, y: 26.11, label: 'A', shape: 'circle', size: 18, hideLabel: true, type: 'button', position: 'SOUTH' },
   { id: 'east', x: 96.95, y: 18.98, label: 'B', shape: 'circle', size: 18, hideLabel: true, type: 'button', position: 'EAST' },
@@ -11,7 +13,7 @@ export const STEAMDECK_BUTTONS = [
   { id: 'dPadLeft', x: 3.90, y: 18.91, label: 'bi bi-caret-left-fill', shape: 'dpad', size: 4, hideLabel: true, type: 'button' },
   { id: 'dPadRight', x: 8.63, y: 18.91, label: 'bi bi-caret-right-fill', shape: 'dpad', size: 4, hideLabel: true, type: 'button' },
   
-  // Visible shoulder buttons; triggers are not represented in this front view.
+  // Shoulder buttons.
   { id: 'leftButton', x: 7.27, y: 5.34, label: 'L1', shape: 'circle', size: 28, hideLabel: true, type: 'button' },
   { id: 'rightButton', x: 92.67, y: 5.34, label: 'R1', shape: 'circle', size: 28, hideLabel: true, type: 'button' },
   

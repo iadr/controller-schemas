@@ -9,3 +9,8 @@ const sources = { playstation, xbox, switch: switchController, joycon, steamdeck
 export const artwork = Object.fromEntries(Object.entries(sources).map(([id, markup]) => [
   id, markup.replace(/<\?xml[^>]*\?>|<!DOCTYPE[^>]*>/g, ''),
 ]))
+
+export const artworkControls = Object.fromEntries(Object.entries(artwork).map(([id, markup]) => [
+  id, new Set([...markup.matchAll(/data-button-id="([^"]+)"/g)].map(match => match[1])),
+]))
+artworkControls.keyboardmouse = new Set([...artworkControls.keyboard, ...artworkControls.mouse])

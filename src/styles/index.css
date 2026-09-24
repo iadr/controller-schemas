@@ -1,10 +1,4 @@
+@import './tokens.css';
 @import './base.css';
 @import '../modules/controllers/artwork.css';
-@import './forms.css';
-@import '../modules/mappings/layout.css';
-@import '../modules/mappings/modal.css';
-@import '../legacy/coordinate-editor/editor.css';
-@import '../modules/export/export.css';
-@import '../legacy/coordinate-editor/form.css';
-@import './modals.css';
 @import './icons.css';

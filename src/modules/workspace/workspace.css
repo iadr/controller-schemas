@@ -1,0 +1,9 @@
+.workspace { height: 100dvh; display: grid; grid-template-rows: auto minmax(0, 1fr); }
+.workspace-body { display: grid; grid-template-columns: minmax(0, 1fr) var(--inspector-width); gap: var(--space-4); padding: var(--space-6); min-height: 0; }
+.workspace-body > * { min-width: 0; min-height: 0; }
+@media (max-width: 999px) {
+  .workspace-body { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(var(--stage-min-height), 1fr) var(--mapping-height); padding: var(--space-4); gap: var(--space-3); overflow: auto; }
+}
+@media (max-height: 599px) {
+  .workspace-body { grid-template-columns: minmax(0, 1fr); grid-template-rows: var(--stage-short-height) var(--mapping-height); padding: var(--space-4); gap: var(--space-3); overflow: auto; }
+}
