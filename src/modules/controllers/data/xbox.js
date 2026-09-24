@@ -1,4 +1,6 @@
 export const XBOX_BUTTONS = [
+  { id: 'home', x: 50.11, y: 13.01, label: 'Xbox', shape: 'circle', size: 42.02, hideLabel: true, type: 'button' },
+  { id: 'share', x: 50.01, y: 35.48, label: 'Share', shape: 'capsule', width: 33.65, height: 18.48, borderRadius: 9.24, hideLabel: true, type: 'button' },
   { id: 'south', x: 76.09, y: 37.56, label: 'A', shape: 'circle', size: 42, hideLabel: true, type: 'button', position: 'SOUTH' },
   { id: 'east', x: 83.09, y: 27.80, label: 'B', shape: 'circle', size: 42, hideLabel: true, type: 'button', position: 'EAST' },
   { id: 'west', x: 68.98, y: 27.99, label: 'X', shape: 'circle', size: 42, hideLabel: true, type: 'button', position: 'WEST' },

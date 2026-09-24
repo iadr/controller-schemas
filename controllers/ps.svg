@@ -28,8 +28,10 @@
     <style
        id="style1">.padWhite {}.padWhite,.padGrey,.padBlack,.invizCircle{stroke-width:0px;}.padGrey {}.padBlack {}.invizCircle{fill:#fff;opacity:0;}</style>
   </defs>
-  <path id="leftTriggerShape" class="padBlack" d="M 60,-12 C 61,-23 65,-34 72,-40 C 84,-44 101,-45 114,-42 L 120,-23 Z" style="fill:#d3d3d3" />
-  <path id="rightTriggerShape" class="padBlack" d="M 473.11,-12 C 472.11,-23 468.11,-34 461.11,-40 C 449.11,-44 432.11,-45 419.11,-42 L 413.11,-23 Z" style="fill:#d3d3d3" />
+  <path transform="translate(0 8)" id="leftTriggerShape" class="padBlack" d="M 60,-12 C 61,-23 65,-34 72,-40 C 84,-44 101,-45 114,-42 L 120,-23 Z" style="fill:#d3d3d3" />
+  <path transform="translate(0 8)" id="leftTrigger" data-button-id="leftTrigger" class="invizCircle" d="M 60,-12 C 61,-23 65,-34 72,-40 C 84,-44 101,-45 114,-42 L 120,-23 Z" />
+  <path transform="translate(0 8)" id="rightTriggerShape" class="padBlack" d="M 473.11,-12 C 472.11,-23 468.11,-34 461.11,-40 C 449.11,-44 432.11,-45 419.11,-42 L 413.11,-23 Z" style="fill:#d3d3d3" />
+  <path transform="translate(0 8)" id="rightTrigger" data-button-id="rightTrigger" class="invizCircle" d="M 473.11,-12 C 472.11,-23 468.11,-34 461.11,-40 C 449.11,-44 432.11,-45 419.11,-42 L 413.11,-23 Z" />
   <path
      id="Path_395"
      class="padGrey"
@@ -256,30 +258,22 @@
      class="padGrey"
      d="m 265.13,-14.998751 c -28.46,0.12 -62.36,1.4 -100.81,4.96 0,0 -10.95,3.9799996 -7.96,21.7 l 6.77,31.45 8.36,41.03 c 0,0 3.38,20.690001 34.64,20.690001 h 118 c 31.26,0 34.65,-20.690001 34.65,-20.690001 l 8.36,-41.03 6.77,-31.45 c 2.99,-17.7200004 -7.96,-21.7 -7.96,-21.7 -38.46,-3.57 -72.36,-4.85 -100.81,-4.96"
      style="fill:#3e4b50" />
-  <circle
+  <path
      id="xButton" data-button-id="west"
      class="invizCircle"
-     cx="398.54999"
-     cy="87.28125"
-     r="21.719999" />
-  <circle
+     d="m 398.41,68.461249 c -10.37,0 -18.78,8.41 -18.78,18.78 0,10.37 8.41,18.780001 18.78,18.780001 10.37,0 18.78,-8.410001 18.78,-18.780001 0,-10.37 -8.41,-18.78 -18.78,-18.78 v 0" />
+  <path
      id="yButton" data-button-id="north"
      class="invizCircle"
-     cx="439.59"
-     cy="45.55125"
-     r="21.719999" />
-  <circle
+     d="m 439.21,26.861249 c -10.37,0 -18.78,8.41 -18.78,18.78 0,10.37 8.41,18.78 18.78,18.78 10.37,0 18.78,-8.41 18.78,-18.78 0,-10.37 -8.41,-18.78 -18.78,-18.78 v 0" />
+  <path
      id="bButton" data-button-id="east"
      class="invizCircle"
-     cx="480.66"
-     cy="86.611252"
-     r="21.719999" />
-  <circle
+     d="m 480.52,68.461249 c -10.37,0 -18.78,8.41 -18.78,18.78 0,10.37 8.41,18.780001 18.78,18.780001 10.37,0 18.78,-8.410001 18.78,-18.780001 0,-10.37 -8.41,-18.78 -18.78,-18.78 v 0" />
+  <path
      id="aButton" data-button-id="south"
      class="invizCircle"
-     cx="439.35001"
-     cy="126.97125"
-     r="21.719999" />
+     d="m 439.21,108.85125 c -10.37,0 -18.78,8.41 -18.78,18.78 0,10.37 8.41,18.78 18.78,18.78 10.37,0 18.78,-8.41 18.78,-18.78 0,-10.37 -8.41,-18.78 -18.78,-18.78 v 0" />
   <path
      id="leftBumper" data-button-id="leftButton"
      class="invizCircle"
@@ -328,6 +322,4 @@
   <circle data-button-id="dPad" class="invizCircle" cx="91" cy="87" r="7" />
   <circle data-button-id="home" class="invizCircle" cx="265.27" cy="159" r="19" />
   <rect data-button-id="mute" class="invizCircle" x="252" y="190" width="27" height="8" rx="3" />
-  <path id="leftTrigger" data-button-id="leftTrigger" class="invizCircle" d="M 60,-12 C 61,-23 65,-34 72,-40 C 84,-44 101,-45 114,-42 L 120,-23 Z" />
-  <path id="rightTrigger" data-button-id="rightTrigger" class="invizCircle" d="M 473.11,-12 C 472.11,-23 468.11,-34 461.11,-40 C 449.11,-44 432.11,-45 419.11,-42 L 413.11,-23 Z" />
 </svg>
