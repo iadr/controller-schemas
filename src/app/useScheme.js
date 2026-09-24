@@ -18,7 +18,25 @@ export default function useScheme() {
     setData(next)
     setCurrentContext(next.contexts[0])
   }
-  const saveMapping = (control, mapping) => {
+  const saveMapping = (control, mapping, scope = 'button') => {
+    if (scope === 'position' && control.position) {
+      setData(prev => {
+        const local = { ...prev.deviceMappings[currentContext]?.[prev.controller] }
+        delete local[control.id]
+        return {
+          ...prev,
+          contextMappings: {
+            ...prev.contextMappings,
+            [currentContext]: { ...prev.contextMappings[currentContext], ['position:' + control.position]: mapping },
+          },
+          deviceMappings: {
+            ...prev.deviceMappings,
+            [currentContext]: { ...prev.deviceMappings[currentContext], [prev.controller]: local },
+          },
+        }
+      })
+      return
+    }
     setData(prev => ({
       ...prev,
       deviceMappings: {

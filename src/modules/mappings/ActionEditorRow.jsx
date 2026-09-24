@@ -10,9 +10,6 @@ export default function ActionEditorRow({ value, types, onChange, onRemove }) {
         {types.map(type => <option key={type} value={type}>{eventNames[type] || type}</option>)}
       </select>
     </label>
-    <label className="ui-field">Condicion o descripcion
-      <input className="ui-input" value={value.description} onChange={event => change('description', event.target.value)} />
-    </label>
     <label className="ui-field action-editor-wide">Accion
       <input className="ui-input" data-initial-focus value={value.action} onChange={event => change('action', event.target.value)} />
     </label>

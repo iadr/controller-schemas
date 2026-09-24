@@ -29,7 +29,7 @@ const ControllerSvg = forwardRef(function ControllerSvg({
       if (onButtonClick && control) {
         element.setAttribute('tabindex', '0')
         element.setAttribute('role', 'button')
-        element.setAttribute('aria-label', controlName(control) + ': editar acciones')
+        element.setAttribute('aria-label', controlName(control) + (mapped ? ': editar mapeo' : ': agregar mapeo'))
         element.setAttribute('aria-pressed', String(selectedButton === id))
       }
     })

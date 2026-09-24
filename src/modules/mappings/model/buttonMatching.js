@@ -12,6 +12,10 @@
 export function getButtonMapping(buttonInfo, mappings) {
   if (!buttonInfo || !mappings) return null;
 
+  // Explicit cardinal mappings take precedence over legacy shared keys, including null.
+  const cardinalKey = buttonInfo.position && `position:${buttonInfo.position}`;
+  if (cardinalKey && Object.hasOwn(mappings, cardinalKey)) return mappings[cardinalKey];
+
   // Check direct ID match first (legacy and most specific)
   if (mappings[buttonInfo.id]) {
     return mappings[buttonInfo.id];
@@ -82,7 +86,7 @@ export function getMatchingButtons(mappingKey, allButtons) {
       return allButtons.filter(btn => btn.id === value);
     
     case 'position':
-      return allButtons.filter(btn => btn.id === value);
+      return allButtons.filter(btn => btn.position === value || btn.id === value);
     
     case 'label':
       return allButtons.filter(btn => {

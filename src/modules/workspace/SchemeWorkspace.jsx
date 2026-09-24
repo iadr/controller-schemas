@@ -33,7 +33,10 @@ export default function SchemeWorkspace({ scheme }) {
       onCreate={name => { selection.clear(); scheme.addContext(name); close() }} />}
     {modal?.type === 'action' && <ActionDialog control={modal.control} context={currentContext}
       mapping={mappings[modal.control.id]} onClose={close}
-      onSave={mapping => { scheme.saveMapping(modal.control, mapping); close() }} />}
+      initialScope={modal.control.position &&
+        !Object.hasOwn(data.deviceMappings?.[currentContext]?.[data.controller] || {}, modal.control.id) &&
+        Object.hasOwn(data.contextMappings[currentContext] || {}, 'position:' + modal.control.position) ? 'position' : 'button'}
+      onSave={(mapping, scope) => { scheme.saveMapping(modal.control, mapping, scope); close() }} />}
     {modal?.type === 'import' && <ImportDialog onClose={close}
       onApply={next => { scheme.applyImport(next); selection.clear(); close() }} />}
     {modal?.type === 'export' && <ExportDialog data={data} context={currentContext} onClose={close} />}
