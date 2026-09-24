@@ -5,3 +5,7 @@
 .ui-modal-heading { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-4); }
 .ui-modal-heading h2 { font-size: var(--font-size-dialog); margin: 0; overflow-wrap: anywhere; }
 @media (max-width: 479px) { .ui-modal { padding: var(--space-4); } }
+
+.ui-muted {
+    margin-top:0;
+}

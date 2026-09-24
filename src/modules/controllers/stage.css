@@ -1,5 +1,33 @@
-.controller-stage { display: grid; grid-template-rows: auto minmax(0, 1fr); padding: var(--space-4); border: var(--border-width) solid var(--color-panel-border); border-radius: var(--radius-panel); background: var(--color-stage); }
-.controller-stage h2 { font-size: var(--font-size-panel); margin: 0 0 var(--space-3); }
-.controller-stage-art { display: flex; align-items: center; justify-content: center; min-width: 0; min-height: 0; }
-.controller-stage-art > * { width: 100%; height: 100%; max-width: var(--controller-max-width); max-height: var(--controller-max-height); }
-.controller-stage-art .controller-artwork > svg { width: 100%; height: 100%; }
+.controller-stage {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  padding: var(--space-4);
+  border: var(--border-width) solid var(--color-panel-border);
+  border-radius: var(--radius-panel);
+  background: var(--color-stage);
+
+  background-image: radial-gradient(var(--color-border) 1px, transparent 0);
+  background-size: 40px 40px;
+  background-position: -21px -21px;
+}
+.controller-stage h2 {
+  font-size: var(--font-size-panel);
+  margin: 0 0 var(--space-3);
+}
+.controller-stage-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+}
+.controller-stage-art > * {
+  width: 100%;
+  height: 100%;
+  max-width: var(--controller-max-width);
+  max-height: var(--controller-max-height);
+}
+.controller-stage-art .controller-artwork > svg {
+  width: 100%;
+  height: 100%;
+}
